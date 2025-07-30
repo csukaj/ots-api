@@ -1,15 +1,11 @@
 {
     "name": "ots-backend",
     "version": "1.0.0",
-    "description": "Backend for Online Travel Support - Vercel deployment",
+    "description": "Backend for Online Travel Support",
     "scripts": {
         "build": "composer install --no-dev --optimize-autoloader --no-interaction",
-        "dev": "php artisan serve",
-        "vercel-build": "composer install --no-dev --optimize-autoloader --no-interaction && mkdir -p /tmp/storage/framework/views && mkdir -p /tmp/storage/framework/cache"
+        "dev": "php artisan serve"
     },
-    "keywords": ["ots", "laravel", "vercel", "api"],
-    "license": "MIT",
-    "engines": {
-        "node": ">=14.0.0"
-    }
+    "keywords": ["ots", "laravel", "api"],
+    "license": "MIT"
 }
