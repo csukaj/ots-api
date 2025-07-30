@@ -10,6 +10,7 @@
         "ext-soap": "*",
         "ext-curl": "*",
         "laravel/framework": "^11.0",
+        "laravel/sanctum": "^4.0",
         "dyrynda/laravel-cascade-soft-deletes": "^4.0"
     },
     "require-dev": {

@@ -131,7 +131,10 @@ return [
         /*
          * Application Service Providers...
          */
-        // Laravel 11 uses service providers from bootstrap/providers.php
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\EventServiceProvider::class,  // Re-enable after fixing events
+        // App\Providers\RouteServiceProvider::class,  // Laravel 11 uses different routing
     ],
 
     /*
