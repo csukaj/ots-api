@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\User;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate as GateFacade;
 
@@ -21,13 +20,14 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any application authentication / authorization services.
      *
-     * @param  GateContract $gate
      * @return void
      */
-    public function boot(GateContract $gate)
+    public function boot(): void
     {
-        $this->registerPolicies($gate);
+        $this->registerPolicies();
 
+        // TODO: Re-enable after installing authorization package
+        /*
         GateFacade::define('create-organization', function ($user) {
             return $user->hasRole('admin');
         });
@@ -66,6 +66,7 @@ class AuthServiceProvider extends ServiceProvider
         GateFacade::define('create-organizationgroup', function (User $user, $organizationGroupId) {
             return $user->hasRole('admin');
         });
+        */
     }
 
     private function isManagerHavingOrganization(User $user, $organizationId): bool

@@ -9,7 +9,8 @@
         "ext-json": "*",
         "ext-soap": "*",
         "ext-curl": "*",
-        "laravel/framework": "^11.0"
+        "laravel/framework": "^11.0",
+        "dyrynda/laravel-cascade-soft-deletes": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
