@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlnyugtast xmlns="http://www.szamlazz.hu/xmlnyugtast" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlnyugtast http://www.szamlazz.hu/docs/xsds/nyugtast/xmlnyugtast.xsd">
+  <beallitasok>
+    <felhasznalo>Kérem töltse ki!</felhasznalo>
+    <jelszo>Kérem töltse ki!</jelszo>
+    <pdfLetoltes>false</pdfLetoltes>               <!-- PDF számla letöltése -->
+  </beallitasok>
+  <fejlec>
+    <nyugtaszam>NYGT-2020-1</nyugtaszam>                 <!-- stornózandó számla száma -->
+
+
+    <!-- Egyedi PDF sablon (nyugtakép) azonosítója -->
+    <!-- <pdfSablon></pdfSablon> -->
+
+    <!-- 
+        Egyedi hívásazaonosító: duplikált hívások esetén ez alapján garantálja a rendszer, hogy csak egy számla készül el-
+        Teljesen egyedi minden számlára.
+    -->
+    <!--
+    <hivasAzonosito>123e4567-e89b-12d3-a456-426655440000</hivasAzonosito>
+     -->
+  </fejlec>
+</xmlnyugtast>

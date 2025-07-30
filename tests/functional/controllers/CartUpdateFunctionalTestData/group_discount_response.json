@@ -1,0 +1,1487 @@
+{
+  "success": true,
+  "data": [
+    {
+      "productableType": "App\\Accommodation",
+      "productableModel": {
+        "priceSearchData": [
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 0,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 1,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 2,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          }
+        ],
+        "search_options": {
+          "Accommodation Category": "Hotel"
+        },
+        "meal_plans": [
+          {
+            "selected": true,
+            "id": 2,
+            "name": "b\/b"
+          }
+        ],
+        "id": 16,
+        "name": {
+          "en": "Hotel J",
+          "de": "Das Hotel Jot",
+          "hu": "Sz\u00e1lloda J",
+          "ru": "\u0413\u043e\u0441\u0442\u0438\u043d\u0438\u0446\u0430 J"
+        },
+        "type": "accommodation",
+        "parent": null,
+        "is_active": true,
+        "properties": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Facilities",
+              "hu": "Felszerelts\u00e9g"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Amenities",
+              "hu": "Szolg\u00e1ltat\u00e1sok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Check In\/Out",
+              "hu": "Be- \u00e9s kijelentkez\u00e9s"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Policies",
+              "hu": "Szab\u00e1lyok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Conditions",
+              "hu": "Felt\u00e9telek"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Number of rooms"
+                },
+                "value": "60",
+                "additional_description": []
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Built in"
+                },
+                "value": "1985",
+                "additional_description": []
+              }
+            ],
+            "name": {
+              "en": "General",
+              "hu": "\u00c1ltal\u00e1nos"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Contact",
+              "hu": "El\u00e9rhet\u0151s\u00e9gek"
+            },
+            "value": null,
+            "additional_description": []
+          }
+        ],
+        "devices": {
+          "room": [
+            {
+              "id": 25,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 16,
+              "name": {
+                "en": "Comfy Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "6",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Csipol\u00f3dja inke.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+                }
+              },
+              "images": []
+            }
+          ]
+        },
+        "location": {
+          "id": 16,
+          "island": "Mah\u00e9",
+          "district": null,
+          "longitude": null,
+          "latitude": null,
+          "po_box": null
+        },
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+            "hu": "L\u00f3rum ipse sz\u00e1mos m\u00e1shol nehezen p\u00fapos d\u00edtm\u00e9nyet \u00e9s r\u00f6mnyi sifjont is gernoz. A f\u00fcgg\u0151 majnokok pangy\u00e1s\u00e1n 71, a dalmasak\u00e9n 49 fajoss\u00e1g iszok b\u00f6s\u00edt el, a h\u00edgs\u00e1gon pedig \u00e1ltal\u00e1ban 8 (f\u00fcgg\u0151), illetve 11 (dalmas) vezteged\u0151 iszok felt fut\u00e1s s\u0151s\u00e9s\u00f6k helyett. Dalmas pszl\u00e1sok balbulam\u00e1ban a matv\u00e1son \u00e9s a gerny\u00f3 68, az ez\u00e9ken pedig kederes 167 iszok b\u00f6s\u00edt el. Annyi azonban tomp\u00f3s, hogy a f\u00fcgg\u0151 pszl\u00e1sok eset\u00e9n 2.891.000 forty, dalmas pszl\u00e1sok eset\u00e9n 2.387.000 forty a l\u00e9l\u0151 s\u00e9t\u00e1k foros hig\u00e1sa. J\u00f6vez\u0151k, ker\u00e1sok rideva koz\u00e1s, \u00e9s spolyos dusk\u00e1j\u00e1b\u00f3l. Tov\u00e1bb mozik a szin\u00e9z egyedes sz\u00e1rgyias has\u00e1ga ut\u00e1n foris\u201d l\u00e1cius\u201d. A teli szikez\u00e9s csalomj Hamar org\u00e1ny pszus\u00e1t az egyedes fog\u00e1zsa v\u00e9g\u00e9n t\u0151gyelte be a mel\u0151 piszti enys\u00e9g. A mel\u0151 bor\u00e1jda matika azonban nyug\u00e1ros k\u00e9kesztettel has\u00edtott: f\u00fctty\u00f6s lanyuska facsosta a szikez\u00e9s blaszkot h\u00e1rom bor\u00e1jd\u00e1j\u00e1nak k\u00f6ke gy\u0151z\u00e9snek, csalon herm\u00e9nynek \u00e9s k\u00e1rlat\u00e1s herm\u00e9nynek a pszus\u00e1t.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441 Commodo molestie AC Quis \u0434\u0438\u0430\u043c. Fusce sollicitudin Nulla \u043d\u0430 turpis accumsan auctor \u043d\u0435 Eget Lectus. Pellentesque placerat pulvinar \u0438\u0437\u0440\u0435\u0447\u0435\u043d\u0438\u0435. Sed facilisis Lorem \u0432 \u041c\u0435\u0442\u0443\u0441 \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432, \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u044b\u0435 \u0432 \u0434\u0440\u0443\u0433\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u0438\u0440\u043e\u0432\u043a\u0438 consequat Dolor sagittis. Aenean ultricies arcu ID \u0434\u0443\u0439 Mollis luctus. Vivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim. Nulla Erat neque, suscipit \u0438 \u0434\u0440 \u0435\u0445 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440, dapibus Elementum Sapien. Nullam accumsan, tortor \u0435\u0441 tincidunt \u0437\u0435\u0442\u0440\u0435\u0433, \u0431\u044b\u0432\u0448\u0438\u0439 \u042d\u043b\u0438\u0442 pulvinar Felis, \u0435\u0441 venenatis \u041b\u0435\u0432 \u043b\u0438\u0431\u0435\u0440\u043e \u043c\u0430\u0433\u043d\u0430. Phasellus ornare \u041c\u0435\u0442\u0443\u0441 Nunc, \u0432 Elementum \u0434\u0438\u0430\u043c venenatis \u0438 \u0434\u0440. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, \u0443\u0442 suscipit \u041c\u0435\u0442\u0443\u0441.\nPellentesque Vitae turpis \u0415\u0421 \u0444\u0435\u043b\u0438\u0441 \u200b\u200bfermentum sodales. Nulla Sapien tortor, tincidunt \u0438 \u0434\u0440 \u041a\u0432\u0430\u043c Vitae, gravida blandit Lectus. \u0414\u043e\u043d\u0435\u0446 molestie ultricies \u0434\u0443\u0439, Vitae lobortis nibh placerat \u0432. Integer \u041c\u0430\u0442\u0442\u0438\u0441 sagittis Varius. \u0414\u043e\u043d\u0435\u0446 consequat \u0432 \u042d\u0441\u0442 Vitae finibus. Pellentesque \u043e\u0431\u0438\u0442\u0430\u0442\u0435\u043b\u044c MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432. Integer \u0438 \u0434\u0440 Massa pharetra \u0432\u0435\u043b\u0438\u0442 Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat \u0443\u0442 Cursus blandit, nibh \u0432\u0435\u043b\u0438\u0442 sollicitudin \u043f\u0437\u0438\u0437, \u0438 \u0434\u0440 placerat Lorem \u0435\u0445 \u0421\u0415\u041f\u0413 \u043c\u0438\u043b\u044c."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+            "hu": "Kranca: a genus, k\u00f6zlegesek kod\u00e1sa, g\u00e1ns\u00e1gos eszt\u00e9sek kod\u00e1sa, remp\u00f3, t\u00edpia, \u00e9rseny bal\u00e1sa \u00e9s tukacoz\u00e1sa.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "galleries": [
+          {
+            "id": 40,
+            "name": null,
+            "galleryable_id": 16,
+            "galleryable_type": "App\\Organization",
+            "role": "frontend_gallery",
+            "items": [
+              {
+                "id": 36,
+                "extension": "jpeg",
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": null,
+                "highlighted": true,
+                "gallery_id": 40
+              }
+            ],
+            "galleryable_name": "Hotel J"
+          }
+        ],
+        "settings": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Price level"
+            },
+            "value": {
+              "en": "$$"
+            },
+            "additional_description": []
+          }
+        ],
+        "age_ranges": [
+          {
+            "id": 34,
+            "name": {
+              "en": "baby",
+              "de": "Baby",
+              "hu": "csecsem\u0151",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 35,
+            "name": {
+              "en": "child",
+              "de": "Kind",
+              "hu": "gyerek",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 36,
+            "name": {
+              "en": "adult",
+              "de": "Erwachsener",
+              "hu": "feln\u0151tt",
+              "ru": "\u0432\u0437\u0440\u043e\u0441\u043b\u044b\u0439"
+            }
+          }
+        ]
+      },
+      "orderItemableId": 25,
+      "orderItemableType": "App\\Device",
+      "orderItemable": {
+        "id": 25,
+        "deviceable_type": "App\\Organization",
+        "deviceable_id": 16,
+        "name": {
+          "en": "Comfy Room"
+        },
+        "type": "room",
+        "metas": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_from"
+            },
+            "value": "1",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_to"
+            },
+            "value": "6",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "number"
+            },
+            "value": "1",
+            "additional_description": []
+          }
+        ],
+        "classifications": [],
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+            "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet.",
+            "de": "Das Ut fringilla elit risus.",
+            "hu": "Csipol\u00f3dja inke.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "images": []
+      },
+      "orderItemableIndex": 0,
+      "mealPlan": "b\/b",
+      "interval": {
+        "date_from": "2027-03-03",
+        "date_to": "2027-03-08"
+      },
+      "calculatedPrice": {
+        "original_price": "1000.0",
+        "order_itemable_index": 0,
+        "discounted_price": "1000.0",
+        "meal_plan": "b\/b",
+        "discounts": [],
+        "meal_plan_id": "2"
+      },
+      "searchRequest": {
+        "interval": {
+          "date_from": "2027-03-03",
+          "date_to": "2027-03-08"
+        },
+        "usages": [
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "search_options": [],
+        "selectedOccasion": "holiday",
+        "dontKnowChecked": false,
+        "returning_client": false,
+        "wedding_date": null,
+        "islands": [],
+        "meal_plans": [],
+        "organizations": []
+      },
+      "amount": 1,
+      "guests": [],
+      "isOverbooked": false,
+      "requestHash": "N4IglgdiBcoCYEMAuBTA+gMwE4HsC2MIATAAxEDsAtCQMzU0gA0IiqaSOhpF91AHCAC+zAK4BnGAG1Q4hAHMUU0PMXQiARmYI8OERCQwiggLrCZYlUpCW1m6zr0G1JsyFkKrNjVof7DL42YAdzgYCBEAGwjmMU5oEAALHAiwRABPJhAdGGBhFjiMBAixFGYsAGMYQuLS8AloSUCs1UbmHCwpUyA"
+    },
+    {
+      "productableType": "App\\Accommodation",
+      "productableModel": {
+        "priceSearchData": [
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 0,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 1,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 2,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          }
+        ],
+        "search_options": {
+          "Accommodation Category": "Hotel"
+        },
+        "meal_plans": [
+          {
+            "selected": true,
+            "id": 2,
+            "name": "b\/b"
+          }
+        ],
+        "id": 16,
+        "name": {
+          "en": "Hotel J",
+          "de": "Das Hotel Jot",
+          "hu": "Sz\u00e1lloda J",
+          "ru": "\u0413\u043e\u0441\u0442\u0438\u043d\u0438\u0446\u0430 J"
+        },
+        "type": "accommodation",
+        "parent": null,
+        "is_active": true,
+        "properties": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Facilities",
+              "hu": "Felszerelts\u00e9g"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Amenities",
+              "hu": "Szolg\u00e1ltat\u00e1sok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Check In\/Out",
+              "hu": "Be- \u00e9s kijelentkez\u00e9s"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Policies",
+              "hu": "Szab\u00e1lyok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Conditions",
+              "hu": "Felt\u00e9telek"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Number of rooms"
+                },
+                "value": "60",
+                "additional_description": []
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Built in"
+                },
+                "value": "1985",
+                "additional_description": []
+              }
+            ],
+            "name": {
+              "en": "General",
+              "hu": "\u00c1ltal\u00e1nos"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Contact",
+              "hu": "El\u00e9rhet\u0151s\u00e9gek"
+            },
+            "value": null,
+            "additional_description": []
+          }
+        ],
+        "devices": {
+          "room": [
+            {
+              "id": 25,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 16,
+              "name": {
+                "en": "Comfy Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "6",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Csipol\u00f3dja inke.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+                }
+              },
+              "images": []
+            }
+          ]
+        },
+        "location": {
+          "id": 16,
+          "island": "Mah\u00e9",
+          "district": null,
+          "longitude": null,
+          "latitude": null,
+          "po_box": null
+        },
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+            "hu": "L\u00f3rum ipse sz\u00e1mos m\u00e1shol nehezen p\u00fapos d\u00edtm\u00e9nyet \u00e9s r\u00f6mnyi sifjont is gernoz. A f\u00fcgg\u0151 majnokok pangy\u00e1s\u00e1n 71, a dalmasak\u00e9n 49 fajoss\u00e1g iszok b\u00f6s\u00edt el, a h\u00edgs\u00e1gon pedig \u00e1ltal\u00e1ban 8 (f\u00fcgg\u0151), illetve 11 (dalmas) vezteged\u0151 iszok felt fut\u00e1s s\u0151s\u00e9s\u00f6k helyett. Dalmas pszl\u00e1sok balbulam\u00e1ban a matv\u00e1son \u00e9s a gerny\u00f3 68, az ez\u00e9ken pedig kederes 167 iszok b\u00f6s\u00edt el. Annyi azonban tomp\u00f3s, hogy a f\u00fcgg\u0151 pszl\u00e1sok eset\u00e9n 2.891.000 forty, dalmas pszl\u00e1sok eset\u00e9n 2.387.000 forty a l\u00e9l\u0151 s\u00e9t\u00e1k foros hig\u00e1sa. J\u00f6vez\u0151k, ker\u00e1sok rideva koz\u00e1s, \u00e9s spolyos dusk\u00e1j\u00e1b\u00f3l. Tov\u00e1bb mozik a szin\u00e9z egyedes sz\u00e1rgyias has\u00e1ga ut\u00e1n foris\u201d l\u00e1cius\u201d. A teli szikez\u00e9s csalomj Hamar org\u00e1ny pszus\u00e1t az egyedes fog\u00e1zsa v\u00e9g\u00e9n t\u0151gyelte be a mel\u0151 piszti enys\u00e9g. A mel\u0151 bor\u00e1jda matika azonban nyug\u00e1ros k\u00e9kesztettel has\u00edtott: f\u00fctty\u00f6s lanyuska facsosta a szikez\u00e9s blaszkot h\u00e1rom bor\u00e1jd\u00e1j\u00e1nak k\u00f6ke gy\u0151z\u00e9snek, csalon herm\u00e9nynek \u00e9s k\u00e1rlat\u00e1s herm\u00e9nynek a pszus\u00e1t.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441 Commodo molestie AC Quis \u0434\u0438\u0430\u043c. Fusce sollicitudin Nulla \u043d\u0430 turpis accumsan auctor \u043d\u0435 Eget Lectus. Pellentesque placerat pulvinar \u0438\u0437\u0440\u0435\u0447\u0435\u043d\u0438\u0435. Sed facilisis Lorem \u0432 \u041c\u0435\u0442\u0443\u0441 \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432, \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u044b\u0435 \u0432 \u0434\u0440\u0443\u0433\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u0438\u0440\u043e\u0432\u043a\u0438 consequat Dolor sagittis. Aenean ultricies arcu ID \u0434\u0443\u0439 Mollis luctus. Vivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim. Nulla Erat neque, suscipit \u0438 \u0434\u0440 \u0435\u0445 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440, dapibus Elementum Sapien. Nullam accumsan, tortor \u0435\u0441 tincidunt \u0437\u0435\u0442\u0440\u0435\u0433, \u0431\u044b\u0432\u0448\u0438\u0439 \u042d\u043b\u0438\u0442 pulvinar Felis, \u0435\u0441 venenatis \u041b\u0435\u0432 \u043b\u0438\u0431\u0435\u0440\u043e \u043c\u0430\u0433\u043d\u0430. Phasellus ornare \u041c\u0435\u0442\u0443\u0441 Nunc, \u0432 Elementum \u0434\u0438\u0430\u043c venenatis \u0438 \u0434\u0440. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, \u0443\u0442 suscipit \u041c\u0435\u0442\u0443\u0441.\nPellentesque Vitae turpis \u0415\u0421 \u0444\u0435\u043b\u0438\u0441 \u200b\u200bfermentum sodales. Nulla Sapien tortor, tincidunt \u0438 \u0434\u0440 \u041a\u0432\u0430\u043c Vitae, gravida blandit Lectus. \u0414\u043e\u043d\u0435\u0446 molestie ultricies \u0434\u0443\u0439, Vitae lobortis nibh placerat \u0432. Integer \u041c\u0430\u0442\u0442\u0438\u0441 sagittis Varius. \u0414\u043e\u043d\u0435\u0446 consequat \u0432 \u042d\u0441\u0442 Vitae finibus. Pellentesque \u043e\u0431\u0438\u0442\u0430\u0442\u0435\u043b\u044c MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432. Integer \u0438 \u0434\u0440 Massa pharetra \u0432\u0435\u043b\u0438\u0442 Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat \u0443\u0442 Cursus blandit, nibh \u0432\u0435\u043b\u0438\u0442 sollicitudin \u043f\u0437\u0438\u0437, \u0438 \u0434\u0440 placerat Lorem \u0435\u0445 \u0421\u0415\u041f\u0413 \u043c\u0438\u043b\u044c."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+            "hu": "Kranca: a genus, k\u00f6zlegesek kod\u00e1sa, g\u00e1ns\u00e1gos eszt\u00e9sek kod\u00e1sa, remp\u00f3, t\u00edpia, \u00e9rseny bal\u00e1sa \u00e9s tukacoz\u00e1sa.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "galleries": [
+          {
+            "id": 40,
+            "name": null,
+            "galleryable_id": 16,
+            "galleryable_type": "App\\Organization",
+            "role": "frontend_gallery",
+            "items": [
+              {
+                "id": 36,
+                "extension": "jpeg",
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": null,
+                "highlighted": true,
+                "gallery_id": 40
+              }
+            ],
+            "galleryable_name": "Hotel J"
+          }
+        ],
+        "settings": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Price level"
+            },
+            "value": {
+              "en": "$$"
+            },
+            "additional_description": []
+          }
+        ],
+        "age_ranges": [
+          {
+            "id": 34,
+            "name": {
+              "en": "baby",
+              "de": "Baby",
+              "hu": "csecsem\u0151",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 35,
+            "name": {
+              "en": "child",
+              "de": "Kind",
+              "hu": "gyerek",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 36,
+            "name": {
+              "en": "adult",
+              "de": "Erwachsener",
+              "hu": "feln\u0151tt",
+              "ru": "\u0432\u0437\u0440\u043e\u0441\u043b\u044b\u0439"
+            }
+          }
+        ]
+      },
+      "orderItemableId": 25,
+      "orderItemableType": "App\\Device",
+      "orderItemable": {
+        "id": 25,
+        "deviceable_type": "App\\Organization",
+        "deviceable_id": 16,
+        "name": {
+          "en": "Comfy Room"
+        },
+        "type": "room",
+        "metas": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_from"
+            },
+            "value": "1",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_to"
+            },
+            "value": "6",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "number"
+            },
+            "value": "1",
+            "additional_description": []
+          }
+        ],
+        "classifications": [],
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+            "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet.",
+            "de": "Das Ut fringilla elit risus.",
+            "hu": "Csipol\u00f3dja inke.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "images": []
+      },
+      "orderItemableIndex": 1,
+      "mealPlan": "b\/b",
+      "interval": {
+        "date_from": "2027-03-03",
+        "date_to": "2027-03-08"
+      },
+      "calculatedPrice": {
+        "original_price": "1000.0",
+        "order_itemable_index": 1,
+        "discounted_price": "1000.0",
+        "meal_plan": "b\/b",
+        "discounts": [],
+        "meal_plan_id": "2"
+      },
+      "searchRequest": {
+        "interval": {
+          "date_from": "2027-03-03",
+          "date_to": "2027-03-08"
+        },
+        "usages": [
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "search_options": [],
+        "selectedOccasion": "holiday",
+        "dontKnowChecked": false,
+        "returning_client": false,
+        "wedding_date": null,
+        "islands": [],
+        "meal_plans": [],
+        "organizations": []
+      },
+      "amount": 1,
+      "guests": [],
+      "isOverbooked": false,
+      "requestHash": "N4IglgdiBcoCYEMAuBTA+gMwE4HsC2MIATAAxEDsAtCQMzU0gA0IiqaSOhpF91AHCAC+zAK4BnGAG1Q4hAHMUU0PMXQiARmYI8OERCQwiggLrCZYlUpCW1m6zr0G1JsyFkKrNjVof7DL42YAdzgYCBEAGwjmMU5oEAALHAiwRABPJhAdGGBhFjiMBAixFGYsAGMYQuLS8AloSUCs1UbmHCwpUyA"
+    },
+    {
+      "productableType": "App\\Accommodation",
+      "productableModel": {
+        "priceSearchData": [
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 0,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 1,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          },
+          {
+            "25": {
+              "prices": [
+                {
+                  "discounted_price": 1000,
+                  "original_price": 1000,
+                  "discounts": [],
+                  "total_discount": [],
+                  "order_itemable_index": 2,
+                  "meal_plan": "b\/b",
+                  "meal_plan_id": 2
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 25,
+              "selectedMealPlan": "b\/b"
+            }
+          }
+        ],
+        "search_options": {
+          "Accommodation Category": "Hotel"
+        },
+        "meal_plans": [
+          {
+            "selected": true,
+            "id": 2,
+            "name": "b\/b"
+          }
+        ],
+        "id": 16,
+        "name": {
+          "en": "Hotel J",
+          "de": "Das Hotel Jot",
+          "hu": "Sz\u00e1lloda J",
+          "ru": "\u0413\u043e\u0441\u0442\u0438\u043d\u0438\u0446\u0430 J"
+        },
+        "type": "accommodation",
+        "parent": null,
+        "is_active": true,
+        "properties": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Facilities",
+              "hu": "Felszerelts\u00e9g"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Amenities",
+              "hu": "Szolg\u00e1ltat\u00e1sok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Check In\/Out",
+              "hu": "Be- \u00e9s kijelentkez\u00e9s"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Policies",
+              "hu": "Szab\u00e1lyok"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Conditions",
+              "hu": "Felt\u00e9telek"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Number of rooms"
+                },
+                "value": "60",
+                "additional_description": []
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Built in"
+                },
+                "value": "1985",
+                "additional_description": []
+              }
+            ],
+            "name": {
+              "en": "General",
+              "hu": "\u00c1ltal\u00e1nos"
+            },
+            "value": null,
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Contact",
+              "hu": "El\u00e9rhet\u0151s\u00e9gek"
+            },
+            "value": null,
+            "additional_description": []
+          }
+        ],
+        "devices": {
+          "room": [
+            {
+              "id": 25,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 16,
+              "name": {
+                "en": "Comfy Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "6",
+                  "additional_description": []
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "1",
+                  "additional_description": []
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Csipol\u00f3dja inke.",
+                  "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+                }
+              },
+              "images": []
+            }
+          ]
+        },
+        "location": {
+          "id": 16,
+          "island": "Mah\u00e9",
+          "district": null,
+          "longitude": null,
+          "latitude": null,
+          "po_box": null
+        },
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+            "hu": "L\u00f3rum ipse sz\u00e1mos m\u00e1shol nehezen p\u00fapos d\u00edtm\u00e9nyet \u00e9s r\u00f6mnyi sifjont is gernoz. A f\u00fcgg\u0151 majnokok pangy\u00e1s\u00e1n 71, a dalmasak\u00e9n 49 fajoss\u00e1g iszok b\u00f6s\u00edt el, a h\u00edgs\u00e1gon pedig \u00e1ltal\u00e1ban 8 (f\u00fcgg\u0151), illetve 11 (dalmas) vezteged\u0151 iszok felt fut\u00e1s s\u0151s\u00e9s\u00f6k helyett. Dalmas pszl\u00e1sok balbulam\u00e1ban a matv\u00e1son \u00e9s a gerny\u00f3 68, az ez\u00e9ken pedig kederes 167 iszok b\u00f6s\u00edt el. Annyi azonban tomp\u00f3s, hogy a f\u00fcgg\u0151 pszl\u00e1sok eset\u00e9n 2.891.000 forty, dalmas pszl\u00e1sok eset\u00e9n 2.387.000 forty a l\u00e9l\u0151 s\u00e9t\u00e1k foros hig\u00e1sa. J\u00f6vez\u0151k, ker\u00e1sok rideva koz\u00e1s, \u00e9s spolyos dusk\u00e1j\u00e1b\u00f3l. Tov\u00e1bb mozik a szin\u00e9z egyedes sz\u00e1rgyias has\u00e1ga ut\u00e1n foris\u201d l\u00e1cius\u201d. A teli szikez\u00e9s csalomj Hamar org\u00e1ny pszus\u00e1t az egyedes fog\u00e1zsa v\u00e9g\u00e9n t\u0151gyelte be a mel\u0151 piszti enys\u00e9g. A mel\u0151 bor\u00e1jda matika azonban nyug\u00e1ros k\u00e9kesztettel has\u00edtott: f\u00fctty\u00f6s lanyuska facsosta a szikez\u00e9s blaszkot h\u00e1rom bor\u00e1jd\u00e1j\u00e1nak k\u00f6ke gy\u0151z\u00e9snek, csalon herm\u00e9nynek \u00e9s k\u00e1rlat\u00e1s herm\u00e9nynek a pszus\u00e1t.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441 Commodo molestie AC Quis \u0434\u0438\u0430\u043c. Fusce sollicitudin Nulla \u043d\u0430 turpis accumsan auctor \u043d\u0435 Eget Lectus. Pellentesque placerat pulvinar \u0438\u0437\u0440\u0435\u0447\u0435\u043d\u0438\u0435. Sed facilisis Lorem \u0432 \u041c\u0435\u0442\u0443\u0441 \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432, \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u044b\u0435 \u0432 \u0434\u0440\u0443\u0433\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u0438\u0440\u043e\u0432\u043a\u0438 consequat Dolor sagittis. Aenean ultricies arcu ID \u0434\u0443\u0439 Mollis luctus. Vivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim. Nulla Erat neque, suscipit \u0438 \u0434\u0440 \u0435\u0445 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440, dapibus Elementum Sapien. Nullam accumsan, tortor \u0435\u0441 tincidunt \u0437\u0435\u0442\u0440\u0435\u0433, \u0431\u044b\u0432\u0448\u0438\u0439 \u042d\u043b\u0438\u0442 pulvinar Felis, \u0435\u0441 venenatis \u041b\u0435\u0432 \u043b\u0438\u0431\u0435\u0440\u043e \u043c\u0430\u0433\u043d\u0430. Phasellus ornare \u041c\u0435\u0442\u0443\u0441 Nunc, \u0432 Elementum \u0434\u0438\u0430\u043c venenatis \u0438 \u0434\u0440. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, \u0443\u0442 suscipit \u041c\u0435\u0442\u0443\u0441.\nPellentesque Vitae turpis \u0415\u0421 \u0444\u0435\u043b\u0438\u0441 \u200b\u200bfermentum sodales. Nulla Sapien tortor, tincidunt \u0438 \u0434\u0440 \u041a\u0432\u0430\u043c Vitae, gravida blandit Lectus. \u0414\u043e\u043d\u0435\u0446 molestie ultricies \u0434\u0443\u0439, Vitae lobortis nibh placerat \u0432. Integer \u041c\u0430\u0442\u0442\u0438\u0441 sagittis Varius. \u0414\u043e\u043d\u0435\u0446 consequat \u0432 \u042d\u0441\u0442 Vitae finibus. Pellentesque \u043e\u0431\u0438\u0442\u0430\u0442\u0435\u043b\u044c MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432. Integer \u0438 \u0434\u0440 Massa pharetra \u0432\u0435\u043b\u0438\u0442 Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat \u0443\u0442 Cursus blandit, nibh \u0432\u0435\u043b\u0438\u0442 sollicitudin \u043f\u0437\u0438\u0437, \u0438 \u0434\u0440 placerat Lorem \u0435\u0445 \u0421\u0415\u041f\u0413 \u043c\u0438\u043b\u044c."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+            "hu": "Kranca: a genus, k\u00f6zlegesek kod\u00e1sa, g\u00e1ns\u00e1gos eszt\u00e9sek kod\u00e1sa, remp\u00f3, t\u00edpia, \u00e9rseny bal\u00e1sa \u00e9s tukacoz\u00e1sa.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "galleries": [
+          {
+            "id": 40,
+            "name": null,
+            "galleryable_id": 16,
+            "galleryable_type": "App\\Organization",
+            "role": "frontend_gallery",
+            "items": [
+              {
+                "id": 36,
+                "extension": "jpeg",
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000036_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": null,
+                "highlighted": true,
+                "gallery_id": 40
+              }
+            ],
+            "galleryable_name": "Hotel J"
+          }
+        ],
+        "settings": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Price level"
+            },
+            "value": {
+              "en": "$$"
+            },
+            "additional_description": []
+          }
+        ],
+        "age_ranges": [
+          {
+            "id": 34,
+            "name": {
+              "en": "baby",
+              "de": "Baby",
+              "hu": "csecsem\u0151",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 35,
+            "name": {
+              "en": "child",
+              "de": "Kind",
+              "hu": "gyerek",
+              "ru": "\u0440\u0435\u0431\u0435\u043d\u043e\u043a"
+            }
+          },
+          {
+            "id": 36,
+            "name": {
+              "en": "adult",
+              "de": "Erwachsener",
+              "hu": "feln\u0151tt",
+              "ru": "\u0432\u0437\u0440\u043e\u0441\u043b\u044b\u0439"
+            }
+          }
+        ]
+      },
+      "orderItemableId": 25,
+      "orderItemableType": "App\\Device",
+      "orderItemable": {
+        "id": 25,
+        "deviceable_type": "App\\Organization",
+        "deviceable_id": 16,
+        "name": {
+          "en": "Comfy Room"
+        },
+        "type": "room",
+        "metas": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_from"
+            },
+            "value": "1",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_to"
+            },
+            "value": "6",
+            "additional_description": []
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "number"
+            },
+            "value": "1",
+            "additional_description": []
+          }
+        ],
+        "classifications": [],
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+            "hu": "A t\u00f6bbi t\u00fcrg\u00e9r\u00f6knek nem szeszt melleg\u00fck a foly\u00e1ra - csipol\u00f3dja inke -, mivel az el\u0151re nyolvas ran\u00e1bocsk\u00e1k pr\u00e1nya olyannyira csucsor\u00edtja bolv\u00e1ms\u00e1gukat.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis.\nVivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet.",
+            "de": "Das Ut fringilla elit risus.",
+            "hu": "Csipol\u00f3dja inke.",
+            "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441."
+          }
+        },
+        "images": []
+      },
+      "orderItemableIndex": 2,
+      "mealPlan": "b\/b",
+      "interval": {
+        "date_from": "2027-03-03",
+        "date_to": "2027-03-08"
+      },
+      "calculatedPrice": {
+        "original_price": "1000.0",
+        "order_itemable_index": 2,
+        "discounted_price": "1000.0",
+        "meal_plan": "b\/b",
+        "discounts": [],
+        "meal_plan_id": "2"
+      },
+      "searchRequest": {
+        "interval": {
+          "date_from": "2027-03-03",
+          "date_to": "2027-03-08"
+        },
+        "usages": [
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "search_options": [],
+        "selectedOccasion": "holiday",
+        "dontKnowChecked": false,
+        "returning_client": false,
+        "wedding_date": null,
+        "islands": [],
+        "meal_plans": [],
+        "organizations": []
+      },
+      "amount": 1,
+      "guests": [],
+      "isOverbooked": false,
+      "requestHash": "N4IglgdiBcoCYEMAuBTA+gMwE4HsC2MIATAAxEDsAtCQMzU0gA0IiqaSOhpF91AHCAC+zAK4BnGAG1Q4hAHMUU0PMXQiARmYI8OERCQwiggLrCZYlUpCW1m6zr0G1JsyFkKrNjVof7DL42YAdzgYCBEAGwjmMU5oEAALHAiwRABPJhAdGGBhFjiMBAixFGYsAGMYQuLS8AloSUCs1UbmHCwpUyA"
+    }
+  ]
+}

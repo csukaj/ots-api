@@ -1,0 +1,26 @@
+[
+  {
+    "name": "John Doe",
+    "personable": {
+      "type": "supplier",
+      "id": 401
+    },
+    "contacts": [
+      {
+        "type": "phone",
+        "value": "+248 1 234 567",
+        "is_public": true
+      },
+      {
+        "type": "email",
+        "value": "john.doe@example.com",
+        "is_public": true
+      },
+      {
+        "type": "web",
+        "value": "http://john-doe.example.com",
+        "is_public": false
+      }
+    ]
+  }
+]

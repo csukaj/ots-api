@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Entities;
+
+class CartElementEntity {
+
+    public $organization;
+    public $device;
+    public $orderItemableIndex;
+    public $mealPlan;
+    public $interval;
+    public $calculatedPrice;
+    public $hotelSearchRequest;
+    public $amount;
+    public $guests;
+    public $isOverbooked;
+
+    public function __construct(array $data) {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
+    }
+    
+    public function update($searchResult) {
+        $availability = $this->findAvailabilityInSearchResult($searchResult);
+        $this->isOverbooked = $availability ? $availability['is_overbooked'] : true;
+        $this->updateCalculatedPriceBySearchResult($searchResult);
+    }
+    
+    private function findAvailabilityInSearchResult($searchResult) {
+        if (isset($searchResult[$this->organization['id']])) {
+            foreach ($searchResult[$this->organization['id']]['availability'] as $availabilityData) {
+                if ($availabilityData['device_id'] == $this->device['id']) {
+                    return $availabilityData;
+                }
+            }
+        }
+        return null;
+    }
+    
+    private function updateCalculatedPriceBySearchResult($searchResult) {
+        if (isset($searchResult[$this->organization['id']])) {
+            foreach ($searchResult[$this->organization['id']]['results'][$this->orderItemableIndex] as $deviceData) {
+                if ($deviceData['device_id'] == $this->device['id']) {
+                    foreach ($deviceData['prices'] as $priceData) {
+                        if ($priceData['meal_plan'] == $this->mealPlan) {
+                            $this->calculatedPrice = $priceData;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static function hydrate(array $elementsData) {
+        $return = [];
+        foreach ($elementsData as $elementData) {
+            $return[] = new self($elementData);
+        }
+        return $return;
+    }
+
+}
+

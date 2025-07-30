@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Entities;
+
+use App\DeviceClassification;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class DeviceClassificationEntity extends Entity {
+
+    protected $devCl;
+
+    public function __construct(DeviceClassification $orgCl) {
+        parent::__construct();
+        $this->devCl = $orgCl;
+    }
+
+    public function getFrontendData(array $additions = ['frontend']) {
+        $return = [];
+        
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'admin':
+                    $taxonomyData = (new TaxonomyEntity($this->devCl->classificationTaxonomy))->getFrontendData(['translations']);
+                    $valueData = $this->devCl->value_taxonomy_id ? (new TaxonomyEntity($this->devCl->valueTaxonomy))->translations() : null;
+                    $descriptionData = $this->devCl->additional_description_id ? (new DescriptionEntity($this->devCl->additionalDescription))->getFrontendData() : null;
+                    $return = [
+                        'id' => $this->devCl->id,
+                        'taxonomy' => $taxonomyData,
+                        'value' => $valueData,
+                        'additional_description' => $descriptionData,
+                        'highlighted' => $this->devCl->is_highlighted,
+                        'child_classifications' => DeviceClassificationEntity::getCollection($this->devCl->childClassifications, $additions),
+                    ];
+                    break;
+                case 'frontend':
+                    $taxonomyTranslations = (new TaxonomyEntity($this->devCl->classificationTaxonomy))->translations();
+                    $valueData = $this->devCl->value_taxonomy_id ? (new TaxonomyEntity($this->devCl->valueTaxonomy))->translations() : null;
+                    $descriptionData = $this->devCl->additional_description_id ? (new DescriptionEntity($this->devCl->additionalDescription))->getFrontendData() : null;
+                    $return = [
+                        'name' => $taxonomyTranslations,
+                        'icon' => $this->devCl->classificationTaxonomy->icon,
+                        'value' => $valueData,
+                        'additional_description' => $descriptionData,
+                        'highlighted' => $this->devCl->is_highlighted,
+                        'child_classifications' => DeviceClassificationEntity::getCollection($this->devCl->childClassifications, $additions),
+                    ];
+                    break;
+            }
+        }
+        
+        
+        
+
+        return $return;
+    }
+
+    static public function getOptions() {
+        $classificationEn = new TaxonomyEntity(Taxonomy::findOrFail(Config::get('taxonomies.device_classification')));
+
+        return [
+            'classification' => $classificationEn->getFrontendData(['descendants', 'translations'])
+        ];
+    }
+
+}
+

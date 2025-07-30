@@ -1,0 +1,23 @@
+[{
+  "original_price": "726.0",
+  "meal_plan_id": 2,
+  "discounted_price": "839.0",
+  "order_itemable_index": 0,
+  "meal_plan": "b\/b",
+  "discounts": [{
+    "description": null,
+    "offer": "fixed_price",
+    "discount_percentage": 15.56,
+    "discount_value": 113,
+    "modifier_type": 492,
+    "condition": "minimum_nights",
+    "name": {
+      "en": "Gala dinner"
+    }
+  }],
+  "total_discount": {
+    "percentage": 15.56,
+    "value": 113
+  },
+  "margin": 76.2696
+}]

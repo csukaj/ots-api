@@ -1,0 +1,8 @@
+{
+    "deviceId": 4,
+    "availabilities": [
+        {"year": 2027, "month": 1, "day": 1, "amount": 1},
+        {"year": 2027, "month": 1, "day": 2, "amount": 1},
+        {"year": 2027, "month": 1, "day": 3, "amount": 1}
+    ]
+}

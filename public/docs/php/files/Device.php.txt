@@ -1,0 +1,234 @@
+<?php
+
+namespace App;
+
+use App\Device;
+use App\DeviceAvailability;
+use App\DeviceClassification;
+use App\DeviceDescription;
+use App\DeviceMeta;
+use App\DeviceUsage;
+use App\ModelValidatorTrait;
+use App\Organization;
+use App\Product;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylersmedia\Entities\Gallery;
+use Modules\Stylerstaxonomy\Entities\ClassificableTrait;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Device
+ *
+ * @property int $id
+ * @property int $organization_id
+ * @property int $amount
+ * @property int $type_taxonomy_id
+ * @property int $margin_type_taxonomy_id
+ * @property float $margin_value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property int $name_taxonomy_id
+ * @property-read Collection|DeviceAvailability[] $availabilities
+ * @property-read Collection|DeviceClassification[] $classifications
+ * @property-read Collection|DeviceDescription[] $descriptions
+ * @property-read Collection|Gallery[] $galleries
+ * @property-read Taxonomy $marginType
+ * @property-read Collection|DeviceMeta[] $metas
+ * @property-read Collection|DeviceMinimumNights[] $minimumNights
+ * @property-read Taxonomy $name
+ * @property-read Organization $organization
+ * @property-read Collection|Product[] $products
+ * @property-read Taxonomy $type
+ * @property-read Collection|DeviceUsage[] $usages
+ * @mixin \Eloquent
+ */
+class Device extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        ClassificableTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['organization_id', 'amount', 'type_taxonomy_id', 'name_taxonomy_id', 'margin_value'];
+
+    /**
+     * Save the model to the database.
+     * It assigns the margin type of organization to it, 
+     * and creates default (infinite) DeviceAvailability interval to it.
+     *
+     * @param  array $options
+     * @return bool
+     */
+    public function save(array $options = []) {
+        $createInfinityInterval = !$this->exists;
+
+        if (!empty($this->organization_id)) {
+            $this->margin_type_taxonomy_id = Organization::findOrFail($this->organization_id)->margin_type_taxonomy_id;
+        } else {
+            $this->margin_type_taxonomy_id = null;
+        }
+
+        $return = parent::save($options);
+
+        if ($createInfinityInterval) {
+            DeviceAvailability::createOrUpdateInfiniteInterval($this->id, (int) $this->amount);
+        }
+
+        return $return;
+    }
+
+    /**
+     * Relation to organization
+     * 
+     * @return HasOne
+     */
+    public function organization() {
+        return $this->hasOne(Organization::class, 'id', 'organization_id');
+    }
+
+    /**
+     * Relation to type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function type() {
+        return $this->hasOne(Taxonomy::class, 'id', 'type_taxonomy_id');
+    }
+
+    /**
+     * Relation to name taxonomy
+     * 
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Taxonomy::class, 'id', 'name_taxonomy_id');
+    }
+
+    /**
+     * Relation to DeviceUsages
+     * 
+     * @return HasMany
+     */
+    public function usages() {
+        return $this->hasMany(DeviceUsage::class, 'device_id', 'id');
+    }
+
+    /**
+     * Relation to margin Type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function marginType() {
+        return $this->hasOne(Taxonomy::class, 'id', 'margin_type_taxonomy_id');
+    }
+
+    /**
+     * Relation to DeviceAvailabilities
+     * 
+     * @return HasMany
+     */
+    public function availabilities() {
+        return $this->hasMany(DeviceAvailability::class, 'device_id', 'id');
+    }
+
+    /**
+     * Relation to Products
+     * 
+     * @return MorphMany
+     */
+    public function products() {
+        return $this->morphMany(Product::class, 'productable');
+    }
+
+    /**
+     * Relation to galleries
+     * 
+     * @return MorphMany
+     */
+    public function galleries() {
+        return $this->morphMany(Gallery::class, 'galleryable');
+    }
+
+    /**
+     * Relation to Device Classifications
+     * 
+     * @return HasMany
+     */
+    public function classifications() {
+        return $this->hasMany(DeviceClassification::class, 'device_id', 'id');
+    }
+
+    /**
+     * Relation to Device Metas
+     * 
+     * @return HasMany
+     */
+    public function metas() {
+        return $this->hasMany(DeviceMeta::class, 'device_id', 'id');
+    }
+
+    /**
+     * Relation to Device Descriptions
+     * 
+     * @return HasMany
+     */
+    public function descriptions() {
+        return $this->hasMany(DeviceDescription::class, 'device_id', 'id');
+    }
+
+    /**
+     * Relation to Device Minimum Nights
+     * 
+     * @return HasMany
+     */
+    public function minimumNights() {
+        return $this->hasMany(DeviceMinimumNights::class, 'device_id', 'id');
+    }
+
+    /**
+     * Check if any of the specified device names already exists 
+     * in specified organization.
+     * (checks translations too)
+     * 
+     * @param int $organizationId
+     * @param array $names List of names to check (translations)
+     * @param int $ignoreId Device id to ignore
+     * @return bool
+     */
+    static public function deviceNameExists(int $organizationId, array $names, int $ignoreId = null): bool {
+        $taxonomies_query = Device
+                ::select('taxonomies.name')
+                ->join('taxonomies', 'devices.name_taxonomy_id', '=', 'taxonomies.id')
+                ->where('organization_id', '=', $organizationId)
+                ->whereIn('taxonomies.name', array_values($names));
+        if (!empty($ignoreId)) {
+            $taxonomies_query->where('devices.id', '!=', $ignoreId);
+        }
+
+        $query = Device
+                ::select('taxonomy_translations.name')
+                ->join('taxonomies', 'devices.name_taxonomy_id', '=', 'taxonomies.id')
+                ->join('taxonomy_translations', 'taxonomies.id', '=', 'taxonomy_translations.taxonomy_id')
+                ->where('organization_id', '=', $organizationId)
+                ->whereIn('taxonomy_translations.name', array_values($names));
+        if (!empty($ignoreId)) {
+            $query->where('devices.id', '!=', $ignoreId);
+        }
+        $query->union($taxonomies_query);
+        return (bool) count($query->get());
+    }
+
+}
+

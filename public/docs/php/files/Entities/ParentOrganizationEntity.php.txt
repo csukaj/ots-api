@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Entities;
+
+use App\ParentOrganization;
+use App\Entities\OrganizationEntity;
+
+class ParentOrganizationEntity extends Entity
+{
+
+    protected $parentOrganization;
+
+    public function __construct(ParentOrganization $parentOrganization) {
+        parent::__construct();
+
+        $this->parentOrganization = $parentOrganization;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [
+            'id' => $this->parentOrganization->id,
+            'name' => $this->parentOrganization->name,
+        ];
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'children':
+                    $return['children'] = OrganizationEntity::getCollection($this->parentOrganization->childOrganizations);
+                    break;
+            }
+        }
+
+        return $return;
+    }
+
+}

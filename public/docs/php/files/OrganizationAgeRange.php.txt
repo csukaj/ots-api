@@ -1,0 +1,249 @@
+<?php
+
+namespace App;
+
+use App\Exceptions\UserException;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\OrganizationAgeRange
+ *
+ * @property int $id
+ * @property int $from_age
+ * @property int $to_age
+ * @property int $organization_id
+ * @property int $name_taxonomy_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property bool $banned
+ * @property bool $free
+ * @property-read Collection|DeviceUsageElement[] $deviceUsageElements
+ * @property-read Taxonomy $name
+ * @property-read Organization $organization
+ * @mixin \Eloquent
+ */
+class OrganizationAgeRange extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'from_age', 'to_age', 'organization_id', 'name_taxonomy_id', 'banned', 'free'
+    ];
+
+    /**
+     * Relation to organization
+     * 
+     * @return HasOne
+     */
+    public function organization() {
+        return $this->hasOne(Organization::class);
+    }
+
+    /**
+     * Relation to name taxonomy
+     * 
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Taxonomy::class, 'id', 'name_taxonomy_id');
+    }
+
+    /**
+     * Relation to device Usage Elements
+     * 
+     * @return HasMany
+     */
+    public function deviceUsageElements() {
+        return $this->hasMany(DeviceUsageElement::class, 'organization_age_range_id', 'id');
+    }
+
+    /**
+     * Sets to_age attribute to specified value or null
+     * @param type $value
+     */
+    public function setToAgeAttribute($value) {
+        if ($value == '' || $value == null) {
+            $this->attributes['to_age'] = null;
+        } else {
+            $this->attributes['to_age'] = $value;
+        }
+    }
+
+    /**
+     * Delete the model from the database if deviceUsageElements not exists
+     * @return bool|null
+     * @throws \UserException
+     */
+    public function delete() {
+        if (count($this->deviceUsageElements)) {
+            throw new UserException('A model with active relations can not be deleted.');
+        }
+        return parent::delete();
+    }
+
+    /**
+     * Get age range id by name at organization
+     *  
+     * @param int $organizationId
+     * @param string $taxonomyName
+     * @return mixed
+     * @static
+     */
+    static public function getAgeRangeId(int $organizationId, string $taxonomyName) {
+        return DB
+                        ::table('organization_age_ranges')
+                        ->select('organization_age_ranges.id')
+                        ->join('taxonomies', 'organization_age_ranges.name_taxonomy_id', '=', 'taxonomies.id')
+                        ->where('organization_age_ranges.organization_id', '=', $organizationId)
+                        ->where('taxonomies.name', '=', $taxonomyName)
+                        ->whereNull('organization_age_ranges.deleted_at')
+                        ->whereNull('taxonomies.deleted_at')
+                        ->value('id');
+    }
+
+    /**
+     * Find age range By Name Or Fail
+     * 
+     * @param string $name
+     * @param int $organizationId
+     * @return OrganizationAgeRange
+     * @throws ModelNotFoundException
+     * @static
+     */
+    static public function findByNameOrFail(string $name, int $organizationId): OrganizationAgeRange {
+        $ageRangeTx = Taxonomy::getTaxonomy($name, Config::get('taxonomies.age_range'));
+        $return = OrganizationAgeRange
+                ::where('name_taxonomy_id', '=', $ageRangeTx->id)
+                ->where('organization_id', '=', $organizationId)
+                ->first();
+        if (!$return) {
+            throw new ModelNotFoundException('OrganizationAgeRange not found.');
+        }
+        return $return;
+    }
+
+    /**
+     * Get age ranges of organization in interval constructed by from age and to age
+     * 
+     * @param int $organizationId
+     * @param int $fromAge
+     * @param int|null $toAge
+     * @param int $ignoreId OrganizationAgeRange id to ignore
+     * @return Collection
+     * @throws UserException
+     * @static
+     */
+    static public function getAgeRangesInInterval(int $organizationId, int $fromAge, $toAge, int $ignoreId = null) {
+        if (is_null($organizationId)) {
+            throw new UserException('Missing organization ID.');
+        }
+        if (is_null($fromAge)) {
+            throw new UserException('Invalid argument for from age.');
+        }
+        if ($toAge) {
+            return self::getAgeRangesInFixInterval($organizationId, $fromAge, $toAge, $ignoreId);
+        } else {
+            return self::getAgeRangesInInfiniteInterval($organizationId, $fromAge, $ignoreId);
+        }
+    }
+
+    /**
+     * Get age ranges in interval when to age specified
+     * 
+     * @param int $organizationId
+     * @param int $fromAge
+     * @param int $toAge
+     * @param int $ignoreId
+     * @return Collection
+     * @static
+     */
+    static public function getAgeRangesInFixInterval(int $organizationId, int $fromAge, int $toAge, int $ignoreId = null) {
+        $query1 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('from_age', '<=', $fromAge)
+                ->where('to_age', '>=', $toAge);
+        if ($ignoreId) {
+            $query1->where('id', '!=', $ignoreId);
+        }
+
+        $query2 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('from_age', '<=', $fromAge)
+                ->whereNull('to_age');
+        if ($ignoreId) {
+            $query2->where('id', '!=', $ignoreId);
+        }
+
+        $query3 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('from_age', '>=', $fromAge)
+                ->where('from_age', '<', $toAge);
+        if ($ignoreId) {
+            $query3->where('id', '!=', $ignoreId);
+        }
+
+        $query4 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('to_age', '>=', $fromAge)
+                ->where('to_age', '<', $toAge);
+        if ($ignoreId) {
+            $query4->where('id', '!=', $ignoreId);
+        }
+
+        return $query4->union($query3)->union($query2)->union($query1)->orderBy('from_age')->get();
+    }
+
+    /**
+     * Get age ranges in interval when to age not specified
+     * 
+     * @param int $organizationId
+     * @param int $fromAge
+     * @param int $ignoreId
+     * @return Collection
+     * @static
+     */
+    static public function getAgeRangesInInfiniteInterval(int $organizationId, int $fromAge, int $ignoreId = null) {
+
+        $query1 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('from_age', '<=', $fromAge)
+                ->where('to_age', '>=', $fromAge);
+        if ($ignoreId) {
+            $query1->where('id', '!=', $ignoreId);
+        }
+
+        $query2 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->where('from_age', '>', $fromAge);
+        if ($ignoreId) {
+            $query2->where('id', '!=', $ignoreId);
+        }
+
+        $query3 = OrganizationAgeRange
+                ::where('organization_id', '=', $organizationId)
+                ->whereNull('to_age');
+        if ($ignoreId) {
+            $query3->where('id', '!=', $ignoreId);
+        }
+
+        return $query3->union($query2)->union($query1)->orderBy('from_age')->get();
+    }
+
+}
+

@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers\Gated;
+
+use App\Device;
+use App\Entities\DeviceAvailabilityEntity;
+use App\Http\Controllers\ResourceController;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Gated/DeviceAvailabilityController
+ */
+class DeviceAvailabilityController extends ResourceController {
+
+    /**
+     * index
+     * Display availabilities in a daily breakdown
+     * @param  Request  $request
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $device = Device::findOrFail($request->deviceId);
+
+        if (!$this->gateAllows('access-organization', $device->organization_id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        return ['success' => true, 'data' => (new DeviceAvailabilityEntity($request->deviceId))->get($request->fromDate, $request->toDate)];
+    }
+
+    /**
+     * store
+     * Store availabilities using a request of daily breakdown
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $device = Device::findOrFail($request->deviceId);
+
+        if (!$this->gateAllows('access-organization', $device->organization_id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        return ['success' => (new DeviceAvailabilityEntity($device->id))->set($request->availabilities)];
+    }
+
+}
+

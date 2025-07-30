@@ -1,0 +1,64 @@
+<?php
+
+namespace App;
+
+use App\ModelValidatorTrait;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\MetaTrait;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\OfferMeta
+ *
+ * @property int $id
+ * @property int $discount_id
+ * @property int $taxonomy_id
+ * @property string $value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $additionalDescription
+ * @property-read Discount $discount
+ * @property-read Taxonomy $metaTaxonomy
+ * @property-read Taxonomy $taxonomy
+ * @mixin \Eloquent
+ */
+class OfferMeta extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        MetaTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'discount_id', 'taxonomy_id', 'value'
+    ];
+
+    /**
+     * Relation to discount
+     * 
+     * @return HasOne
+     */
+    public function discount() {
+        return $this->hasOne(PriceModifier::class);
+    }
+
+    /**
+     * Relation to taxonomy
+     * 
+     * @return HasOne
+     */
+    public function taxonomy() {
+        return $this->hasOne(Taxonomy::class);
+    }
+
+}
+

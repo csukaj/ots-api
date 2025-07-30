@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Entities;
+
+use App\DeviceMeta;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class DeviceMetaEntity extends Entity
+{
+    protected $devMt;
+
+    public function __construct(DeviceMeta $devMt) {
+        parent::__construct();
+        $this->devMt = $devMt;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $taxonomyData = $this->devMt->taxonomy_id ? (new TaxonomyEntity($this->devMt->metaTaxonomy))->translations() : null;
+        $descriptionData = $this->devMt->additional_description_id ? (new DescriptionEntity($this->devMt->additionalDescription))->getFrontendData() : null;
+
+        $return = [
+            'name' => $taxonomyData,
+            'value' => $this->devMt->value,
+            'additional_description' => $descriptionData
+        ];
+        return $return;
+    }
+}

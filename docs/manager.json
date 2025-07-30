@@ -1,0 +1,6 @@
+[
+    {
+        "email": "manager@example.com",
+        "organizations": [1, 2]
+    }
+]

@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Entities;
+
+use App\OrganizationMeta;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class OrganizationMetaEntity extends Entity
+{
+    protected $orgMt;
+
+    public function __construct(OrganizationMeta $orgMt) {
+        parent::__construct();
+        $this->orgMt = $orgMt;
+    }
+
+    public function getFrontendData(array $additions = ['admin']) {
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'admin':
+                    $txAdditions = array_merge($additions,['translations']);
+                    $taxonomyData = $this->orgMt->taxonomy_id ? (new TaxonomyEntity($this->orgMt->metaTaxonomy))->getFrontendData($txAdditions) : null;
+                    $descriptionData = $this->orgMt->additional_description_id ? (new DescriptionEntity($this->orgMt->additionalDescription))->getFrontendData() : null;
+
+                    $return = [
+                        'id' => $this->orgMt->id,
+                        'taxonomy' => $taxonomyData,
+                        'value' => $this->orgMt->value,
+                        'priority' => $this->orgMt->priority,
+                        'additional_description' => $descriptionData,
+                        'is_listable' => $this->orgMt->is_listable
+                    ];
+                    break;
+                case 'frontend':
+                     $taxonomyData = $this->orgMt->taxonomy_id ? (new TaxonomyEntity($this->orgMt->metaTaxonomy))->translations() : null;
+                    $descriptionData = $this->orgMt->additional_description_id ? (new DescriptionEntity($this->orgMt->additionalDescription))->getFrontendData() : null;
+
+                    $return = [
+                        'name' => $taxonomyData,
+                        'value' => $this->orgMt->value,
+                        'additional_description' => $descriptionData
+                    ];
+                    break;
+            }
+        }
+
+        return $return;
+    }
+}

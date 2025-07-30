@@ -1,0 +1,55 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\DiscountPeriod
+ *
+ * @property int $id
+ * @property int $discount_id
+ * @property int $organization_date_range_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Discount $discount
+ * @property-read OrganizationDateRange $organizationDateRange
+ * @mixin \Eloquent
+ */
+class DiscountPeriod extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'discount_id', 'organization_date_range_id'
+    ];
+
+    /**
+     * Relation to discount
+     * 
+     * @return HasOne
+     */
+    public function discount() {
+        return $this->hasOne(PriceModifier::class, 'id', 'discount_id');
+    }
+
+    /**
+     * Relation to organization DateRange
+     * 
+     * @return HasOne
+     */
+    public function organizationDateRange() {
+        return $this->hasOne(OrganizationDateRange::class, 'id', 'organization_date_range_id');
+    }
+
+}
+

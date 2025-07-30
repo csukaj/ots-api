@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\OrganizationClassificationEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\OrganizationPropertySetter;
+use App\OrganizationClassification;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/OrganizationClassificationController
+ */
+class OrganizationClassificationController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of OrganizationClassifications
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $orgClassifications = OrganizationClassification::where('organization_id', '=', $request->input('organization_id'))->forParent()->orderBy('priority')->get();
+
+        return [
+            'success' => true,
+            'data' => OrganizationClassificationEntity::getCollection($orgClassifications, ['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created OrganizationClassification
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $orgCl = (new OrganizationPropertySetter())->setClassification(new OrganizationClassification(), $request->toArray());
+
+        return [
+            'success' => true,
+            'data' => (new OrganizationClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified OrganizationClassification
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $orgCl = OrganizationClassification::findOrFail($id);
+
+        return [
+            'success' => true,
+            'data' => (new OrganizationClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * update
+     * Update the specified OrganizationClassification
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $orgCl = (new OrganizationPropertySetter())->setClassification(OrganizationClassification::findOrFail($id), $request->toArray());
+        return [
+            'success' => true,
+            'data' => (new OrganizationClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * destroy
+     * Remove the specified OrganizationClassification
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        return [
+            'success' => (bool) OrganizationClassification::findOrFail($id)->delete(),
+            'data' => (new OrganizationClassificationEntity(OrganizationClassification::withTrashed()->findOrFail($id)))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+}
+

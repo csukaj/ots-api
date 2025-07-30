@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Device;
+use App\DeviceDescription;
+use App\DeviceUsage;
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\Product;
+use Modules\Stylersmedia\Manipulators\GallerySetter;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\TaxonomySetter;
+
+/**
+ * Manipulator to create a new Device 
+ * instance after the supplied data passes validation
+ */
+class DeviceSetter
+{
+    const CONNECTION_COLUMN = 'device_id';
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'organization_id' => null,
+        'name' => null,
+        'short_description' => null,
+        'long_description' => null,
+        'type' => null,
+        'amount' => null,
+        'margin_value' => null,
+        'usages' => null
+    ];
+    private $device;
+
+    public function __construct(array $attributes) {
+
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        if (Device::deviceNameExists($this->attributes['organization_id'], $attributes['name'], isset($this->attributes['id']) ? $this->attributes['id'] : null)) {
+            throw new UserException('Room with same name exists.');
+        }
+
+        if (isset($attributes['name'])) {
+            $this->attributes['name_taxonomy_id'] = (new TaxonomySetter($attributes['name'], null, Config::get('taxonomies.names.device_name')))->set()->id;
+        } else {
+            throw new UserException('Empty name');
+        }
+        if (isset($attributes['type'])) {
+            $this->attributes['type_taxonomy_id'] = Taxonomy::getTaxonomy($attributes['type'], Config::get('taxonomies.device'))->id;
+        } else {
+            throw new UserException('Invalid or empty type');
+        }
+        if (empty($attributes['amount'])) {
+            throw new UserException('Amount is required');
+        }
+    }
+
+    /**
+     * Creates new device
+     * @return Device
+     */
+    public function set($hardcodedId = false) {
+
+        $update = (!$hardcodedId && $this->attributes['id']);
+
+        if ($update) {
+            $this->device = Device::findOrFail($this->attributes['id']);
+        } else {
+            $this->device = new Device();
+            $this->device->organization_id = $this->attributes['organization_id'];
+            if ($hardcodedId && $this->attributes['id']) {
+                $this->device->id = $this->attributes['id'];
+            }
+        }
+
+        $this->device->name_taxonomy_id = $this->attributes['name_taxonomy_id'];
+        $this->device->type_taxonomy_id = $this->attributes['type_taxonomy_id'];
+        $this->device->amount = $this->attributes['amount'];
+        $this->device->margin_value = $this->attributes['margin_value'];
+        $this->device->saveOrFail();
+
+        if (!empty($this->attributes['short_description'])) {
+            (new DeviceDescription())->setDescription(
+                self::CONNECTION_COLUMN, $this->device->id, Config::get('taxonomies.device_descriptions.short_description'), $this->attributes['short_description']
+            );
+        }
+        if (!empty($this->attributes['long_description'])) {
+            (new DeviceDescription())->setDescription(
+                self::CONNECTION_COLUMN, $this->device->id, Config::get('taxonomies.device_descriptions.long_description'), $this->attributes['long_description']
+            );
+        }
+
+        if (isset($this->attributes['usages'])) {
+            $setter = new DeviceUsageSetter();
+            $usagesToKeep = [];
+            foreach ($this->attributes['usages'] as $usageData) {
+                $usage = $setter->set($usageData, $this->device->id);
+                $usagesToKeep[] = $usage->id;
+            }
+            $usagesToDelete = DeviceUsage::where('device_id', $this->device->id)->whereNotIn('id', $usagesToKeep)->get();
+            foreach($usagesToDelete as $usage){
+                $usage->elements()->delete();
+                $usage->delete();
+            }
+        }
+
+        if (!$update) {
+            // set default gallery
+            $galleryAttributes = [
+                'galleryable_id' => $this->device->id,
+                'galleryable_type' => Device::class,
+                'role_taxonomy_id' => Config::get('taxonomies.gallery_roles.frontend_gallery')
+            ];
+            (new GallerySetter($galleryAttributes))->set();
+            
+            // set default product
+            $product = new Product();
+            $product->productable_type = Device::class;
+            $product->productable_id = $this->device->id;
+            $product->type_taxonomy_id = Config::getOrFail('taxonomies.product_types.accommodation');
+            $product->saveOrFail();
+        }
+        return $this->device;
+    }
+}

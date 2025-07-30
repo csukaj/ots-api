@@ -1,0 +1,80 @@
+<?php
+
+namespace App\Caches;
+
+use App\Organization;
+use App\ParentOrganization;
+use App\Traits\RedisTrait;
+use Modules\Stylerstaxonomy\Entities\Language;
+
+/**
+ * App\Caches\HotelSearchableTextsCache
+ * 
+ * Cache generator for searchable text list for hotel search using redis
+ */
+class HotelSearchableTextsCache {
+
+    use RedisTrait;
+
+    /**
+     * Get values. Either from cache or from fresh resource if needed
+     * @return array
+     */
+    public function getValues() {
+        return $this->getSelfUpdatedCacheResource(
+            'hotelSearchableTexts', Organization::getLastNameUpdateTimestamp(), 'getFreshSearchableTexts'
+        );
+    }
+
+    /**
+     * Seeder method for searchable texts cache
+     * 
+     * Get existing hotel names, 
+     * fill missing translations with english (default) values
+     * and publicate to cache
+     * 
+     * @return array
+     */
+    protected function getFreshSearchableTexts() {
+        $data = [];
+
+        $languageCodes = array_keys(Language::getLanguageCodes());
+
+        // get existing hotel names
+        $organizationNames = [];
+        foreach (Organization::getHotelNames() as $hotelData) {
+            if (!isset($organizationNames[$hotelData->id])) {
+                $organizationNames[$hotelData->id] = [];
+            }
+            $organizationNames[$hotelData->id][$hotelData->language] = $hotelData->description;
+        }
+
+        // fill missing translations with english (default) values
+        foreach ($organizationNames as $hotelId => $hotelData) {
+            foreach ($languageCodes as $lang) {
+                if (!isset($hotelData[$lang])) {
+                    $organizationNames[$hotelId][$lang] = $organizationNames[$hotelId][Language::getDefault()->iso_code];
+                }
+            }
+        }
+
+        // publicate to cache
+        foreach ($organizationNames as $hotelId => $hotelData) {
+            foreach ($hotelData as $lang => $description) {
+                if (!isset($data[$lang])) {
+                    $data[$lang] = [];
+                }
+                if (!isset($data[$lang][$description])) {
+                    $data[$lang][$description] = [];
+                }
+                if (!isset($data[$lang][$description]['organizations'])) {
+                    $data[$lang][$description]['organizations'] = [];
+                }
+                $data[$lang][$description]['organizations'][] = $hotelId;
+            }
+        }
+        return $data;
+    }
+
+}
+

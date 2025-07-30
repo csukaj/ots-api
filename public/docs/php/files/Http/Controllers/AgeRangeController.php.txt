@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Facades\Config;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * @resource AgeRangeController
+ */
+class AgeRangeController extends Controller {
+
+    /**
+     * index
+     * List all age range taxonomies
+     * @return Response
+     */
+    public function index() {
+        $ageRangeTxs = Taxonomy::findOrFail(Config::getOrFail('taxonomies.age_range'))->getChildren();
+        $ageRangesData = TaxonomyEntity::getCollection($ageRangeTxs, ['translations_with_plurals']);
+        $data = [];
+        foreach ($ageRangesData as $ageRangeData) {
+            if (!empty($ageRangeData['translations_with_plurals'])) {
+                $data[$ageRangeData['name']] = $ageRangeData['translations_with_plurals'];
+            } else {
+                $data[$ageRangeData['name']] = ['en' => ['singular' => $ageRangeData['name'], 'plural' => $ageRangeData['name']]];
+            }
+        }
+        
+        return ['success' => true, 'data' => $data];
+    }
+
+}
+

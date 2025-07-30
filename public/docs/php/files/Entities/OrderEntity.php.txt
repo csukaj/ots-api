@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Entities;
+
+use App\Order;
+
+class OrderEntity extends Entity {
+
+    protected $order;
+
+    public function __construct(Order $order) {
+        parent::__construct();
+
+        $this->order = $order;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = $this->order->attributesToArray();
+
+        $return['items'] = OrderItemEntity::getCollection($this->order->items, $additions);
+
+        return $return;
+    }
+
+}
+

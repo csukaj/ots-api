@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\ParentOrganizationEntity;
+use App\Exceptions\UserException;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\ParentOrganizationSetter;
+use App\ParentOrganization;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/ParentOrganizationController
+ */
+class ParentOrganizationController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of ParentOrganization
+     * @return Response
+     */
+    public function index() {
+        return [
+            'success' => true,
+            'data' => ParentOrganizationEntity::getCollection(ParentOrganization::all())
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created ParentOrganization
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $parentOrganization = (new ParentOrganizationSetter($request->all()))->set();
+        return ['success' => true, 'data' => (new ParentOrganizationEntity($parentOrganization))->getFrontendData()];
+    }
+
+    /**
+     * show
+     * Display the specified ParentOrganization
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        return [
+            'success' => true,
+            'data' => (new ParentOrganizationEntity(ParentOrganization::findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+    /**
+     * update
+     * Update the specified ParentOrganization
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $parentOrganization = (new ParentOrganizationSetter($request->all()))->set();
+        return ['success' => true, 'data' => (new ParentOrganizationEntity($parentOrganization))->getFrontendData()];
+    }
+
+    /**
+     * destroy
+     * Remove the specified ParentOrganization
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $parentOrganization = ParentOrganization::findOrFail($id);
+        if (count($parentOrganization->childOrganizations)) {
+            throw new UserException('You can not delete a parent organization with child organizations.');
+        }
+        return [
+            'success' => $parentOrganization->delete(),
+            'data' => (new ParentOrganizationEntity(ParentOrganization::withTrashed()->findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+}
+

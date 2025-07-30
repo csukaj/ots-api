@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlnyugtavalasz xmlns="http://www.szamlazz.hu/xmlnyugtavalasz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlnyugtavalasz http://www.szamlazz.hu/docs/xsds/nyugta/xmlnyugtavalasz.xsd">
+  <sikeres>true</sikeres>                                                <!-- REQ boolean -->
+  <hibakod></hibakod>                                                    <!--     string  --> <!-- hiba esetén a hibakód -->
+  <hibauzenet></hibauzenet>                                              <!--     string  --> <!-- hiba esetén a hibaüzenet -->
+
+  <nyugtaPdf>...</nyugtaPdf>                                             <!--     string  --> <!-- nyugta PDF base64 enkódolással -->
+  
+  <nyugta>                                                               <!-- REQ         -->
+    <alap>                                                               <!-- REQ         -->
+      <id>123456</id>                                                    <!-- REQ id      -->
+      <hivasAzonosito></hivasAzonosito>                                  <!--     string  --> <!-- ha meg volt adva a nyugta létrehozásakor akkor a nyugta hívásazonosítója -->
+      <nyugtaszam>NYGT-2017-123</nyugtaszam>                             <!-- REQ string  -->
+      <tipus>NY</tipus>                                                  <!-- REQ string  --> <!-- Nyugta típusa: NY esetén "Nyugta", SN esetén "Nyugta sztornó" -->
+      <stornozott>false</stornozott>                                     <!-- REQ boolean --> <!-- true ha a nyugta stornózott, false egyébként (NY típus esetén érdekes) -->
+      <stornozottNyugtaszam>NYGT-2017-100</stornozottNyugtaszam>         <!--     string  --> <!-- Ha a nyugta sztornózó, akkor a sztornózott számla száma (SN típus esetén jelzi melyik nyugta lett sztornózva) -->
+      <kelt>2015-12-01</kelt>                                            <!-- REQ date    --> <!-- Nyugta kelte -->
+      <fizmod>készpénz</fizmod>                                          <!-- REQ string  -->
+      <penznem>EUR</penznem>                                             <!-- REQ string  --> <!-- üres, Ft, HUF, EUR, CHF, USD, ... -->
+      <devizabank></devizabank>                                          <!--     string  -->
+      <devizaarf>210</devizaarf>                                         <!--     double  -->
+      <megjegyzes></megjegyzes>                                          <!--     string  -->
+      <fokonyvVevo></fokonyvVevo>                                        <!--     string  --> <!-- könyvelési információ -->
+      <teszt>false</teszt>                                               <!-- REQ boolean --> <!-- Teszt vagy valós céggel lett létrehozva a nyugta -->
+    </alap>
+    
+    <tetelek>
+      <tetel>
+        <azonosito></azonosito>                                          <!--     string  --> <!-- tétel azonosítója -->
+        <megnevezes>Kiscicás lábtörlő</megnevezes>                       <!-- REQ string  --> <!-- tétel megnevezése -->
+        <mennyiseg>2.0</mennyiseg>                                       <!-- REQ double  --> <!-- tétel mennyisége -->
+        <mennyisegiEgyseg>db</mennyisegiEgyseg>                          <!-- REQ string  --> <!-- tétel mennyiségi egysége -->
+        <nettoEgysegar>10000</nettoEgysegar>                             <!-- REQ double  --> <!-- tétel nettó egységár -->
+        <netto>20000.0</netto>                                           <!-- REQ double  --> <!-- tétel nettó érték (egységár * mennyiség) -->
+        <afakulcs>27</afakulcs>                                          <!-- REQ double  --> <!-- áfakulcs -->
+        <afa>5400.0</afa>                                                <!-- REQ double  --> <!-- áfa értéke -->
+        <brutto>25400.0</brutto>                                         <!-- REQ double  --> <!-- bruttó érték -->
+        <fokonyv>                                                        <!--             --> <!-- tétel főkönyvi információk -->
+          <arbevetel></arbevetel>                                        <!--     string  --> <!-- árbevétel főkönyvi száma -->
+          <afa></afa>                                                    <!--     string  --> <!-- áfa főkönyvi száma -->
+        </fokonyv>
+      </tetel>
+      <tetel>
+        <megnevezes>Kiskutyás lábtörlő</megnevezes>
+        <mennyiseg>2.0</mennyiseg>
+        <mennyisegiEgyseg>db</mennyisegiEgyseg>
+        <nettoEgysegar>10000</nettoEgysegar>
+        <nettoErtek>20000.0</nettoErtek>
+        <afakulcs>27</afakulcs>
+        <afaErtek>5400.0</afaErtek>
+        <bruttoErtek>25400.0</bruttoErtek>
+      </tetel>
+    </tetelek>
+  
+    <kifizetesek>
+      <kifizetes>
+        <fizetoeszkoz>utalvány</fizetoeszkoz>
+        <osszeg>1000.0</osszeg>
+        <leiras>OTP SZÉP kártya</leiras>
+      </kifizetes>
+      <kifizetes>
+        <fizetoeszkoz>bankkártya</fizetoeszkoz>
+        <osszeg>3000.0</osszeg>
+      </kifizetes>
+    </kifizetesek>
+  
+    <osszegek>
+      <afakulcsossz>                                                     <!-- REQ int     -->
+        <afatipus>ÁKK</afatipus>                                         <!--     string  --> <!--  ÁKK: áfakörön kívüli, K.AFA: különbözeti áfa, F.AFA: fordított áfa fizetés, MAA: Mentes az adó alól, EUK: EU-n kívül, EU: EU-n belül, AAM: Alanyi adómentes, TAM: Tárgyi adómentes -->
+        <afakulcs>0</afakulcs>                                           <!-- REQ double  -->
+        <netto>200</netto>                                               <!-- REQ double  -->
+        <afa>54</afa>                                                    <!-- REQ double  -->
+        <brutto>254</brutto>                                             <!-- REQ double  -->
+      </afakulcsossz>
+      <totalossz>                                                        <!-- REQ         -->
+        <netto>200</netto>                                               <!-- REQ double  -->
+        <afa>54</afa>                                                    <!-- REQ double  -->
+        <brutto>254</brutto>                                             <!-- REQ double  -->
+      </totalossz>
+    </osszegek>
+  </nyugta>
+
+</xmlnyugtavalasz>

@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\DeviceClassification;
+use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+use Modules\Stylerstaxonomy\Manipulators\TaxonomySetter;
+
+/**
+ * Manipulator to create a new DeviceClassification 
+ * instance after the supplied data passes validation
+ */
+class DevicePropertySetter {
+    
+    const CATEGORY_PARENT_TX_ID = 115;
+
+    public function __construct() {
+        //
+    }
+
+    /**
+     * Creates or updates an DeviceClassification
+     * @return DeviceClassification
+     */
+    public function setClassification(DeviceClassification $devCl, $requestArray) {
+        if ($devCl->device_id) {
+            $requestArray['device_id'] = $devCl->device_id;
+        }
+        if ($devCl->parent_classification_id) {
+            $requestArray['parent_classification_id'] = $devCl->parent_classification_id;
+        }
+        $devCl->fill($requestArray);
+
+        if (empty($requestArray['taxonomy'])) {
+            $devCl->classification_taxonomy_id = null;
+        } else {
+            if (empty($requestArray['taxonomy']['parent_id'])) {
+                if ($devCl->parent_classification_id) {
+                    $parentCl = DeviceClassification::findOrFail($devCl->parent_classification_id);
+                    $requestArray['taxonomy']['parent_id'] = $parentCl->classification_taxonomy_id;
+                } else {
+                    $requestArray['taxonomy']['parent_id'] = self::CATEGORY_PARENT_TX_ID;
+                }
+            }
+            $devCl->classification_taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['taxonomy'])->id;
+        }
+        
+        if ($this->classificationIsDuplicate($devCl)) {
+            throw new UserException('There is already a property with the same name. Instead of creating a duplication try to edit the existing one!');
+        }
+
+        if (empty($requestArray['value'])) {
+            $devCl->value_taxonomy_id = null;
+        } else {
+            if (empty($requestArray['value']['parent_id'])) {
+                $requestArray['value']['parent_id'] = $devCl->classification_taxonomy_id;
+            }
+            $devCl->value_taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['value'])->id;
+        }
+
+        if (!empty($requestArray['additional_description'])) {
+            $devCl->additional_description_id = (new DescriptionSetter($requestArray['additional_description'], $devCl->additional_description_id))->set()->id;
+        }
+
+        if (isset($requestArray['child_classifications'])) {
+            $this->setClassificationChild($devCl, $requestArray['child_classifications']);
+        }
+        $devCl->load(['childClassifications']);
+
+        $devCl->saveOrFail();
+
+        return $devCl;
+    }
+
+    private function setClassificationChild(DeviceClassification $parentDevCl, $childClassificationData) {
+        $return = [];
+        $childClassifications = $parentDevCl->childClassifications;
+        foreach ($childClassificationData as $childData) {
+            $childCl = null;
+            if (!empty($childData['id'])) {
+                $childKey = DeviceClassification::findKeyById($childData['id'], $childClassifications);
+                if (!is_null($childKey)) {
+                    $childCl = $childClassifications[$childKey];
+                    unset($childClassifications[$childKey]);
+                }
+            }
+            if (is_null($childCl)) {
+                $childCl = new DeviceClassification();
+                $childCl->device_id = $parentDevCl->device_id;
+                $childCl->parent_classification_id = $parentDevCl->id;
+            }
+            $return[] = $this->setClassification($childCl, $childData);
+        }
+        foreach ($childClassifications as $childCl) {
+            $childCl->delete();
+        }
+        return $return;
+    }
+
+    private function createOrUpdateTaxonomy($data) {
+        $defaultLanguage = Language::getDefault();
+        $translations = $data['translations'];
+        $translations[$defaultLanguage->iso_code] = $data['name'];
+        $id = !empty($data['id']) ? $data['id'] : null;
+        $parentId = !empty($data['parent_id']) ? $data['parent_id'] : Config::get('taxonomies.organization_classifications.category');
+        if (empty($id) && Taxonomy::taxonomyExists($data['name'], $parentId)) {
+            throw new UserException('There is already a taxonomy with the same name. Instead of creating a duplication try to use the existing one!');
+        }
+        return (new TaxonomySetter($translations, $id, $parentId, null, $data))->set();
+    }
+
+    private function classificationIsDuplicate(DeviceClassification $devCl) {
+        $devClExists = DeviceClassification::where('device_id', '=', $devCl->device_id);
+        $devClExists->where(function ($query) use ($devCl) {
+            if (!empty($devCl->classification_taxonomy_id)) {
+                $query->orWhere('classification_taxonomy_id', '=', $devCl->classification_taxonomy_id);
+            } else {
+                $query->orWhereNull('classification_taxonomy_id');
+            }
+            if (!empty($devCl->priority)) {
+                $query->orWhere('priority', '=', $devCl->priority);
+            }
+        });
+
+        if (!empty($devCl->parent_classification_id)) {
+            $devClExists->where('parent_classification_id', '=', $devCl->parent_classification_id);
+        } else {
+            $devClExists->whereNull('parent_classification_id');
+        }
+
+        if (!empty($devCl->id)) {
+            $devClExists->where('id', '!=', $devCl->id);
+        }
+        
+        $devClExists->whereNull('deleted_at');
+        
+        return (bool) $devClExists->count();
+    }
+
+}
+

@@ -1,0 +1,15 @@
+{
+    "name": "Stylersmedia",
+    "alias": "stylersmedia",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stylersmedia\\Providers\\StylersmediaServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

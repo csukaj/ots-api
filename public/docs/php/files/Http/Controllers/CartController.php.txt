@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Entities\CartElementEntity;
+use App\Entities\CartEntity;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource CartController
+ */
+class CartController extends Controller {
+
+    /**
+     * update
+     * Update cart elements by re-running hotel searches and updating price & discount calculations
+     * @return Response
+     */
+    public function update(Request $request) {
+        $cart = new CartEntity(['elements' => CartElementEntity::hydrate($request->toArray()['elements'])]);
+        return ['success' => true, 'data' => $cart->update()->elements];
+    }
+
+}
+

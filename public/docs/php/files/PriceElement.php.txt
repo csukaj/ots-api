@@ -1,0 +1,169 @@
+<?php
+
+namespace App;
+
+use App\Manipulators\PriceCalculator;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\PriceElement
+ *
+ * @property int $id
+ * @property int $price_id
+ * @property int $organization_meal_plan_id
+ * @property int $organization_date_range_id
+ * @property float $net_price
+ * @property float $rack_price
+ * @property int $margin_type_taxonomy_id
+ * @property float $margin_value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Taxonomy $marginType
+ * @property-read OrganizationDateRange $organizationDateRange
+ * @property-read OrganizationMealPlan $organizationMealPlan
+ * @property-read Price $price
+ * @mixin \Eloquent
+ */
+class PriceElement extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'price_id', 'organization_meal_plan_id', 'organization_date_range_id', 'net_price', 'rack_price', 'margin_type_taxonomy_id', 'margin_value'
+    ];
+
+    /**
+     * Custom save for PriceElement overwriting Model::save()
+     * Sets margin type of Date range if assigned
+     * 
+     * @param array $options
+     * @return type
+     */
+    public function save(array $options = []) {
+        if (!empty($this->organization_date_range_id)) {
+            $this->margin_type_taxonomy_id = OrganizationDateRange::findOrFail($this->organization_date_range_id)->organization->margin_type_taxonomy_id;
+        } else {
+            $this->margin_type_taxonomy_id = null;
+        }
+
+        return parent::save($options);
+    }
+
+    /**
+     * Relation to price
+     * 
+     * @return HasOne
+     */
+    public function price() : HasOne {
+        return $this->hasOne(Price::class, 'id', 'price_id');
+    }
+
+    /**
+     * Relation to organizationMealPlan
+     * 
+     * @return HasOne
+     */
+    public function organizationMealPlan() : HasOne {
+        return $this->hasOne(OrganizationMealPlan::class, 'id', 'organization_meal_plan_id');
+    }
+
+    /**
+     * Relation to organizationDateRange
+     * 
+     * @return HasOne
+     */
+    public function organizationDateRange() : HasOne {
+        return $this->hasOne(OrganizationDateRange::class, 'id', 'organization_date_range_id');
+    }
+
+    /**
+     * Relation to marginType
+     * 
+     * @return HasOne
+     */
+    public function marginType() : HasOne {
+        return $this->hasOne(Taxonomy::class, 'id', 'margin_type_taxonomy_id');
+    }
+
+    /**
+     * Resets Price element properties
+     * 
+     * @return PriceElement
+     */
+    public function resetPrices(): PriceElement {
+        $this->net_price = null;
+        $this->rack_price = null;
+        return $this;
+    }
+
+    /**
+     * recalculate Prices based on type of price set
+     * 
+     * @return PriceElement
+     */
+    public function recalculatePrices(): PriceElement {
+        if (is_null($this->rack_price)) {
+            $this->rack_price = $this->calculateRackPrice();
+        } elseif (is_null($this->net_price)) {
+            $this->net_price = $this->calculateNetPrice();
+        }
+        return $this;
+    }
+
+    /**
+     * Recalculate price based on existing rack price
+     * 
+     * @return float
+     */
+    public function calculateNetPrice(): float {
+        $calc = new PriceCalculator();
+        $calc->initWithRackPrice($this->rack_price, $this->margin_value, $this->margin_type_taxonomy_id);
+        return $calc->getNetPrice();
+    }
+
+    /**
+     * Recalculate price based on existing net price
+     * 
+     * @return float
+     */
+    public function calculateRackPrice(): float {
+        $calc = new PriceCalculator();
+        $calc->initWithNetPrice($this->net_price, $this->margin_value, $this->margin_type_taxonomy_id);
+        return $calc->getRackPrice();
+    }
+
+    /**
+     * Get price  element by parameters
+     * 
+     * @param array $params parameters to search for
+     * @param bool $withTrashed retur with deleted elements too?
+     * @return PriceElement
+     * @static
+     */
+    static public function getByParameters(array $params, bool $withTrashed = false): PriceElement {
+        $dateRange = OrganizationDateRange::findOrFail($params['date_range_id']);
+        $mealPlanId = OrganizationMealPlan::findByName($params['meal_plan'], $dateRange->organization_id, $dateRange->id)->id;
+
+        $query = PriceElement
+            ::where('price_id', '=', $params['price_id'])
+            ->where('organization_date_range_id', '=', $dateRange->id)
+            ->where('organization_meal_plan_id', '=', $mealPlanId);
+        if ($withTrashed) {
+            $query = $query->withTrashed();
+        }
+        $existing = $query->get();
+        return count($existing) ? $existing[0] : null;
+    }
+
+}
+

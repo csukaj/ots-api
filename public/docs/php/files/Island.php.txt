@@ -1,0 +1,105 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Island
+ *
+ * @property int $id
+ * @property int $name_taxonomy_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Collection|District[] $districts
+ * @property-read Collection|Location[] $locations
+ * @property-read Taxonomy $name
+ * @mixin \Eloquent
+ */
+class Island extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name_taxonomy_id'];
+
+    /**
+     * Relation to name taxonomy
+     * 
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Taxonomy::class, 'id', 'name_taxonomy_id');
+    }
+
+    /**
+     * Relation to district
+     * 
+     * @return HasMany
+     */
+    public function districts() {
+        return $this->hasMany(District::class, 'island_id', 'id');
+    }
+
+    /**
+     * Relation to location
+     * 
+     * @return HasMany
+     */
+    public function locations() {
+        return $this->hasMany(Location::class, 'island_id', 'id');
+    }
+
+    /**
+     * Find island by name
+     * 
+     * @param string $name
+     * @return Island
+     */
+    static public function findByName(string $name): Island {
+        $nameTx = Taxonomy::getTaxonomy($name, Config::get('taxonomies.island'));
+        return self::where(['name_taxonomy_id' => $nameTx->id])->firstOrFail();
+    }
+
+    /**
+     * Return all island ids
+     * 
+     * @return array
+     */
+    static public function getIslandIds(): array {
+        return self::all()->pluck('id')->toArray();
+    }
+
+    /**
+     * get all Islands In Order by priority
+     * 
+     * @return Collection
+     */
+    static public function getIslandsInOrder(): Collection {
+        return Island::hydrate(
+                        DB
+                                ::table('islands')
+                                ->select('islands.*')
+                                ->join('taxonomies', 'islands.name_taxonomy_id', '=', 'taxonomies.id')
+                                ->orderBy('taxonomies.priority', 'asc')
+                                ->get()
+                                ->toArray()
+        );
+    }
+
+}
+

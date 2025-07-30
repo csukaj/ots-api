@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Caches;
+
+use App\Entities\OrganizationEntity;
+use App\Facades\Config;
+use App\ParentOrganization;
+use App\Traits\RedisTrait;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class HotelSearchOptionsCache {
+
+    use RedisTrait;
+
+    public function getValues() {
+        return $this->getSelfUpdatedCacheResource(
+            'hotelSearchOptions', max(strtotime(DB::table('parent_organizations')->max('updated_at')), strtotime(DB::table('taxonomies')->max('updated_at'))), 'getFreshSearchOptions'
+        );
+    }
+
+    protected function getFreshSearchOptions() {
+        $txList = [];
+
+        $emptyCategory = ['name' => ['en' => null], 'priority' => null, 'items' => [
+            $this->taxonomizeParentOrganization(),
+        ]];
+
+        $hardcodedTxIds = OrganizationEntity::getHardcodedSearchoptionTaxonomyIds();
+        $hardcodedTxCollection = Taxonomy::findOrFail($hardcodedTxIds);
+        $emptyCategory['items'] = array_merge($emptyCategory['items'], TaxonomyEntity::getCollection($hardcodedTxCollection, ['searchable_info', 'descendants']));
+
+        $txList[] = $emptyCategory;
+
+        $categories = Config::get('taxonomies.organization_classifications.categories');
+        foreach ($categories as $category) {
+            $categoryTx = Taxonomy::find($category['id']);
+            $txData = (new TaxonomyEntity($categoryTx))->getFrontendData(['searchable_info']);
+            $searchableChildren = $categoryTx->children()->searchable()->whereNotIn('id', $hardcodedTxIds)->get();
+            $txData['items'] = TaxonomyEntity::getCollection($searchableChildren, ['searchable_info', 'descendants']);
+            if (!empty($txData['items'])) {
+                $txList[] = $txData;
+            }
+        }
+
+        return $txList;
+    }
+
+    private function taxonomizeParentOrganization() {
+        $parentOption = ['name' => ['en' => 'Hotel Chain', 'hu' => 'Szállodalánc'], 'priority' => 1, 'descendants' => []];
+        foreach (ParentOrganization::all() as $parent) {
+            $parentOption['descendants'][] = ['name' => ['en' => $parent->name], 'priority' => null, 'descendants' => []];
+        }
+        return $parentOption;
+    }
+
+}
+

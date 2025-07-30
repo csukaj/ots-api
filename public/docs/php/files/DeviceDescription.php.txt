@@ -1,0 +1,51 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\DescriptionTrait;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\DeviceDescription
+ *
+ * @property int $id
+ * @property int $device_id
+ * @property int $taxonomy_id
+ * @property int $description_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $description
+ * @property-read Taxonomy $descriptionTaxonomy
+ * @property-read Device $device
+ * @mixin \Eloquent
+ */
+class DeviceDescription extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        DescriptionTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['device_id', 'taxonomy_id', 'description_id'];
+
+    /**
+     * Relation to device
+     * 
+     * @return HasOne
+     */
+    public function device() {
+        return $this->hasOne(Device::class);
+    }
+
+}
+

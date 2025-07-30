@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamlakifiz xmlns="http://www.szamlazz.hu/xmlszamlakifiz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamlakifiz http://www.szamlazz.hu/docs/xsds/agentkifiz/xmlszamlakifiz.xsd">
+  <beallitasok>
+    <felhasznalo>Kérem töltse ki!</felhasznalo>
+    <jelszo>Kérem töltse ki!</jelszo>
+    <szamlaszam>E-TST-2011-1</szamlaszam>
+    <additiv>false</additiv>
+    <aggregator></aggregator>
+  </beallitasok>
+  <kifizetes> 
+    <datum>2012-01-01</datum>
+    <jogcim>készpénz</jogcim>
+    <osszeg>1000</osszeg>
+  </kifizetes>
+  <kifizetes> 
+    <datum>2012-01-15</datum>
+    <jogcim>átutalás</jogcim>
+    <osszeg>2000</osszeg>
+    <leiras>Teszt leírás</leiras>
+  </kifizetes>
+</xmlszamlakifiz>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamlaxml xmlns="http://www.szamlazz.hu/xmlszamlaxml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamlaxml http://www.szamlazz.hu/docs/xsds/agentpdf/xmlszamlaxml.xsd">
+  <felhasznalo>Kérem töltse ki!</felhasznalo>
+  <jelszo>Kérem töltse ki!</jelszo>
+  <szamlaszam>E-TST-2011-1</szamlaszam>
+  <!-- ><rendelesSzam></rendelesSzam> < a számla rendelésszám alapján is lekérdezhető. Ebben az esetben a legutolsó bizonylatot adjuk vissza, amelyiknek ez a rendelésszáma.  -->  
+  <!-- 
+	  <pdf>true</pdf>  Csak akkor kell, ha le szeretnénk tölteni a pdf-et
+  -->
+ </xmlszamlaxml>

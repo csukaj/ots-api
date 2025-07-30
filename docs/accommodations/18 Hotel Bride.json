@@ -1,0 +1,629 @@
+{
+  "id": 18,
+  "parent": "Hotel Chain A",
+  "name": {
+    "en": "Hotel Bride",
+    "de": "Das Hotel Braut",
+    "hu": "Menyecske Szálloda",
+    "ru": "мамочки в отеле"
+  },
+  "short_name": {
+    "en": "Bride",
+    "de": "Bride",
+    "hu": "Bride",
+    "ru": "Bride"
+  },
+  "type": "accommodation",
+  "is_active": true,
+  "pricing_logic": "from_net_price",
+  "margin_type": "percentage",
+  "created": "2017-01-16 09:33:33",
+  "updated": "2017-01-16 09:33:33",
+  "deleted": null,
+  "location": {
+    "island": "Mahé"
+  },
+  "media": [
+    {
+      "source_url": "10857092.jpg",
+      "description": {
+        "en": "Lorem ipsum sit dolor amet"
+      },
+      "type": "image",
+      "highlighted": true,
+      "priority": 0
+    }
+  ],
+  "classifications": {
+    "settings": {
+      "classifications": [
+        {
+          "name": "Availability mode",
+          "value": "binary"
+        },
+        {
+          "name": "Price level",
+          "value": "$$"
+        },
+        {
+          "name": "Discount calculations base",
+          "value": "rack prices"
+        },
+        {
+          "name": "Merged free nights",
+          "value": "enabled"
+        }
+      ],
+      "metas": []
+    },
+    "facilities": {
+      "classifications": [],
+      "metas": []
+    },
+    "checkinout": {
+      "classifications": [],
+      "metas": []
+    },
+    "general": {
+      "classifications": [
+        {
+          "name": "Accommodation Category",
+          "value": "Hotel"
+        }
+      ],
+      "metas": [
+        {
+          "name": "Number of rooms",
+          "value": 60,
+          "is_listable": true
+        },
+        {
+          "name": "Built in",
+          "value": 1985,
+          "is_listable": true
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "short_description": {
+      "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+      "hu": "Kranca: a genus, közlegesek kodása, gánságos esztések kodása, rempó, típia, érseny balása és tukacozása.",
+      "ru": "Etiam Орси Lorem, Varius магна Eget, Лев ID патч в Метус."
+    },
+    "long_description": {
+      "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+      "hu": "Lórum ipse számos máshol nehezen púpos dítményet és römnyi sifjont is gernoz. A függő majnokok pangyásán 71, a dalmasakén 49 fajosság iszok bösít el, a hígságon pedig általában 8 (függő), illetve 11 (dalmas) veztegedő iszok felt futás sősésök helyett. Dalmas pszlások balbulamában a matváson és a gernyó 68, az ezéken pedig kederes 167 iszok bösít el. Annyi azonban tompós, hogy a függő pszlások esetén 2.891.000 forty, dalmas pszlások esetén 2.387.000 forty a lélő séták foros higása. Jövezők, kerások rideva kozás, és spolyos duskájából. Tovább mozik a szinéz egyedes szárgyias hasága után foris” lácius”. A teli szikezés csalomj Hamar orgány pszusát az egyedes fogázsa végén tőgyelte be a melő piszti enység. A melő borájda matika azonban nyugáros kékesztettel hasított: füttyös lanyuska facsosta a szikezés blaszkot három borájdájának köke győzésnek, csalon herménynek és kárlatás herménynek a pszusát.",
+      "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur Лев ID патч в Метус Commodo molestie AC Quis диам. Fusce sollicitudin Nulla на turpis accumsan auctor не Eget Lectus. Pellentesque placerat pulvinar изречение. Sed facilisis Lorem в Метус экскретов, включенные в другие группировки consequat Dolor sagittis. Aenean ultricies arcu ID дуй Mollis luctus. Vivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim. Nulla Erat neque, suscipit и др ех идентификатор, dapibus Elementum Sapien. Nullam accumsan, tortor ес tincidunt зетрег, бывший Элит pulvinar Felis, ес venenatis Лев либеро магна. Phasellus ornare Метус Nunc, в Elementum диам venenatis и др. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, ут suscipit Метус.\nPellentesque Vitae turpis ЕС фелис ​​fermentum sodales. Nulla Sapien tortor, tincidunt и др Квам Vitae, gravida blandit Lectus. Донец molestie ultricies дуй, Vitae lobortis nibh placerat в. Integer Маттис sagittis Varius. Донец consequat в Эст Vitae finibus. Pellentesque обитатель MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis экскретов. Integer и др Massa pharetra велит Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat ут Cursus blandit, nibh велит sollicitudin пзиз, и др placerat Lorem ех СЕПГ миль."
+    }
+  },
+  "age_ranges": [
+    {
+      "from_age": 0,
+      "to_age": 2,
+      "name_taxonomy": "baby"
+    },
+    {
+      "from_age": 3,
+      "to_age": 13,
+      "name_taxonomy": "child"
+    },
+    {
+      "from_age": 14,
+      "to_age": null,
+      "name_taxonomy": "adult"
+    }
+  ],
+  "date_ranges": [
+    {
+      "relative_id": 1,
+      "name": {
+        "en": "2026"
+      },
+      "from_time": "2026-01-01",
+      "to_time": "2026-12-31",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 1
+    }
+  ],
+  "devices": {
+    "room": [
+      {
+        "name": {
+          "en": "Comfy Room"
+        },
+        "amount": 3,
+        "short_description": {
+          "en": "Lorem ipsum dolor sit amet.",
+          "de": "Das Ut fringilla elit risus.",
+          "hu": "Csipolódja inke.",
+          "ru": "Etiam Орси Lorem, патч в Метус."
+        },
+        "long_description": {
+          "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+          "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+          "hu": "A többi türgéröknek nem szeszt mellegük a folyára - csipolódja inke -, mivel az előre nyolvas ranábocskák pránya olyannyira csucsorítja bolvámságukat.",
+          "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+        },
+        "usages": [
+          {
+            "elements": {
+              "adult": 3,
+              "child": 3
+            }
+          }
+        ],
+        "availabilities": [
+          {
+            "from_time": "2026-01-01",
+            "to_time": null,
+            "amount": 3
+          }
+        ],
+        "metas": {
+          "size_from": 1,
+          "size_to": 6,
+          "number": 1
+        },
+        "classifications": {},
+        "margin_value": 10,
+        "products": [
+          {
+            "id": 29,
+            "type": "accommodation",
+            "prices": [
+              {
+                "name_taxonomy": {
+                  "en": "Single Adult"
+                },
+                "age_range": "adult",
+                "amount": 1,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "rack_price": 110,
+                    "margin_value": 15
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Double Adult"
+                },
+                "age_range": "adult",
+                "amount": 2,
+                "mandatory": 1,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "rack_price": 200,
+                    "margin_value": 15
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Adult"
+                },
+                "age_range": "adult",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "rack_price": 180,
+                    "margin_value": 15
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Child"
+                },
+                "age_range": "child",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "rack_price": 80,
+                    "margin_value": 15
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "discounts": [
+    {
+      "relative_id": 69,
+      "is_active": true,
+      "priority": 5,
+      "name": {
+        "en": "Anniversary in 30 days range"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-01-01",
+          "to_time": "2027-01-05",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30
+      }
+    },
+    {
+      "relative_id": 70,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Wedding/Anniversary during travel"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2026-12-29",
+          "to_time": "2027-01-01",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "wedding/anniversary_during_travel"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2
+      }
+    },
+    {
+      "relative_id": 71,
+      "is_active": true,
+      "priority": 6,
+      "name": {
+        "en": "Anniversary - Anniversary in 30 days + Only Once = first"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-01-06",
+          "to_time": "2027-01-10",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "only_once"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30
+      }
+    },
+    {
+      "relative_id": 72,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Anniversary during travel + only_once + period = 2"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-01-11",
+          "to_time": "2027-01-15",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "wedding/anniversary_during_travel",
+        "only_once"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_year_period": 2
+      }
+    },
+    {
+      "relative_id": 73,
+      "is_active": true,
+      "priority": 5,
+      "name": {
+        "en": "Anniversary in 60 days range and in december"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-12-01",
+          "to_time": "2027-12-05",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 60
+      }
+    },
+    {
+      "relative_id": 74,
+      "is_active": true,
+      "priority": 6,
+      "name": {
+        "en": "Anniversary in 30 days + Only Once = first and in december"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-12-06",
+          "to_time": "2027-12-10",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "only_once"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30
+      }
+    },
+    {
+      "relative_id": 75,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Anniversary during travel + only_once + period = 2 and in december"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-100}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-12-11",
+          "to_time": "2027-12-15",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "wedding/anniversary_during_travel",
+        "only_once"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_year_period": 2
+      }
+    },
+    {
+      "relative_id": 76,
+      "is_active": true,
+      "priority": 5,
+      "name": {
+        "en": "Anniversary in 30 days range and year period is 5"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2028-12-24",
+          "to_time": "2028-12-30",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30,
+        "anniversary_year_period": 5
+      }
+    },
+    {
+      "relative_id": 77,
+      "is_active": true,
+      "priority": 5,
+      "name": {
+        "en": "Anniversary in 30 days range and year period is 5"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2028-01-01",
+          "to_time": "2028-01-10",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30,
+        "anniversary_year_period": 5
+      }
+    },
+    {
+      "relative_id": 78,
+      "is_active": true,
+      "priority": 5,
+      "name": {
+        "en": "Anniversary in 30 days range and year period is 5 and accepted only once"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2028-01-11",
+          "to_time": "2028-01-20",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+        "only_once"
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_days": 30,
+        "anniversary_year_period": 5
+      }
+    },
+    {
+      "relative_id": 81,
+      "is_active": true,
+      "priority": 6,
+      "name": {
+        "en": "Anniversary in 1 month range and year period is 5"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-02-01",
+          "to_time": "2027-02-10",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "anniversary_in_range_months": 1,
+        "anniversary_year_period": 5
+      }
+    },
+    {
+      "relative_id": 82,
+      "is_active": true,
+      "priority": 7,
+      "name": {
+        "en": "Wedding in 1 month range"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-02-11",
+          "to_time": "2027-02-20",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [
+      ],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "wedding_in_less_than_months": 1
+      }
+    }
+  ],
+  "discount_combinations": []
+}

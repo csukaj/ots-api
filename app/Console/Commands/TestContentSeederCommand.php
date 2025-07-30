@@ -1,0 +1,154 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Content;
+use App\ContentMedia;
+use App\ContentModification;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylersauth\Entities\User;
+use Modules\Stylersmedia\Entities\File;
+use Modules\Stylersmedia\Manipulators\FileSetter;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
+
+/**
+ * Seeds sample 'contents' to  a database from JSON source
+ */
+class TestContentSeederCommand extends Command {
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:testcontentseeder {--database=local}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Seeds a database from JSON source';
+
+    /**
+     * Database connection name used
+     */
+    protected $database;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle() {
+        $file = 'docs/content.json';
+        $this->database = $this->option('database');
+        Config::set('database.default', $this->database);
+
+        foreach (json_decode(file_get_contents($file), true) as $pageData) {
+            $content = new Content();
+
+            $content->written_by = isset($pageData['written_by']) ? $pageData['written_by'] : null;
+            $content->edited_by = isset($pageData['edited_by']) ? $pageData['edited_by'] : null;
+            $content->title_description_id = $this->setDescriptionObj($pageData['title'])->id;
+            $content->author_user_id = User::where('name', $pageData['author'])->firstOrFail()->id;
+            $content->status_taxonomy_id = Taxonomy::getTaxonomy($pageData['status'], Config::get('taxonomies.content_status'))->id;
+            if (!empty($pageData['category'])) {
+                $content->category_taxonomy_id = Taxonomy::getTaxonomy($pageData['category'], Config::get('taxonomies.content_category'))->id;
+            }
+            if (!empty($pageData['lead'])) {
+                $content->lead_description_id = $this->setDescriptionObj($pageData['lead'])->id;
+            }
+            if (!empty($pageData['content'])) {
+                $content->content_description_id = $this->setDescriptionObj($pageData['content'])->id;
+            }
+            $content->url_description_id = $this->setDescriptionObj($pageData['url'])->id;
+            ;
+            if (!empty($pageData['meta_title'])) {
+                $content->meta_title_description_id = $this->setDescriptionObj($pageData['meta_title'])->id;
+            }
+            if (!empty($pageData['meta_description'])) {
+                $content->meta_description_description_id = $this->setDescriptionObj($pageData['meta_description'])->id;
+            }
+            if (!empty($pageData['meta_keyword'])) {
+                $content->meta_keyword_description_id = $this->setDescriptionObj($pageData['meta_keyword'])->id;
+            }
+
+            $content->saveOrFail();
+
+            if (!empty($pageData['content_modifications'])) {
+                $this->setModifications($pageData['content_modifications'], $content);
+            }
+
+            if (!empty($pageData['media'])) {
+                foreach ($pageData['media'] as $medium) {
+                    $this->setContentMedia($medium, $content);
+                }
+            }
+        }
+
+        $this->info("Seeded `{$file}` into database `{$this->database}`.");
+    }
+
+    /**
+     * Creates a Description object
+     * 
+     * @param array $translations
+     * @return Description
+     */
+    private function setDescriptionObj($translations) {
+        return (new DescriptionSetter($translations))->set();
+    }
+
+    /**
+     * Associate a list of test content modifications to a content
+     * 
+     * @param array $modificationList
+     * @param Content $content
+     */
+    public function setModifications($modificationList, $content) {
+        foreach ($modificationList as $mData) {
+            $mData['id'] = $content->id;
+            $modification = new ContentModification();
+            $modification->content_id = $content->id;
+            $modification->editor_user_id = $content->author_user_id;
+            $modification->new_content = \json_encode($mData);
+            $modification->saveOrFail();
+        }
+    }
+
+    /**
+     * Creates a ContentMedia  object to an image file
+     * 
+     * @param array $fileData
+     * @param Content $content
+     * @return ContentMedia
+     */
+    public function setContentMedia($fileData, $content) {
+        $symfonyFile = new SymfonyFile('docs/sample_images/' . $fileData['source_url']);
+        $file = (new FileSetter($fileData))->setBySymfonyFile($symfonyFile);
+        $mediaRoleTx = Taxonomy::getTaxonomy($fileData['media_role'], Config::get('taxonomies.media_role'));
+
+        $contentMedia = new ContentMedia();
+        $contentMedia->content_id = $content->id;
+        $contentMedia->mediable_type = File::class;
+        $contentMedia->mediable_id = $file->id;
+        $contentMedia->media_role_taxonomy_id = $mediaRoleTx->id;
+        $contentMedia->saveOrFail();
+        return $contentMedia;
+    }
+
+}

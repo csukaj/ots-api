@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Entities;
+
+use App\MealPlan;
+
+class MealPlanEntity extends Entity {
+
+    protected $mealPlan;
+
+    public function __construct(MealPlan $mealPlan) {
+        parent::__construct();
+
+        $this->mealPlan = $mealPlan;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        return [
+            'id' => $this->mealPlan->id,
+            'name' => $this->mealPlan->name->name
+        ];
+    }
+
+}
+

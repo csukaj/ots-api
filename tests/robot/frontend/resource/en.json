@@ -1,0 +1,176 @@
+{
+    "general": {
+        "loading": "Loading...",
+        "and": "and",
+        "readMore": "Read more",
+        "submit": "Submit"
+    },
+    "welcomepage": {
+        "title": "Main page",
+        "text": "Welcome to OTS Frontend!"
+    },
+    "search": {
+        "room": {
+            "singular": "room",
+            "plural": "rooms"
+        },
+        "room_form": {
+            "guests": "Guests",
+            "age_of_children": "Age of children at the time of check out"
+        },
+        "occasion": {
+            "holiday": "Holiday",
+            "honeymoon": "Honeymoon",
+            "anniversary": "Anniversary"
+        },
+        "daterange": {
+            "from": "From",
+            "to": "To",
+            "arrival": "Arrival",
+            "departure": "Departure",
+            "number_of_nights": "Nights",
+            "remove": "Remove",
+            "ok": "OK",
+            "cancel": "Cancel",
+            "default": "Please select the dates of your holiday."
+        },
+        "sidebar": {
+            "search": "Search",
+            "add_room": "Add room",
+            "remove": "Remove",
+            "room_with_index": "Room #{{index}}",
+            "adults": "Adults",
+            "children": "Children",
+            "islands": "Islands",
+            "island": "Island",
+            "beach": "Beach",
+            "dont_know": "I don't know the dates yet",
+            "dont_know_alert": "Please select date range or check \"I don't know the dates yet\" checkbox!",
+            "ageNotGiven": "Please select the children's age!",
+            "meal_plans": "Meal plans",
+            "text-search-label": "Accommodation name",
+            "destination-name": "Destination name",
+            "filter": "Filter",
+            "sort_by": "Sort by",
+            "ratings": "ratings",
+            "more_options": "More options",
+            "options":{
+                "hotel_category": "Hotel category"
+            },
+            "year": "year"
+        },
+        "summary": {
+            "results": "results",
+            "no_results": "No matching results found.",
+            "nights": "nights",
+            "listView": "List View",
+            "mapView": "Map View",
+            "sort_by": "Sort by",
+            "sort": {
+                "byPrice": {
+                    "asc": "Sort by Price (Low to High)",
+                    "desc": "Sort by Price (High to Low)"
+                },
+                "byIsland": "Sort by Island"
+            }
+        }
+    },
+    "menu": {
+        "Home": "Home",
+        "Search": "Search",
+        "MyHoliday": "My Holiday",
+        "toggle": "Toggle navigation",
+        "aboutUs": "About us",
+        "aboutSeychelles": "About Seychelles",
+        "contactUs": "Contact us"
+    },
+    "hotels": {
+        "availableRoomRates": "Available room rates",
+        "hotelDetails": "Hotel details",
+        "backToList": "Back to all hotels",
+        "seeAllRooms": "See all rooms"
+    },
+    "hotel": {
+        "room": "Room",
+        "rooms": "Rooms",
+        "roomDetails": "Room details",
+        "hideRoomDetails": "Hide details",
+        "addToMyHoliday": "Add to my holiday",
+        "changeRoom": "Change room",
+        "usage": "Usage",
+        "rating": "Rating",
+        "reviews": "reviews",
+        "menu": {
+            "gallery": "Gallery",
+            "description": "Description",
+            "location": "Location",
+            "rooms": "Rooms",
+            "reviews": "Reviews"
+        },
+        "topServices": "Top Services",
+        "about": "About this hotel",
+        "room_details": "Details"
+    },
+    "mealPlans": {
+        "e/p": "Empty plan",
+        "b/b": "Bed & breakfast",
+        "h/b": "Half board",
+        "f/b": "Full board",
+        "inc": "All inclusive"
+    },
+    "cart": {
+        "myHoliday": "My Holiday",
+        "clearAllItems": "Clear all items",
+        "deleteItem": "Delete",
+        "nights": "nights",
+        "total": "Total:",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "nationality": "Nationality",
+        "telephone": "Telephone"
+    },
+    "ageRanges": {
+        "adult": {
+            "singular": "adult",
+            "plural": "adults"
+        },
+        "child": {
+            "singular": "child",
+            "plural": "children"
+        },
+        "baby": {
+            "singular": "baby",
+            "plural": "babies"
+        }
+    },
+    "discounts": {
+        "totalDiscount": "Total discount",
+        "used": "Discounts used",
+        "discounts": "Discounts",
+        "inclTax": "incl. Tax",
+        "originalPrice": "original price",
+        "noneFound": "No discounts found.",
+        "total": "Total"
+    },
+    "footer": {
+        "accommodation": "Accommodation",
+        "cruises": "Cruises",
+        "yachtCharter": "Yacht charter",
+        "weddings": "Weddings",
+        "transfer": "Transfer",
+        "myHoliday": "My Holiday",
+        "blog": "Blog",
+        "webcam": "Webcam",
+        "weather": "Weather",
+        "activities": "Activites",
+        "usefulTips": "Useful tips",
+        "aboutUs": "About us",
+        "contact": "Contact",
+
+        "allRightsReserved": "All Rights Reserved",
+        "termsAndConditions": "Terms and Conditions",
+        "bookingPolicy": "Booking Policy",
+        "privacyPolicy": "Privacy Policy"
+    }
+}

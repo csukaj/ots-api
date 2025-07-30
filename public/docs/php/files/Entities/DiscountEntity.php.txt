@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Entities;
+
+use App\PriceModifier;
+use App\PriceModifierClassification;
+use App\PriceModifierMeta;
+use App\Entities\Entity;
+use App\OfferClassification;
+use App\OfferMeta;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+
+class DiscountEntity extends Entity
+{
+    const CONNECTION_COLUMN = 'discount_id';
+
+    protected $discount;
+
+    public function __construct(Discount $discount) {
+        parent::__construct();
+
+        $this->discount = $discount;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $description = $this->discount->description;
+        $dateRanges = $this->getDateRanges();
+        $organizationId = ($dateRanges && isset($dateRanges[0])) ? $dateRanges[0]->organization_id : null;
+        
+        $return = [
+            'id' => $this->discount->id,
+            'organization_id' => $organizationId,
+            'name' => (new DescriptionEntity($this->discount->name))->getFrontendData(),
+            'description' => $description ? (new DescriptionEntity($description))->getFrontendData() : null,
+            'type' => $this->discount->type->name,
+            'offer' => $this->discount->offer->name,
+            'is_active' => $this->discount->is_active,
+            'is_annual' => $this->discount->is_annual,
+            'priority' => $this->discount->priority,
+            'date_ranges' => OrganizationDateRangeEntity::getCollection($dateRanges),
+            'promo_code' => $this->discount->promo_code
+        ];
+
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'properties':
+                    $return['type_properties']['metas'] = $this->getDiscountMetas();
+                    $return['offer_properties']['metas'] = $this->getOfferMetas();
+                    $return['type_properties']['classifications'] = $this->getDiscountClassifications();
+                    $return['offer_properties']['classifications'] = $this->getOfferClassifications();
+                    break;
+            }
+        }
+
+        return $return;
+    }
+
+    public function getDiscountClassifications() {
+        $model = new DiscountClassification();
+        return $model->getClassificationEntities(self::CONNECTION_COLUMN, $this->discount->id);
+    }
+
+    public function getOfferClassifications() {
+        $model = new OfferClassification();
+        return $model->getClassificationEntities(self::CONNECTION_COLUMN, $this->discount->id);
+    }
+
+    public function getDiscountMetas() {
+        $model = new DiscountMeta();
+        return $model->getMetaEntities(self::CONNECTION_COLUMN, $this->discount->id);
+    }
+
+    public function getOfferMetas() {
+        $model = new OfferMeta();
+        return $model->getMetaEntities(self::CONNECTION_COLUMN, $this->discount->id);
+    }
+
+    public function getDateRanges() {
+        $periods = $this->discount->discountPeriods;
+        $dateRanges = [];
+        foreach ($periods as $period) {
+            if (!is_null($period) && !is_null($period->organizationDateRange)) {
+                $dateRanges[] = $period->organizationDateRange;
+            }
+        }
+        return $dateRanges;
+    }
+}

@@ -1,0 +1,48 @@
+*** Settings ***								
+Documentation	Backend Test for OTS General, Age Range and Rooms page							
+Resource	../../resource/resource.robot
+Resource	../resource/resource_basic_functions.robot
+#Resource	../resource/resource_ddt.robot
+Resource	../resource/resource_helpers.robot
+Resource	../resource/resource_navigations.robot
+Resource	../resource/resource_templates.robot
+Resource	../resource/resource_variables.robot						
+Suite Setup	Admin User Login And Navigate to Organization							
+Test Template	General template							
+#Suite Teardown	Close Browser							
+								
+*** Test Cases ***								
+Create Hotel :)	Hotel Robot	Hotel	net	enabled
+ 	[Template]	Create Hotel template
+Create Hotel - Name Exists	Hotel Robot	Hotel	net	enabled
+	[Template]	Create Hotel template
+Simple General Case	Hotel Robot;;;Робот отель	${EMPTY}	true	Short description;Kurze Beschreibung;Rövid leírás;Краткое описание	You're completely sure of the math?;Te teljesen biztos vagy a matekban?;Sind Sie der Mathematik völlig sicher?;Вы совершенно уверены в математике?				
+Simple General Case - Translate Exists	Hotel Robot;Das Hotel A;;Робот отель	${EMPTY}	true	Short description;Kurze Beschreibung;Rövid leírás;Краткое описание	You're completely sure of the math?;Te teljesen biztos vagy a matekban?;Sind Sie der Mathematik völlig sicher?;Вы совершенно уверены в математике?				
+#Robot Create New Age Range	Hotel Robot	New	baby	0	3			
+#	[Template]	Age Ranges template						
+#Robot Create New Age Range - Name Exists	Hotel Robot	New	baby	4	6			
+#	[Template]	Age Ranges template						
+#Robot Create New Age Range - Age Range Overlap	Hotel Robot	New	child	1	4			
+#	[Template]	Age Ranges template						
+#Robot Modifies Created Age Range	Hotel Robot	Edit	baby	0	4			
+#	[Template]	Age Ranges template						
+#Robot Delete the Modified Age Range	Hotel Robot	Delete	baby	0	3			
+#	[Template]	Age Ranges template						
+#Robot trying Delete an Age Range, but gets an Error Msg	Hotel B	Delete	adult	0	3			
+#	[Template]	Age Ranges template						
+#Robot Create New Room	Hotel C	New	Sleepy;Schläfrig;;сонный	12				
+#	[Template]	Rooms template						
+#Robot Create New Room - Name Exists	Hotel C	New	Sleepy;Schläfrig;;сонный	12				
+#	[Template]	Rooms template						
+#Robot Edit Created Room	Hotel C	Edit	Sleepy;Schläfrig;Álmos;сонный	15				
+#	[Template]	Rooms template						
+#Robot Create New Room Usage	Hotel C	New	Sleepy	child;adult	1;9	${EMPTY}	${EMPTY}	
+#	[Template]	Rooms Add Usage template						
+#Robot Create New Another Room Usage	Hotel C	New	Sleepy	adult	12	${EMPTY}	${EMPTY}	
+#	[Template]	Rooms Add Usage template						
+#Robot Edit The First Created Room Usage	Hotel C	Edit	Sleepy	child;adult	1;9	adult;child	6;6	
+#	[Template]	Rooms Add Usage template						
+#Robot Delete The Last Edited Room Usage	Hotel C	Delete	Sleepy	child;adult	6;6	${EMPTY}	${EMPTY}	
+#	[Template]	Rooms Add Usage template						
+#Robot Delete The Test Room	Hotel C	Delete	Sleepy;Schläfrig;Álmos;сонный	12				
+#	[Template]	Rooms template											

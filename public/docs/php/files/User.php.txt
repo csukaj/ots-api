@@ -1,0 +1,118 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\Stylersauth\Entities\Role;
+
+/**
+ * App\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $remember_token
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property string $last_login
+ * @property-read Collection|Organization[] $organizations
+ * @property-read Collection|Role[] $roles
+ * @mixin \Eloquent
+ */
+class User extends Authenticatable {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
+    /**
+     * organizations
+     * Relation to users Organization models
+     *
+     * @return BelongsToMany
+     */
+    public function organizations(): BelongsToMany {
+        return $this->belongsToMany(Organization::class, 'organization_managers', 'user_id', 'organization_id');
+    }
+
+    /**
+     * roles 
+     * Relation to users Role Models
+     *
+     * @return BelongsToMany
+     */
+    public function roles(): BelongsToMany {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+
+    /**
+     * roleNames
+     * Returns role names assigned to User
+     * @return array
+     */
+    public function roleNames(): array {
+        $return = [];
+        foreach ($this->roles as $role) {
+            $return[] = $role->name;
+        }
+        return $return;
+    }
+
+    /**
+     * hasRole
+     * Returns if user has the specified role
+     *
+     * @param string $name Role Name
+     *
+     * @return bool
+     */
+    public function hasRole(string $name): bool {
+        return in_array($name, $this->roleNames());
+    }
+
+    /**
+     * hasOrganization
+     * Returns if user has the specified organization
+     *
+     * @param int $organizationId
+     *
+     * @return bool
+     */
+    public function hasOrganization(int $organizationId): bool {
+        return boolval($this->organizations()->where('organizations.id', $organizationId)->count());
+    }
+
+    /**
+     * sendPasswordResetNotification
+     * Empty function 
+     * 
+     * @param type $token
+     */
+    public function sendPasswordResetNotification($token): void {
+        
+    }
+
+}
+

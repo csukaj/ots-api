@@ -1,0 +1,20 @@
+[
+  {
+    "original_price": "660.0",
+    "order_itemable_index": 0,
+    "meal_plan_id": 2,
+    "discounts": [],
+    "discounted_price": "660.0",
+    "margin": 60.0,
+    "meal_plan": "b\/b"
+  },
+  {
+    "original_price": "666.6",
+    "order_itemable_index": 0,
+    "meal_plan_id": 3,
+    "discounts": [],
+    "discounted_price": "666.6",
+    "meal_plan": "h\/b",
+    "margin": 60.599999999999909
+  }
+]

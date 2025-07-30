@@ -1,0 +1,55 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\DeviceUsage
+ *
+ * @property int $id
+ * @property int $device_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Device $device
+ * @property-read Collection|DeviceUsageElement[] $elements
+ * @mixin \Eloquent
+ */
+class DeviceUsage extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['device_id'];
+
+    /**
+     * Relation to device
+     * 
+     * @return HasOne
+     */
+    public function device() {
+        return $this->hasOne(Device::class, 'id', 'device_id');
+    }
+
+    /**
+     * Relation to DeviceUsage Elements
+     * 
+     * @return HasMany
+     */
+    public function elements() {
+        return $this->hasMany(DeviceUsageElement::class, 'device_usage_id', 'id')->orderBy('id');
+    }
+
+}
+

@@ -1,0 +1,140 @@
+{
+  "availability": [
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0,
+        1
+      ],
+      "device_id": 4
+    },
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0,
+        1
+      ],
+      "device_id": 5
+    }
+  ],
+  "results": [
+    [
+      {
+        "prices": [
+          {
+            "original_price": "792.0",
+            "meal_plan_id": 2,
+            "discounted_price": "660.0",
+            "order_itemable_index": 0,
+            "meal_plan": "b\/b",
+            "discounts": [
+              {
+                "description": null,
+                "offer": "free_nights",
+                "discount_percentage": -16.67,
+                "discount_value": -132,
+                "modifier_type": 491,
+                "condition": "early_bird",
+                "name": {
+                    "en": "Early bird offer \/w Free nights \/w B\/B"
+                }
+              }
+            ],
+            "total_discount": {
+              "percentage": -16.67,
+              "value": -132
+            }
+          },
+          {
+            "original_price": "792.0",
+            "meal_plan_id": 3,
+            "discounted_price": "660.0",
+            "order_itemable_index": 0,
+            "meal_plan": "h\/b",
+            "discounts": [
+              {
+                "description": null,
+                "offer": "free_nights",
+                "discount_percentage": -16.67,
+                "discount_value": -132,
+                "modifier_type": 491,
+                "condition": "early_bird",
+                "name": {
+                    "en": "Early bird offer \/w Free nights \/w B\/B"
+                }
+              }
+            ],
+            "total_discount": {
+              "percentage": -16.67,
+              "value": -132
+            }
+          }
+        ],
+        "usages": {
+          "adult": 2
+        },
+        "device_id": 4
+      }
+    ],
+    [
+      {
+        "prices": [
+          {
+            "original_price": "792.0",
+            "meal_plan_id": 2,
+            "discounted_price": "79.2",
+            "order_itemable_index": 1,
+            "meal_plan": "b\/b",
+            "discounts": [
+              {
+                "description": null,
+                "offer": "percentage",
+                "discount_percentage": -90,
+                "discount_value": -712.80000000000007,
+                "modifier_type": 491,
+                "condition": "child_room",
+                "name": {
+                    "en": "Child room discount"
+                }
+              }
+            ],
+            "total_discount": {
+              "percentage": -90,
+              "value": -712.80000000000007
+            }
+          },
+          {
+            "original_price": "792.0",
+            "meal_plan_id": 3,
+            "discounted_price": "79.2",
+            "order_itemable_index": 1,
+            "meal_plan": "h\/b",
+            "discounts": [
+              {
+                "description": null,
+                "offer": "percentage",
+                "discount_percentage": -90,
+                "discount_value": -712.80000000000007,
+                "modifier_type": 491,
+                "condition": "child_room",
+                "name": {
+                    "en": "Child room discount"
+                }
+              }
+            ],
+            "total_discount": {
+              "percentage": -90,
+              "value": -712.80000000000007
+            }
+          }
+        ],
+        "usages": {
+          "child": 2
+        },
+        "device_id": 4
+      }
+    ]
+  ]
+}

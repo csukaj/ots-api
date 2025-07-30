@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Relations;
+
+use App\Entities\ProductEntity;
+use App\Facades\Config;
+use App\Organization;
+use App\Product;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * Relation for displaying Discounted Accommodatio Products
+ */
+class DiscountedAccommodationProductsRelation extends Relation {
+
+    protected $type = self::TYPE_ONE_TO_MANY;
+    protected $format = self::FORMAT_CSV;
+    protected $modelClass = 'App\Product';
+    protected $devices;
+
+    public function __construct(Taxonomy $taxonomy, Organization $organization) {
+        parent::__construct($taxonomy);
+        $this->devices = $organization->devices;
+    }
+
+    /**
+     * Format data for displaying on frontend
+     * 
+     * @return array
+     */
+    public function getFrontendData() {
+        $products = [];
+        foreach ($this->devices as $device) {
+            $products = array_merge(
+                $products,
+                $device->products()
+                    ->where('type_taxonomy_id', '=', Config::getOrFail('taxonomies.product_types.discounted_accommodation'))
+                    ->get()->toArray()
+            );
+        }
+
+        return [
+            'type' => $this->type,
+            'format' => $this->format,
+            'options' => ProductEntity::getCollection(Product::hydrate($products))
+        ];
+    }
+
+}
+

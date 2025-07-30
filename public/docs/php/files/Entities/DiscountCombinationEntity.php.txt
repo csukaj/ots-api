@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Entities;
+
+use App\PriceModifierCombination;
+use App\Entities\Entity;
+
+class DiscountCombinationEntity extends Entity {
+
+    //const CONNECTION_COLUMN = 'discount_combination_id';
+
+    protected $discountCombination;
+
+    public function __construct(DiscountCombination $discountCombination) {
+        parent::__construct();
+
+        $this->discountCombination = $discountCombination;
+    }
+
+    public function getFrontendData(array $additions = []) {
+
+        $return = [
+            'id' => $this->discountCombination->id,
+            'first_discount_id' => $this->discountCombination->first_discount_id,
+            'second_discount_id' => $this->discountCombination->second_discount_id
+        ];
+
+        return $return;
+    }
+
+}
+

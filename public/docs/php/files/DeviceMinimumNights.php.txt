@@ -1,0 +1,56 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\DeviceMinimumNights
+ *
+ * @property int $id
+ * @property int $device_id
+ * @property int $organization_date_range_id
+ * @property int $minimum_nights
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read OrganizationDateRange $dateRange
+ * @property-read Device $device
+ * @mixin \Eloquent
+ */
+class DeviceMinimumNights extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        ModelTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['device_id', 'organization_date_range_id', 'minimum_nights'];
+
+    /**
+     * Relation to device
+     * 
+     * @return HasOne
+     */
+    public function device() {
+        return $this->hasOne(Device::class);
+    }
+
+    /**
+     * Relation to Organization DateRange
+     * 
+     * @return HasOne
+     */
+    public function dateRange() {
+        return $this->hasOne(OrganizationDateRange::class);
+    }
+
+}
+

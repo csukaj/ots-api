@@ -1,0 +1,20 @@
+[
+  {
+    "id": 101,
+    "name": {
+      "en": "Hotel Chain A",
+      "de": "Hotelkette A",
+      "hu": "Szállodalánc A",
+      "ru": "Гостиничная сеть A"
+    }
+  },
+  {
+    "id": 102,
+    "name": {
+      "en": "Hotel Chain B",
+      "de": "Hotelkette B",
+      "hu": "Szállodalánc B",
+      "ru": "Гостиничная сеть B"
+    }
+  }
+]

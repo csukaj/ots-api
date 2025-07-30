@@ -1,0 +1,55 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\DeviceUsageElement
+ *
+ * @property int $id
+ * @property int $device_usage_id
+ * @property int $organization_age_range_id
+ * @property int $amount
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read OrganizationAgeRange $ageRange
+ * @property-read DeviceUsage $deviceUsage
+ * @mixin \Eloquent
+ */
+class DeviceUsageElement extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['device_usage_id', 'organization_age_range_id', 'amount'];
+
+    /**
+     * Relation to device Usage
+     * 
+     * @return HasOne
+     */
+    public function deviceUsage() {
+        return $this->hasOne(DeviceUsage::class, 'id', 'device_usage_id');
+    }
+
+    /**
+     * Relation to Organization AgeRange
+     * 
+     * @return HasOne
+     */
+    public function ageRange() {
+        return $this->hasOne(OrganizationAgeRange::class, 'id', 'organization_age_range_id');
+    }
+
+}
+

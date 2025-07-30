@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\PriceModifier;
+use App\Entities\DiscountEntity;
+use App\Entities\OrganizationDateRangeEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\DiscountSetter;
+use App\Organization;
+use App\OrganizationDateRange;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * @resource Admin/DiscountController
+ */
+class DiscountController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of Discounts, Types, Offers & DateRanges
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $organization = Organization::findOrFail($request->input('organization_id'));
+        $application_levels = array_keys(Config::get('taxonomies.discount_application_levels'));
+        $discountTypeTaxonomies = new Collection();
+        foreach ($application_levels as $level) {
+            $typeTxs = Taxonomy::findOrFail(Config::get('taxonomies.discount_application_levels.' . $level . '.id'))->getChildren();
+            $discountTypeTaxonomies = $discountTypeTaxonomies->merge($typeTxs);
+        }
+        $discountOfferTaxonomies = Taxonomy::findOrFail(Config::get('taxonomies.discount_offer'))->getChildren();
+        $discountDateRanges = OrganizationDateRange::discount()->where('organization_id', '=', $organization->id)->orderBy('from_time', 'asc')->get();
+
+        $discountIds = PriceModifier::getOrganizationDiscountIds($organization->id);
+        return [
+            'success' => true,
+            'data' => DiscountEntity::getCollection(PriceModifier::orderBy('priority')->find($discountIds), ['properties']),
+            'types' => TaxonomyEntity::getCollection($discountTypeTaxonomies, ['descendants', 'relation'], [$organization]),
+            'offers' => TaxonomyEntity::getCollection($discountOfferTaxonomies, ['descendants', 'relation'], [$organization]),
+            'date_ranges' => OrganizationDateRangeEntity::getCollection($discountDateRanges)
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created Discount
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $discount = (new DiscountSetter($request->all()))->set();
+        return ['success' => true, 'data' => (new DiscountEntity($discount))->getFrontendData(['properties'])];
+    }
+
+    /**
+     * show
+     * Display the specified Discount
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        return ['success' => true, 'data' => (new DiscountEntity(PriceModifier::findOrFail($id)))->getFrontendData(['properties'])];
+    }
+
+    /**
+     * destroy
+     * Remove the specified Discount
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $count = PriceModifier::destroy($id);
+        return ['success' => (bool) $count, 'data' => (new DiscountEntity((PriceModifier::withTrashed()->findOrFail($id))))->getFrontendData(['properties'])];
+    }
+
+}
+

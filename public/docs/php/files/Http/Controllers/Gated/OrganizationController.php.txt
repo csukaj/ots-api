@@ -1,0 +1,138 @@
+<?php
+
+namespace App\Http\Controllers\Gated;
+
+use App\Device;
+use App\Entities\OrganizationEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\OrganizationSetter;
+use App\Organization;
+use App\OrganizationAgeRange;
+use App\OrganizationClassification;
+use App\OrganizationDateRange;
+use App\OrganizationDescription;
+use App\OrganizationManager;
+use App\OrganizationMealPlan;
+use App\OrganizationMeta;
+use App\ParentOrganization;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylersmedia\Entities\Gallery;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * @resource Gated/OrganizationController
+ */
+class OrganizationController extends ResourceController {
+
+    protected $parents = [];
+
+    public function __construct() {
+        $this->parents = ParentOrganization::all()->pluck('name');
+    }
+
+    /**
+     * index
+     * Display a listing of Organizations
+     * @return Response
+     */
+    public function index() {
+        if ($this->getAuthUser()->hasRole('admin')) {
+            $organizations = Organization::all();
+        } else {
+            $organizations = $this->getAuthUser()->organizations;
+        }
+        
+        $defaultClassifications = ['general' => ['hotel_category'], 'settings' => ['availability_mode', 'stars', 'price_level', 'discount_calculations_base']];
+        $defaults = [];
+        foreach ($defaultClassifications as $categoryName => $itemNames) {
+            $categoryId = Config::get('taxonomies.organization_classifications.categories')[$categoryName]['id'];
+            $categoryData = (new TaxonomyEntity(Taxonomy::findOrFail($categoryId)))->getFrontendData();
+            $categoryData['descendants'] = [];
+            foreach ($itemNames as $itemName) {
+                $itemId = Config::get('taxonomies.organization_classifications.categories')[$categoryName]['items'][$itemName]['id'];
+                $categoryData['descendants'][] = (new TaxonomyEntity(Taxonomy::findOrFail($itemId)))->getFrontendData(['descendants']);
+            }
+            $defaults[] = $categoryData;
+        }
+
+        return [
+            'success' => true,
+            'data' => OrganizationEntity::getCollection($organizations, ['descriptions', 'location', 'admin_properties']),
+            'parents' => $this->parents,
+            'defaults' => $defaults
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created Organization
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        if (!$this->gateAllows('create-organization')) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $organization = (new OrganizationSetter($request->all()))->set();
+        $organizationEn = new OrganizationEntity($organization);
+
+        return [
+            'success' => true,
+            'data' => $organizationEn->getFrontendData(['descriptions', 'location', 'admin_properties']),
+            'parents' => $this->parents,
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified Organization
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        if (!$this->gateAllows('access-organization', $id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $organizationEn = new OrganizationEntity(Organization::findOrFail($id));
+        return [
+            'success' => true,
+            'data' => $organizationEn->getFrontendData(['descriptions', 'location', 'availability_mode', 'admin_properties']),
+            'parents' => $this->parents
+        ];
+    }
+
+    /**
+     * destroy
+     * Remove the specified Organization
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        if (!$this->gateAllows('access-organization', $id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+        Gallery::where('galleryable_type', '=', Organization::class)->where('galleryable_id', '=', $id)->delete();
+        Device::where('organization_id', '=', $id)->delete();
+        OrganizationAgeRange::where('organization_id', '=', $id)->delete();
+        OrganizationClassification::where('organization_id', '=', $id)->delete();
+        OrganizationDateRange::where('organization_id', '=', $id)->delete();
+        OrganizationDescription::where('organization_id', '=', $id)->delete();
+        OrganizationManager::where('organization_id', '=', $id)->delete();
+        OrganizationMealPlan::where('organization_id', '=', $id)->delete();
+        OrganizationMeta::where('organization_id', '=', $id)->delete();
+        $organization = Organization::findOrFail($id);
+        return [
+            'success' => $organization->delete(),
+            'data' => (new OrganizationEntity(Organization::withTrashed()->findOrFail($id)))->getFrontendData(['descriptions', 'location', 'availability_mode', 'admin_properties']),
+            'parents' => $this->parents
+        ];
+    }
+
+}
+

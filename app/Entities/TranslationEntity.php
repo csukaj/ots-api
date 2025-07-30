@@ -1,0 +1,139 @@
+<?php
+
+namespace App\Entities;
+
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use Illuminate\Support\Facades\File;
+use Modules\Stylerstaxonomy\Entities\Language;
+
+class TranslationEntity {
+
+    protected $isoCode;
+    protected $isoCodes;
+    protected $jsonFilePaths = [];
+    protected $translations = [];
+    protected $csvFileName = '';
+    protected $csvFilePath = '';
+    protected $basePathOfActiveTranslations = '';
+    protected $basePathOfArchiveTranslations = '';
+    protected $basePathOfExampleTranslations = '';
+    protected $bomString;
+
+    public function __construct($i18DirConfigKey='cache.frontend_i18n_directory') {
+        $this->basePathOfActiveTranslations = base_path() . '/' . Config::get($i18DirConfigKey);
+        $this->basePathOfArchiveTranslations = $this->basePathOfActiveTranslations . '/archive';
+        $this->basePathOfExampleTranslations = $this->basePathOfActiveTranslations . '/example';
+        $this->bomString = chr(0xEF) . chr(0xBB) . chr(0xBF);
+    }
+
+    public function getCsvFilePath() {
+        return $this->csvFilePath;
+    }
+
+    protected function generateJsonFilePaths(array $isoCodes = ['en', 'en']) {
+        foreach ($isoCodes as $isoCode) {
+            $this->jsonFilePaths[$isoCode] = $this->basePathOfActiveTranslations . '/' . $isoCode . '.json';
+        }
+    }
+
+    protected function loadTranslationsFromJsonFiles() {
+        foreach ($this->jsonFilePaths as $code => $jsonFilePath) {
+            if (file_exists($jsonFilePath)) {
+                $translationsArray = json_decode(file_get_contents($jsonFilePath), true);
+                $this->translations[$code] = $this->flatten($translationsArray);
+            } else {
+                $this->translations[$code] = [];
+            }
+        }
+    }
+
+    public function getIsoCodes() {
+        if (empty($this->isoCodes)) {
+            $this->isoCodes = Language::all()->pluck('iso_code')->toArray();
+        }
+        return $this->isoCodes;
+    }
+
+    /**
+     * Flattens a multiple dimensional array into a single dimensional array.
+     * The input array's keys are preserved in the flattened array separated by the dot
+     *
+     * @param array $array The array to be flattened.
+     * @param string $prefix
+     *
+     * @return array The flattened array.
+     */
+    public function flatten($array, $prefix = '')
+    {
+        $result = [];
+
+        if (!empty($array))
+        {
+            foreach ($array as $key => $value)
+            {
+                $new_key = $prefix . (empty($prefix) ? '' : '.') . $key;
+
+                if (is_array($value)) {
+                    $result = array_merge($result, $this->flatten($value, $new_key));
+                } else {
+                    $result[$new_key] = $value;
+                }
+            }
+
+            return $result;
+        }
+    }
+
+    protected function makeArchiveFromOldTranslation() {
+        $activeJson = $this->basePathOfActiveTranslations . '/' . $this->isoCode . '.json';
+        $archiveFile = $this->basePathOfArchiveTranslations . '/' . $this->isoCode . '_' . date('Y_m_d_His') . '.json';
+        if (file_exists($activeJson)) {
+            if (!File::copy($activeJson, $archiveFile)) {
+                throw new UserException("Couldn't make archive file");
+            }
+        }
+    }
+
+    protected function createJson($isoCode, $translations) {
+        $jsonContent = \json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        $jsonFilePathName = $this->basePathOfActiveTranslations . '/' . $isoCode . '.json';
+        file_put_contents($jsonFilePathName, $jsonContent);
+        // $oldUmask = umask(0);
+
+        exec('sudo chmod ' . $jsonFilePathName . ' 777');
+        // umask($oldUmask);
+    }
+
+    /**
+     * Creates a multiple dimensional array from a single dimensional array.
+     * The unflattened array will have a structure given by the keys of the input array.
+     * For the default delimiter (dot), the unflattened array is such that $inputArray['i.j.k'] = $unflattenedArray['i']['j']['k']
+     *
+     * @param array $collection
+     * @return array The unflattened array.
+     * @internal param array $array The array to unflatten.
+     * @internal param string $delimiter The delimiter on which the input array's keys will be exploded.
+     *
+     */
+    public function unflatten(array $collection) {
+        $collection = (array) $collection;
+        $output = array();
+        foreach ($collection as $key => $value) {
+            array_set($output, $key, $value);
+            if (is_array($value) && !strpos($key, '.')) {
+                $nested = $this->unflatten($value);
+
+                $output[$key] = $nested;
+            }
+        }
+        return $output;
+    }
+
+    protected function releaseTranslations($isoCode)
+    {
+        $translationUpdater = new TranslationUpdaterEntity();
+        $translationUpdater->replaceTranslation($isoCode);
+        $translationUpdater->replaceTranslation($isoCode, true);
+    }
+}

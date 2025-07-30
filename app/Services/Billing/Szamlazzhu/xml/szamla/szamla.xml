@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<szamla xmlns="http://www.szamlazz.hu/szamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/szamla http://www.szamlazz.hu/docs/xsds/szamla/szamla.xsd">
+    <szallito>                                                             <!-- REQ         -->
+        <id>12345</id>                                                     <!-- REQ int     -->
+        <nev>Példa Kft.</nev>                                              <!-- REQ string  -->
+        <cim>                                                              <!-- REQ         -->
+            <orszag></orszag>                                              <!--     string  -->
+            <irsz>1234</irsz>                                              <!-- REQ string  -->
+            <telepules>Budapest</telepules>                                <!-- REQ string  -->
+            <cim>Kis utca 2.</cim>                                         <!-- REQ string  --> <!-- a cím többi része -->
+        </cim>
+        <postacim>                                                         
+            <orszag></orszag>                                              <!--     string  -->
+            <irsz></irsz>                                                  <!--     string  -->
+            <telepules></telepules>                                        <!--     string  -->
+            <cim></cim>                                                    <!--     string  --> <!-- a cím többi része -->
+        </postacim>                                                        
+        <adoszam>12345678-9-99</adoszam>                                   <!-- REQ string  -->
+        <adoszameu></adoszameu>                                            <!--     string  -->
+        <bank>                                                             
+            <nev></nev>                                                    <!--     string  -->
+            <bankszamla>12345678-12345678</bankszamla>                     <!--     string  -->
+        </bank>
+    </szallito>
+    <alap>                                                                 <!-- REQ         -->
+        <id>123456</id>                                                    <!-- REQ int     --> <!-- a számla számlázz.hu-s belső azonosítója -->
+        <szamlaszam>2015-123</szamlaszam>                                  <!-- REQ string  --> <!-- a számla egyedi száma -->
+        <iktatoszam></iktatoszam>                                          <!--     string  --> <!-- könyvelési rendszertől kapott adat -->
+        <tipus>SZ</tipus>                                                  <!-- REQ string  --> <!-- "SZ" Számla, "SS" Sztornó számla, "JS" Jóváíró számla, "HS" Helyesbítő számla, "ES" Előlegszámla, "VS" Végszámla, "D" Díjbekérő, "SL" szállítólevél -->
+        <eszamla>1</eszamla>                                               <!-- REQ string  --> <!-- 0: nem számla,  1: papír számla,  2: e-számla,  3: e-számla -->
+        <hivszamlaszam>2015-1</hivszamlaszam>                              <!--     string  --> <!-- Ha a számla sztornózó vagy jóváíró vagy végszámla, akkor a szülő számla számlaszáma -->
+        <hivdijbekszam>D-1</hivdijbekszam>                                 <!--     string  --> <!-- Ha a számla díjbekérő alapján készült akkor a díbekérő száma -->
+        <kelt>2015-12-01</kelt>                                            <!-- REQ date    --> <!-- Számla kelte     -->
+        <telj>2015-12-02</telj>                                            <!-- REQ date    --> <!-- Teljesítés időpontja  -->
+        <fizh>2015-12-03</fizh>                                            <!-- REQ date    --> <!-- Fizetései határidő    -->
+        <fizmod>bankkártya</fizmod>                                        <!-- REQ string  --> <!-- Fizetési mód: agent esetén bármi lehet, egyébként fix értékek a felületen -->
+        <fizmodunified>bankkártya</fizmodunified>                          <!-- REQ string  --> <!-- Fizetési mód: ha nem olyan a fizetési mód, mint ami a kézi számlán is elérhető, akkor "egyéb" lesz az értéke -->
+        <rendelesszam></rendelesszam>                                      <!--     string  -->
+        <nyelv>hu</nyelv>                                                  <!-- REQ string  --> <!-- hu/en/de/sk/it/fr/hr/ro -->
+        <devizanem>EUR</devizanem>                                         <!--     string  --> <!-- üres, Ft, HUF, EUR, CHF, USD, ... -->
+        <devizabank></devizabank>                                          <!--     string  -->
+        <devizaarf>210</devizaarf>                                         <!--     double  -->
+        <megjegyzes></megjegyzes>                                          <!--     string  -->
+        <penzforg>true</penzforg>                                          <!-- REQ boolean --> <!-- true ha a számla pénzforgalmi -->
+        <kata>true</kata>                                                  <!-- REQ boolean --> <!-- true ha a számla KATA-s -->
+        <teszt>false</teszt>                                               <!-- REQ boolean --> <!-- Teszt vagy valós céggel küldjük az adatokat -->
+    </alap>         
+    <vevo>                                                                 <!-- REQ         -->
+        <id>1234567</id>                                                   <!-- REQ int     -->
+        <nev></nev>                                                        <!-- REQ string  -->
+        <azonosito></azonosito>                                            <!--     string  --> <!-- Vevő azonosító  -->
+        <cim>                                                              
+            <orszag></orszag>                                              <!-- REQ string  -->
+            <irsz></irsz>                                                  <!-- REQ string  -->
+            <telepules></telepules>                                        <!-- REQ string  -->
+            <cim></cim>                                                    <!-- REQ string  --> <!-- a cím többi része -->
+        </cim>                                                             
+        <postacim>                                                         
+            <nev></nev>                                                    <!--     string  -->
+            <orszag></orszag>                                              <!--     string  -->
+            <irsz></irsz>                                                  <!--     string  -->
+            <telepules></telepules>                                        <!--     string  -->
+            <cim></cim>                                                    <!--     string  --> <!-- a cím többi része -->
+        </postacim>                                                        
+        <adoszam></adoszam>                                                
+        <adoszameu></adoszameu>                                            
+        <fokonyv>  
+            <vevo>12345A</vevo>                                            <!--     string  --> <!--  vevői főkönyvi szám -->
+            <vevoazon>12345A</vevoazon>                                    <!--     string  --> <!--  vevői főkönyvi azonosító -->
+            <datum>2015-12-05</datum>                                      <!--     date    --> <!--  könyvelés dátuma -->
+            <folyamatostelj>false</folyamatostelj>                         <!--     boolean --> <!--  folyamatos teljesítésű-e a számla -->
+        </fokonyv>
+    </vevo>
+    <tetelek>                                                              <!-- REQ         -->
+        <tetel>                                                            <!-- REQ         -->
+            <nev>Alma</nev>                                                <!-- REQ string  -->
+            <azonosito></azonosito>                                        <!--     string  -->
+            <mennyiseg>2</mennyiseg>                                       <!-- REQ double  -->
+            <mennyisegiegyseg>kg</mennyisegiegyseg>                        <!-- REQ string  -->
+            <nettoegysegar>100.1</nettoegysegar>                           <!-- REQ double  -->
+            <afatipus>ÁKK</afatipus>                                       <!--     string  --> <!--  ÁKK: áfakörön kívüli, K.AFA: különbözeti áfa, F.AFA: fordított áfa fizetés, MAA: Mentes az adó alól, EUK: EU-n kívül, EU: EU-n belül, AAM: Alanyi adómentes, TAM: Tárgyi adómentes -->
+            <afakulcs>0</afakulcs>                                         <!-- REQ int     -->
+            <netto>200</netto>                                             <!-- REQ double  -->
+            <arresafaalap>0</arresafaalap>                                 <!-- REQ double  -->
+            <afa>54</afa>                                                  <!-- REQ double  -->
+            <brutto>254</brutto>                                           <!-- REQ double  -->
+            <megjegyzes>zöld</megjegyzes>                                  <!--     string  -->
+            <fokonyv>                                                                      
+                <arbevetel>12345A</arbevetel>                              <!--     string  --> <!--  árbevétel főkönyvi szám -->
+                <afa>12345A</afa>                                          <!--     string  --> <!--  ÁFA főkönyvi szám -->
+                <gazdasagiesemeny>12345A</gazdasagiesemeny>                <!--     string  --> <!--  gazdasági esemény főkönyvi szám -->
+                <gazdasagiesemenyafa>12345A</gazdasagiesemenyafa>          <!--     string  --> <!--  ÁFA gazdasági esemény főkönyvi szám -->
+                <elszdattol>2018-01-01</elszdattol>                        <!--     date    --> <!--  A számla tétel elszámolási időszak kezdete -->
+                <elszdatig>2018-01-31</elszdatig>                          <!--     date    --> <!--  A számla tétel elszámolási időszak vége -->
+            </fokonyv>                                                                     
+        </tetel>                                                                           
+    </tetelek>                                                                             
+    <osszegek>                                                                             
+        <afakulcsossz>                                                     <!-- REQ int     -->
+            <afatipus>ÁKK</afatipus>                                       <!--     string  --> <!--  ÁKK: áfakörön kívüli, K.AFA: különbözeti áfa, F.AFA: fordított áfa fizetés, MAA: Mentes az adó alól, EUK: EU-n kívül, EU: EU-n belül, AAM: Alanyi adómentes, TAM: Tárgyi adómentes -->
+            <afakulcs>0</afakulcs>                                         <!-- REQ double  -->
+            <netto>200</netto>                                             <!-- REQ double  -->
+            <afa>54</afa>                                                  <!-- REQ double  -->
+            <brutto>254</brutto>                                           <!-- REQ double  -->
+        </afakulcsossz>                                                                    
+        <totalossz>                                                        <!-- REQ         -->
+            <netto>200</netto>                                             <!-- REQ double  -->
+            <afa>54</afa>                                                  <!-- REQ double  -->
+            <brutto>254</brutto>                                           <!-- REQ double  -->
+        </totalossz>                                                                       
+    </osszegek>                                                                            
+    <kifizetesek>                                                                          
+        <kifizetes>                                                                        
+            <datum>2015-02-28</datum>                                      <!--     date    -->
+            <jogcim>átutalás</jogcim>                                      <!--     string  -->
+            <osszeg>300</osszeg>                                           <!--     double  -->
+            <megjegyzes></megjegyzes>                                      <!--     string  -->
+            <bankszamlaszam></bankszamlaszam>                              <!--     string  --> <!-- A kifizetés ténylegesen erről a bankszámláról érkezett, vagy a számlán szereplő bankszámlaszám (ha a küldő bankszámlaszám nem ismert) -->
+        </kifizetes>    
+    </kifizetesek>
+    <pdf></pdf>
+</szamla>    

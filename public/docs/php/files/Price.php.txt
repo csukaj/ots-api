@@ -1,0 +1,194 @@
+<?php
+
+namespace App;
+
+use App\Exceptions\UserException;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Price
+ *
+ * @property int $id
+ * @property int $name_taxonomy_id
+ * @property int $product_id
+ * @property int $organization_age_range_id
+ * @property int $amount
+ * @property bool $extra
+ * @property int $margin_type_taxonomy_id
+ * @property float $margin_value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property bool $mandatory
+ * @property-read Collection|PriceElement[] $elements
+ * @property-read Taxonomy $marginType
+ * @property-read Taxonomy $name
+ * @property-read OrganizationAgeRange $organizationAgeRange
+ * @property-read Product $product
+ * @mixin \Eloquent
+ */
+class Price extends Model {
+
+    use SoftDeletes;
+    use ModelTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'product_id', 'organization_age_range_id', 'name_taxonomy_id', 'amount',
+        'margin_type_taxonomy_id', 'margin_value', 'extra', 'mandatory'
+    ];
+
+    /**
+     * observe this model being deleted and delete the child activities
+     * 
+     * @static
+     */
+    public static function boot() {
+        parent::boot();
+
+        self::deleting(function (Price $event) {
+            foreach ($event->elements as $element) {
+                $element->delete();
+            }
+        });
+    }
+
+    /**
+     * Custom save for Price overwriting Model::save()
+     * Sets margin type of Date range if assigned plus do extra checks for integrity
+     * 
+     * @param array $options
+     * @return bool
+     * @throws UserException
+     */
+    public function save(array $options = []): bool {
+        if ($this->extra && $this->amount != 1) {
+            throw new UserException('The amount of an extra price must be 1.');
+        }
+
+        if ($this->priceRowNameExists()) {
+            throw new UserException('There is already a price row with the same name.');
+        }
+
+        if (!empty($this->organization_date_range_id)) {
+            $this->margin_type_taxonomy_id = OrganizationAgeRange::findOrFail($this->organization_age_range_id)->organization->margin_type_taxonomy_id;
+        } else {
+            $this->margin_type_taxonomy_id = null;
+        }
+
+        if ($this->extra || !$this->mandatory) {
+            $this->mandatory = false;
+        }
+        if (!$this->isThereAnOtherMandatoryPrice()) {
+            $this->mandatory = true;
+        }
+
+        $return = parent::save($options);
+        $this->maintainMandatoryIntegrity();
+        return $return;
+    }
+
+    /**
+     * Relation to product
+     * 
+     * @return HasOne
+     */
+    public function product(): HasOne {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    /**
+     * Relation to organizationAgeRange
+     * 
+     * @return HasOne
+     */
+    public function organizationAgeRange(): HasOne {
+        return $this->hasOne(OrganizationAgeRange::class, 'id', 'organization_age_range_id');
+    }
+
+    /**
+     * Relation to margin Type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function marginType(): HasOne {
+        return $this->hasOne(Taxonomy::class, 'id', 'margin_type_taxonomy_id');
+    }
+
+    /**
+     * Relation to name taxonomy
+     * 
+     * @return HasOne
+     */
+    public function name(): HasOne {
+        return $this->hasOne(Taxonomy::class, 'id', 'name_taxonomy_id');
+    }
+
+    /**
+     * Relation to priceelements
+     * 
+     * @return HasMany
+     */
+    public function elements(): HasMany {
+        return $this->hasMany(PriceElement::class, 'price_id', 'id');
+    }
+
+    /**
+     * Check if price row name already exists
+     * 
+     * @return bool
+     */
+    private function priceRowNameExists(): bool {
+        $query = Price
+                ::where('name_taxonomy_id', '=', $this->name_taxonomy_id)
+                ->where('product_id', '=', $this->product_id);
+
+        if ($this->exists) {
+            $query->where('id', '!=', $this->id);
+        }
+
+        return !!$query->count();
+    }
+
+    /**
+     * Check if another mandatory price row already exists
+     * 
+     * @return bool
+     */
+    private function isThereAnOtherMandatoryPrice(): bool {
+        $count = Price
+                ::where('product_id', '=', $this->product_id)
+                ->where('id', '!=', $this->id)
+                ->where('mandatory', '=', true)
+                ->count();
+        return !!$count;
+    }
+
+    /**
+     * Maintains integrity of mandatory property (there can be only one)
+     * 
+     * @return void
+     */
+    private function maintainMandatoryIntegrity() {
+        if (!$this->mandatory) {
+            return;
+        }
+        Price
+                ::where('product_id', '=', $this->product_id)
+                ->where('id', '!=', $this->id)
+                ->where('mandatory', '=', true)
+                ->update(['mandatory' => false]);
+    }
+
+}
+

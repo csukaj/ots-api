@@ -1,0 +1,632 @@
+<?php
+
+namespace App\Console\Commands\TestOrganizationSeeder;
+
+use App\Device;
+use App\DeviceAvailability;
+use App\DeviceDescription;
+use App\DeviceMeta;
+use App\DeviceUsage;
+use App\DeviceUsageElement;
+use App\District;
+use App\Facades\Config;
+use App\Island;
+use App\Location;
+use App\Manipulators\DeviceAvailabilitySetter;
+use App\Manipulators\DeviceMinimumNightsSetter;
+use App\Manipulators\OrganizationSetter;
+use App\Manipulators\PriceSetter;
+use App\Manipulators\ProductSetter;
+use App\MealPlan;
+use App\OrganizationAgeRange;
+use App\OrganizationClassification;
+use App\OrganizationDateRange;
+use App\OrganizationDescription;
+use App\OrganizationMealPlan;
+use App\OrganizationMeta;
+use App\PriceElement;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Modules\Stylersmedia\Entities\Gallery;
+use Modules\Stylersmedia\Entities\GalleryItem;
+use Modules\Stylersmedia\Manipulators\FileSetter;
+use Modules\Stylersmedia\Manipulators\GallerySetter;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyTranslation;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
+
+/**
+ * Class to seed a hotel test data
+ */
+class TestHotelSeeder {
+
+    /**
+     * Seed a hotel with all associated data, including discounts
+     * 
+     * @param array $hotelData
+     */
+    public function seed(array $hotelData) {
+        list($organizationId, $dateRangeRelativeIds) = $this->setCruise($hotelData);
+        $this->setAgeRanges($organizationId, $hotelData['age_ranges']);
+        $this->setDevices($organizationId, $hotelData, $dateRangeRelativeIds);
+        (new TestDiscountSeeder())->seed($organizationId, $hotelData, $dateRangeRelativeIds);
+    }
+
+    /**
+     * Creates (or get) Taxonomy data and adds translations to it.
+     * @param array $taxonomyData
+     * @param int $parentTxId
+     * @return Taxonomy
+     */
+    private function setTaxonomyObj(array $taxonomyData, int $parentTxId) {
+        $languages = Language::getLanguageCodes();
+
+        $tx = Taxonomy::getOrCreateTaxonomy($taxonomyData['en'], $parentTxId);
+
+        foreach ($taxonomyData as $languageCode => $name) {
+            if ($languageCode == 'en')
+                continue;
+
+            $txTranslation = new TaxonomyTranslation([
+                'language_id' => $languages[$languageCode], 'taxonomy_id' => $tx->id, 'name' => $name
+            ]);
+            $txTranslation->save();
+        }
+
+        return $tx;
+    }
+
+    /**
+     * Creates a DeviceUsageElement with provided data
+     * 
+     * @param int $deviceUsageId
+     * @param int $organizationAgeRangeId
+     * @param int $amount
+     * @return DeviceUsageElement
+     */
+    private function setDeviceUsageElement(int $deviceUsageId, int $organizationAgeRangeId, int $amount) {
+        $deviceUsageElement = new DeviceUsageElement([
+            'device_usage_id' => $deviceUsageId,
+            'organization_age_range_id' => $organizationAgeRangeId,
+            'amount' => $amount
+        ]);
+        $deviceUsageElement->save();
+
+        return $deviceUsageElement->id;
+    }
+
+    /**
+     * Creates a DeviceAvailability object with provided data
+     * 
+     * @param int $deviceId
+     * @param array $availabilityData
+     * @return DeviceAvailability
+     */
+    private function setDeviceAvailability(int $deviceId, array $availabilityData) {
+        $setter = new DeviceAvailabilitySetter([
+            'deviceId' => $deviceId,
+            'fromDate' => $availabilityData['from_time'],
+            'toDate' => $availabilityData['to_time'],
+            'amount' => $availabilityData['amount']
+        ]);
+        return $setter->set()->id;
+    }
+
+    /**
+     * Creates a DeviceMinimumNights object with provided data
+     * 
+     * @param int $deviceId
+     * @param array $minNightsData
+     * @param array $dateRangeRelativeIds
+     * @return int
+     */
+    private function setDeviceMinimumNights(int $deviceId, array $minNightsData, array $dateRangeRelativeIds) {
+        $rangeId = $dateRangeRelativeIds[$minNightsData['date_range_relative_id']];
+        $setter = new DeviceMinimumNightsSetter([
+            'device_id' => $deviceId,
+            'organization_date_range_id' => $rangeId,
+            'minimum_nights' => $minNightsData['minimum_nights']
+        ]);
+        return $setter->set()->id;
+    }
+
+    /**
+     * Creates a DeviceUsage object with provided data. It also creates elements
+     * 
+     * @param int $organizationId
+     * @param int $deviceId
+     * @param array $usageData
+     * @return int
+     */
+    private function setDeviceUsage(int $organizationId, int $deviceId, array $usageData) {
+        $deviceUsage = new DeviceUsage([
+            'device_id' => $deviceId
+        ]);
+        $deviceUsage->save();
+
+        foreach ($usageData['elements'] as $ageRangeTxName => $amount) {
+            $ageRange = OrganizationAgeRange::findByNameOrFail($ageRangeTxName, $organizationId);
+            $this->setDeviceUsageElement($deviceUsage->id, $ageRange->id, $amount);
+        }
+
+        return $deviceUsage->id;
+    }
+
+    /**
+     * Creates a PriceElement object with provided data. It also creates OrganizationMealPlan
+     * 
+     * @param int $organizationId
+     * @param int $priceId
+     * @param array $dateRangeRelativeIds
+     * @param array $priceElementData
+     */
+    private function setPriceElement(int $organizationId, int $priceId, array $dateRangeRelativeIds, array $priceElementData) {
+        $mealPlan = MealPlan::findByName($priceElementData['meal_plan']);
+        $orgMealPlan = new OrganizationMealPlan([
+            'organization_id' => $organizationId,
+            'meal_plan_id' => $mealPlan->id,
+            'organization_date_range_id' => $dateRangeRelativeIds[$priceElementData['date_range_relative_id']]
+        ]);
+        $orgMealPlan->save();
+
+        $priceElement = new PriceElement([
+            'price_id' => $priceId,
+            'organization_meal_plan_id' => $orgMealPlan->id,
+            'organization_date_range_id' => $dateRangeRelativeIds[$priceElementData['date_range_relative_id']],
+            'net_price' => isset($priceElementData['net_price']) ? $priceElementData['net_price'] : null,
+            'rack_price' => isset($priceElementData['rack_price']) ? $priceElementData['rack_price'] : null,
+            'margin_value' => isset($priceElementData['margin_value']) ? $priceElementData['margin_value'] : null
+        ]);
+        $priceElement->save();
+        $priceElement->recalculatePrices()->save();
+    }
+
+    /**
+     * Creates a Price object with provided data. It also creates PriceElements
+     * 
+     * @param int $organizationId
+     * @param int $productId
+     * @param array $dateRangeRelativeIds
+     * @param array $priceData
+     * @return int
+     */
+    private function setPrice(int $organizationId, int $productId, array $dateRangeRelativeIds, array $priceData) {
+        $nameTx = $this->setTaxonomyObj($priceData['name_taxonomy'], Config::getOrFail('taxonomies.names.price_name'));
+        $priceSetterData = [
+            'product_id' => $productId,
+            'name_taxonomy_id' => $nameTx->id,
+            'organization_age_range_id' => !empty($priceData['age_range']) ? OrganizationAgeRange::findByNameOrFail($priceData['age_range'], $organizationId)->id : null,
+            'amount' => !empty($priceData['amount']) ? $priceData['amount'] : null,
+            'margin_value' => isset($priceData['margin_value']) ? $priceData['margin_value'] : null,
+            'extra' => !empty($priceData['extra']),
+            'mandatory' => !empty($priceData['mandatory']),
+            'discount' => !empty($priceData['discount'])
+        ];
+        $price = (new PriceSetter($priceSetterData))->set();
+
+        foreach ($priceData['elements'] as $priceElementData) {
+            $this->setPriceElement($organizationId, $price->id, $dateRangeRelativeIds, $priceElementData);
+        }
+
+        return $price->id;
+    }
+
+    /**
+     * Creates a Product object with provided data. It also creates Prices
+     * 
+     * @param int $organizationId
+     * @param int $deviceId
+     * @param array $dateRangeRelativeIds
+     * @param array $productData
+     */
+    private function setProduct(int $organizationId, int $deviceId, array $dateRangeRelativeIds, array $productData) {
+        if (isset($productData['name'])) {
+            $nameDn = (new DescriptionSetter($productData['name']))->set();
+        } else {
+            $nameDn = null;
+        }
+        $product = (new ProductSetter([
+            'id' => $productData['id'],
+            'productable_id' => $deviceId,
+            'productable_type' => Device::class,
+            'type_taxonomy_id' => Config::getOrFail('taxonomies.product_types.' . $productData['type']),
+            'name_description_id' => $nameDn ? $nameDn->id : null
+                ]))->set(true);
+
+        if (!empty($productData['prices'])) {
+            foreach ($productData['prices'] as $priceData) {
+                $this->setPrice($organizationId, $product->id, $dateRangeRelativeIds, $priceData);
+            }
+        }
+    }
+
+    /**
+     * Creates a Product object with all associated data
+     * 
+     * @param int $organizationId
+     * @param int $deviceTypeTxId
+     * @param array $deviceData
+     * @param array $dateRangeRelativeIds
+     * @return int
+     */
+    private function setDevice(int $organizationId, int $deviceTypeTxId, array $deviceData, array $dateRangeRelativeIds) {
+        $nameTx = $this->setTaxonomyObj($deviceData['name'], Config::getOrFail('taxonomies.names.device_name'));
+
+        $device = new Device([
+            'organization_id' => $organizationId,
+            'type_taxonomy_id' => $deviceTypeTxId,
+            'name_taxonomy_id' => $nameTx->id,
+            'amount' => $deviceData['amount']
+        ]);
+
+        if (isset($deviceData['margin_value'])) {
+            $device->margin_value = $deviceData['margin_value'];
+        }
+
+        $device->save();
+
+        $this->setDeviceClassifications($device, $deviceData);
+
+        $metas = [];
+        foreach ($deviceData['metas'] as $key => $value) {
+            $metas[] = ['name' => $key, 'value' => $value];
+        }
+        (new DeviceMeta())->setMetas('device_id', $device->id, Config::getOrFail('taxonomies.device_meta'), $metas);
+
+        $this->setDeviceDescriptions($device->id, $deviceData);
+
+        $this->setGallery($device, !empty($deviceData['media']) ? $deviceData['media'] : []);
+
+        foreach ($deviceData['usages'] as $usageData) {
+            $this->setDeviceUsage($organizationId, $device->id, $usageData);
+        }
+
+        foreach ($deviceData['availabilities'] as $availabilityData) {
+            $this->setDeviceAvailability($device->id, $availabilityData);
+        }
+
+        if (!empty($deviceData['minimum_nights'])) {
+            foreach ($deviceData['minimum_nights'] as $minNightsData) {
+                $this->setDeviceMinimumNights($device->id, $minNightsData, $dateRangeRelativeIds);
+            }
+        }
+
+        if (!empty($deviceData['products'])) {
+            foreach ($deviceData['products'] as $productData) {
+                $this->setProduct($organizationId, $device->id, $dateRangeRelativeIds, $productData);
+            }
+        }
+
+        return $device->id;
+    }
+
+    /**
+     * set Device Classifications
+     * 
+     * @param Device $device
+     * @param array $deviceData
+     */
+    private function setDeviceClassifications(Device $device, array $deviceData) {
+        foreach ($deviceData['classifications'] as $parentKey => $parentClData) {
+            $parentCl = $device->setClassification(Config::getOrFail("taxonomies.device_classifications.{$parentKey}.id"), null);
+            if (!empty($parentClData['additional_description'])) {
+                $additionalDn = new Description(['description' => $parentClData['additional_description']]);
+                $additionalDn->saveOrFail();
+                $parentCl->additional_description_id = $additionalDn->id;
+            }
+            $parentCl->saveOrFail();
+
+            if (!empty($parentClData['items'])) {
+                foreach ($parentClData['items'] as $childKey) {
+                    $childCl = $device->setClassification(Config::getOrFail("taxonomies.device_classifications.{$parentKey}.items.{$childKey}.id"), null);
+                    $childCl->parent_classification_id = $parentCl->id;
+                    $childCl->saveOrFail();
+                }
+            }
+        }
+    }
+
+    /**
+     * Set devices for an organization 
+     * 
+     * @param int $organizationId
+     * @param array $orgData
+     * @param array $dateRangeRelativeIds
+     */
+    private function setDevices(int $organizationId, array $orgData, array $dateRangeRelativeIds) {
+        $devices = Config::getOrFail('taxonomies.devices');
+
+        foreach ($devices as $key => $deviceTypeTxId) {
+            if (!isset($orgData['devices'][$key]))
+                continue;
+
+            foreach ($orgData['devices'][$key] as $deviceData) {
+                $this->setDevice($organizationId, $deviceTypeTxId, $deviceData, $dateRangeRelativeIds);
+            }
+        }
+    }
+
+    /**
+     * Set Organization's Age Ranges with adult age range existence check
+     * 
+     * @param int $organizationId
+     * @param array $orgAgeRanges
+     * @throws Exception
+     */
+    private function setAgeRanges(int $organizationId, array $orgAgeRanges) {
+        if (!$this->hasAdultAgeRangeData($orgAgeRanges)) {
+            throw new Exception('Adult age range missing!');
+        }
+        foreach ($orgAgeRanges as $ageRangeData) {
+            $ageRangeTx = Taxonomy::getOrCreateTaxonomy($ageRangeData['name_taxonomy'], Config::getOrFail('taxonomies.age_range'));
+            $orgAgeRange = new OrganizationAgeRange([
+                'from_age' => $ageRangeData['from_age'],
+                'to_age' => $ageRangeData['to_age'],
+                'organization_id' => $organizationId,
+                'name_taxonomy_id' => $ageRangeTx->id,
+                'banned' => !empty($ageRangeData['banned']),
+                'free' => !empty($ageRangeData['free'])
+            ]);
+            $orgAgeRange->save();
+        }
+    }
+
+    /**
+     * Checks if found adult age range in ranges
+     * 
+     * @param array $orgAgeRanges
+     * @return boolean
+     */
+    private function hasAdultAgeRangeData(array $orgAgeRanges) {
+        foreach ($orgAgeRanges as $ageRangeItem) {
+            if ($ageRangeItem['name_taxonomy'] && $ageRangeItem['name_taxonomy'] == 'adult') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Creates Location object from provided data
+     * 
+     * @param array $locationData
+     * @return Location
+     */
+    private function setLocation(array $locationData) {
+        $location = new Location();
+
+        $island = Island::findByName($locationData['island']);
+        $location->island_id = $island->id;
+
+        if (isset($locationData['district'])) {
+            $district = District::findByName($locationData['district'], $island);
+            $location->district_id = $district->id;
+        }
+
+        if (isset($locationData['latitude']) && isset($locationData['longitude'])) {
+            $location->latitude = $locationData['latitude'];
+            $location->longitude = $locationData['longitude'];
+        }
+
+        if (isset($locationData['po_box'])) {
+            $location->po_box = $locationData['po_box'];
+        }
+
+        $location->save();
+        return $location;
+    }
+
+    /**
+     * setTaxonomyDescription
+     * 
+     * @param type $description
+     * @param int $txId
+     * @param string $foreignKey
+     * @param int $foreignId
+     * @param type $descriptionValue
+     */
+    private function setTaxonomyDescription($description, int $txId, string $foreignKey, int $foreignId, $descriptionValue) {
+        $descriptionObj = (new DescriptionSetter($descriptionValue))->set();
+        $description->{$foreignKey} = $foreignId;
+        $description->taxonomy_id = $txId;
+        $description->description_id = $descriptionObj->id;
+        $description->save();
+    }
+
+    /**
+     * set Organization Descriptions
+     * 
+     * @param int $organizationId
+     * @param array $data
+     */
+    private function setCruiseDescriptions(int $organizationId, array $data) {
+        $this->setTaxonomyDescription(new OrganizationDescription(), Config::getOrFail('taxonomies.organization_descriptions.short_description'), 'organization_id', $organizationId, $data['short_description']);
+        $this->setTaxonomyDescription(new OrganizationDescription(), Config::getOrFail('taxonomies.organization_descriptions.long_description'), 'organization_id', $organizationId, $data['long_description']);
+    }
+
+    /**
+     * set Device Descriptions
+     * 
+     * @param int $deviceId
+     * @param array $deviceData
+     */
+    private function setDeviceDescriptions(int $deviceId, array $deviceData) {
+
+        if (isset($deviceData['short_description'])) {
+            $this->setTaxonomyDescription(new DeviceDescription(), Config::getOrFail('taxonomies.device_descriptions.short_description'), 'device_id', $deviceId, $deviceData['short_description']);
+        }
+        if (isset($deviceData['long_description'])) {
+            $this->setTaxonomyDescription(new DeviceDescription(), Config::getOrFail('taxonomies.device_descriptions.long_description'), 'device_id', $deviceId, $deviceData['long_description']);
+        }
+    }
+
+    /**
+     * Sets basic organization data and delegates other task to subfunctions
+     * 
+     * @param array $orgData
+     * @return array
+     */
+    private function setCruise(array $orgData) {
+        $orgPricingLogic = empty($orgData['pricing_logic']) ? null : Taxonomy::getTaxonomy($orgData['pricing_logic'], Config::getOrFail('taxonomies.pricing_logic'));
+        $orgMarginType = empty($orgData['margin_type']) ? null : Taxonomy::getTaxonomy($orgData['margin_type'], Config::getOrFail('taxonomies.margin_type'));
+        $orgLocation = $this->setLocation($orgData['location']);
+
+        $org = (new OrganizationSetter([
+            'id' => $orgData['id'],
+            'name' => $orgData['name'],
+            'type' => $orgData['type'],
+            'location' => $orgLocation->toArray(),
+            'parent' => (isset($orgData['parent'])) ? $orgData['parent'] : null
+                ]))->set(true);
+        $org->is_active = $orgData['is_active'];
+        $org->pricing_logic_taxonomy_id = $orgPricingLogic ? $orgPricingLogic->id : null;
+        $org->margin_type_taxonomy_id = $orgMarginType ? $orgMarginType->id : null;
+        $org->created_at = $orgData['created'];
+        $org->updated_at = $orgData['updated'];
+        $org->deleted_at = $orgData['deleted'];
+        $org->save();
+
+        if (!empty($orgData['classifications'])) {
+            foreach ($orgData['classifications'] as $classificationKey => $classificationData) {
+                $this->seedOrganizationClassification($classificationData, $org->id, null, $classificationKey);
+            }
+        }
+
+        $dateRangeRelativeIds = [];
+        if (!empty($orgData['date_ranges'])) {
+            foreach ($orgData['date_ranges'] as $dateRangeData) {
+                $dateRangeRelativeIds[$dateRangeData['relative_id']] = OrganizationDateRange::setByData($org->id, $dateRangeData)->id;
+            }
+        }
+        if (!empty($orgData['descriptions'])) {
+            $this->setCruiseDescriptions($org->id, $orgData['descriptions']);
+        }
+
+        $this->setGallery($org, !empty($orgData['media']) ? $orgData['media'] : []);
+
+        return [$org->id, $dateRangeRelativeIds];
+    }
+
+    /**
+     * seed Organization Classification
+     * 
+     * @param type $data
+     * @param int $organizationId
+     * @param type $parentClassificationId
+     * @param type $categoryKey
+     * @param type $parentTxId
+     */
+    private function seedOrganizationClassification($data, int $organizationId, $parentClassificationId = null, $categoryKey = null, $parentTxId = null) {
+        if (!$parentTxId) {
+            $classificationTxId = Config::getOrFail("taxonomies.organization_classifications.categories.{$categoryKey}.id");
+            $orgCl = OrganizationClassification::findByTaxonomyAndOrganization($classificationTxId, $organizationId);
+        } else {
+            $classificationTx = Taxonomy::getOrCreateTaxonomy($data['name'], $parentTxId, Config::getOrFail('stylerstaxonomy.type_classification'));
+            $valueTx = null;
+            if (!empty($data['value'])) {
+                $valueTx = Taxonomy::getOrCreateTaxonomy($data['value'], $classificationTx->id);
+            }
+            $chargeTx = null;
+            if (!empty($data['charge'])) {
+                $chargeTx = Taxonomy::getOrCreateTaxonomy($data['charge'], Config::getOrFail('taxonomies.charge'));
+            }
+            $description = null;
+            if (!empty($data['description'])) {
+                $description = new Description();
+                $description->description = $data['description'];
+                $description->saveOrFail();
+            }
+
+            $orgCl = new OrganizationClassification();
+            $orgCl->organization_id = $organizationId;
+            $orgCl->parent_classification_id = $parentClassificationId;
+            $orgCl->classification_taxonomy_id = $classificationTx->id;
+            $orgCl->value_taxonomy_id = is_null($valueTx) ? null : $valueTx->id;
+            $orgCl->priority = isset($data['priority']) ? $data['priority'] : null;
+            $orgCl->additional_description_id = is_null($description) ? null : $description->id;
+            $orgCl->is_highlighted = !empty($data['is_highlighted']);
+            $orgCl->is_listable = !empty($data['is_listable']);
+            $orgCl->saveOrFail();
+        }
+
+        if (!empty($data['classifications'])) {
+            foreach ($data['classifications'] as $childData) {
+                $this->seedOrganizationClassification($childData, $organizationId, $orgCl->id, null, $orgCl->classification_taxonomy_id);
+            }
+        }
+
+        if (!empty($data['metas'])) {
+            foreach ($data['metas'] as $childData) {
+                $this->seedOrganizationMeta($childData, $organizationId, $orgCl);
+            }
+        }
+    }
+
+    /**
+     * seed Organization Meta
+     * 
+     * @param array $data
+     * @param int $organizationId
+     * @param OrganizationClassification $parentClassification
+     */
+    private function seedOrganizationMeta(array $data, int $organizationId, OrganizationClassification $parentClassification = null) {
+        $metaTx = Taxonomy::getOrCreateTaxonomy($data['name'], $parentClassification->classification_taxonomy_id, Config::getOrFail('stylerstaxonomy.type_meta'));
+        $description = null;
+        if (isset($data['description'])) {
+            $description = new Description();
+            $description->description = $data['description'];
+            $description->saveOrFail();
+        }
+
+        $orgMt = new OrganizationMeta();
+        $orgMt->organization_id = $organizationId;
+        $orgMt->parent_classification_id = $parentClassification->id;
+        $orgMt->taxonomy_id = $metaTx->id;
+        $orgMt->value = $data['value'];
+        $orgMt->priority = isset($data['priority']) ? $data['priority'] : null;
+        $orgMt->additional_description_id = is_null($description) ? null : $description->id;
+        $orgMt->is_listable = !empty($data['is_listable']);
+        $orgMt->saveOrFail();
+    }
+
+    /**
+     * Set a gallery from provided data with items
+     * 
+     * @param Model $model
+     * @param array $data
+     */
+    public function setGallery(Model $model, array $data) {
+        $gallery = (new GallerySetter([
+            'galleryable_id' => $model->id,
+            'galleryable_type' => get_class($model),
+            'role_taxonomy_id' => Config::getOrFail('taxonomies.gallery_roles.frontend_gallery')
+                ]))->set();
+
+        foreach ($data as $item) {
+            $this->setGalleryItem($item, $gallery);
+        }
+    }
+
+    /**
+     * Sets a gallery item
+     * 
+     * @param array $item Item data
+     * @param Gallery $gallery Gallery object to link to
+     */
+    public function setGalleryItem(array $item, Gallery $gallery) {
+        $symfonyFile = new SymfonyFile('docs/sample_images/' . $item['source_url']);
+        $file = (new FileSetter($item))->setBySymfonyFile($symfonyFile);
+
+        $galleryItem = new GalleryItem();
+        $galleryItem->gallery_id = $gallery->id;
+        $galleryItem->file_id = $file->id;
+        $galleryItem->is_highlighted = !empty($item['highlighted']);
+        $galleryItem->priority = !empty($item['priority']) ? $item['priority'] : null;
+        $galleryItem->saveOrFail();
+    }
+
+}
+

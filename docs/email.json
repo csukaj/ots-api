@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "type": "User / Offer request confirmation",
+    "subject": {
+      "en": "[en] Offer request confirmation",
+      "hu": "[hu] Offer request confirmation",
+      "de": "[de] Offer request confirmation",
+      "ru": "[ru] Offer request confirmation"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Email - Offer request confirmation",
+      "hu": "[hu] Dear {{username}}, <br/> Email - Offer request confirmation",
+      "de": "[de] Dear {{username}}, <br/> Email - Offer request confirmation",
+      "ru": "[ru] Dear {{username}}, <br/> Email - Offer request confirmation"
+    }
+  },
+  {
+    "id": 2,
+    "type": "User / Back to cart",
+    "subject": {
+      "en": "[en] Back to cart",
+      "hu": "[hu] Back to cart",
+      "de": "[de] Back to cart",
+      "ru": "[ru] Back to cart"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to cart</a>",
+      "hu": "[hu] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to cart</a>",
+      "de": "[de] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to cart</a>",
+      "ru": "[ru] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to cart</a>"
+    }
+  },
+  {
+    "id": 3,
+    "type": "User / Process finished",
+    "subject": {
+      "en": "[en] Process finished",
+      "hu": "[hu] Process finished",
+      "de": "[de] Process finished",
+      "ru": "[ru] Process finished"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Email - Process finished",
+      "hu": "[hu] Dear {{username}}, <br/> Email - Process finished",
+      "de": "[de] Dear {{username}}, <br/> Email - Process finished",
+      "ru": "[ru] Dear {{username}}, <br/> Email - Process finished"
+    }
+  },
+  {
+    "id": 4,
+    "type": "User / Payment success",
+    "subject": {
+      "en": "[en] Payment success",
+      "hu": "[hu] Payment success",
+      "de": "[de] Payment success",
+      "ru": "[ru] Payment success"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Thank you, your payment was successful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "hu": "[hu] Dear {{username}}, <br/> Thank you, your payment was successful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "de": "[de] Dear {{username}}, <br/> Thank you, your payment was successful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "ru": "[ru] Dear {{username}}, <br/> Thank you, your payment was successful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})"
+    }
+  },
+  {
+    "id": 5,
+    "type": "User / Payment failed",
+    "subject": {
+      "en": "[en] Payment failed",
+      "hu": "[hu] Payment failed",
+      "de": "[de] Payment failed",
+      "ru": "[ru] Payment failed"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Your payment was unsuccessful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "hu": "[hu] Dear {{username}}, <br/> Your payment was unsuccessful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "de": "[de] Dear {{username}}, <br/> Your payment was unsuccessful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})",
+      "ru": "[ru] Dear {{username}}, <br/> Your payment was unsuccessful. <br/> Order number: {{orderId}} (Payment transaction identifier: {{transactionId}})"
+    }
+  },
+  {
+    "id": 6,
+    "type": "Advisor / New offer received",
+    "subject": {
+      "en": "[en] New offer received",
+      "hu": "[hu] New offer received",
+      "de": "[de] New offer received",
+      "ru": "[ru] New offer received"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "hu": "[hu] Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "de": "[de] Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "ru": "[ru] Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>"
+    }
+  },
+  {
+    "id": 7,
+    "type": "User / Back to unique products cart",
+    "subject": {
+      "en": "[en] Back to unique products cart",
+      "hu": "[hu] Back to unique products cart",
+      "de": "[de] Back to unique products cart",
+      "ru": "[ru] Back to unique products cart"
+    },
+    "content": {
+      "en": "[en] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to unique products cart</a>",
+      "hu": "[hu] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to unique products cart</a>",
+      "de": "[de] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to unique products cart</a>",
+      "ru": "[ru] Dear {{username}}, <br/> Email - <a href=\"{{link}}\" target=\"_blank\">Back to unique products cart</a>"
+    }
+  },
+  {
+    "id": 8,
+    "type": "Admin / New offer received",
+    "subject": {
+      "en": "[en] ADMIN New offer received",
+      "hu": "[hu] ADMIN New offer received",
+      "de": "[de] ADMIN New offer received",
+      "ru": "[ru] ADMIN New offer received"
+    },
+    "content": {
+      "en": "[en] ADMIN Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "hu": "[hu] ADMIN Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "de": "[de] ADMIN Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "ru": "[ru] ADMIN Dear {{username}}, <br/> New offer received. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>"
+    }
+  },
+  {
+    "id": 9,
+    "type": "Admin / Payment success",
+    "subject": {
+      "en": "[en] ADMIN Payment success",
+      "hu": "[hu] ADMIN Payment success",
+      "de": "[de] ADMIN Payment success",
+      "ru": "[ru] ADMIN Payment success"
+    },
+    "content": {
+      "en": "[en] ADMIN Dear {{username}}, <br/> A payment was successful. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "hu": "[hu] ADMIN Dear {{username}}, <br/> A payment was successful.. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "de": "[de] ADMIN Dear {{username}}, <br/> A payment was successful. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "ru": "[ru] ADMIN Dear {{username}}, <br/>A payment was successful. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>"
+    }
+  },
+  {
+    "id": 10,
+    "type": "Admin / Payment failed",
+    "subject": {
+      "en": "[en] ADMIN Payment failed",
+      "hu": "[hu] ADMIN Payment failed",
+      "de": "[de] ADMIN Payment failed",
+      "ru": "[ru] ADMIN Payment failed"
+    },
+    "content": {
+      "en": "[en] ADMIN Dear {{username}}, <br/> A payment has failed. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "hu": "[hu] ADMIN Dear {{username}}, <br/> A payment has failed. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "de": "[de] ADMIN Dear {{username}}, <br/> A payment has failed. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>",
+      "ru": "[ru] ADMIN Dear {{username}}, <br/> A payment has failed. <h2>Details</h2><dl><dt>Order ID</dt><dd><a href=\"{{adminOrderDetailsLink}}\">{{orderId}}</a><dd><dt>Order time</dt><dd>{{orderCreatedAt}}<dd><dt>Customer</dt><dd>{{customerName}}<dd><dt>E-mail</dt><dd>{{customerEmail}}<dd></dl>"
+    }
+  }
+]

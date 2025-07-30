@@ -1,0 +1,53 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\ParentOrganization
+ *
+ * @property int $id
+ * @property string $name
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Collection|Organization[] $childOrganizations
+ * @mixin \Eloquent
+ */
+class ParentOrganization extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name'];
+    
+    /**
+     * Relation to childOrganizations
+     * 
+     * @return HasMany
+     */
+    public function childOrganizations() : HasMany {
+        return $this->hasMany(Organization::class, 'parent_id', 'id');
+    }
+    
+    /**
+     * Find parent organization by name or fail
+     * 
+     * @param string $name
+     * @return ParentOrganization
+     */
+    static public function findByName(string $name): ParentOrganization {
+        return self::where(['name' => $name])->firstOrFail();
+    }
+
+}
+

@@ -1,0 +1,806 @@
+{
+  "id": 12,
+  "name": {
+    "en": "Hanneman Holiday Residence",
+    "de": "Hanneman Holiday Residence",
+    "hu": "Hanneman Holiday Residence",
+    "ru": "Hanneman Holiday Residence"
+  },
+  "type": "accommodation",
+  "is_active": true,
+  "pricing_logic": "from_net_price",
+  "margin_type": "percentage",
+  "created": "2016-03-08 09:33:33",
+  "updated": "2016-03-08 09:33:33",
+  "deleted": null,
+  "location": {
+    "island": "Mahé",
+    "district": "Anse aux Pins",
+    "latitude": "-4.6930494",
+    "longitude": "55.5173608",
+    "po_box": "012345"
+  },
+  "media": [
+    {
+      "source_url": "10857092.jpg",
+      "description": {
+        "en": "Lorem ipsum sit dolor amet"
+      },
+      "type": "image",
+      "highlighted": true,
+      "priority": 0
+    },
+    {
+      "source_url": "10857089.jpg",
+      "description": {
+        "en": "Lorem ipsum sit dolor amet"
+      },
+      "type": "image",
+      "highlighted": false,
+      "priority": 1
+    },
+    {
+      "source_url": "10857093.jpg",
+      "description": {
+        "en": "Lorem ipsum sit dolor amet"
+      },
+      "type": "image",
+      "highlighted": false,
+      "priority": 2
+    },
+    {
+      "source_url": "10857094.jpg",
+      "description": {
+        "en": "Lorem ipsum sit dolor amet"
+      },
+      "type": "image",
+      "highlighted": false,
+      "priority": 3
+    }
+  ],
+  "classifications": {
+    "settings": {
+      "classifications": [
+        {
+          "name": "Availability mode",
+          "value": "binary"
+        },
+        {
+          "name": "Price level",
+          "value": "$$$$",
+          "is_listable": true
+        },
+        {
+          "name": "Discount calculations base",
+          "value": "rack prices"
+        },
+        {
+          "name": "Merged free nights",
+          "value": "enabled"
+        }
+      ],
+      "metas": []
+    },
+    "facilities": {
+      "classifications": [
+        {
+          "name": "Pool and wellness",
+          "value": "Private beach area",
+          "description": "Pool in the garden with sea water.",
+          "is_listable": true,
+          "is_highlighted": true
+        },
+        {
+          "name": "Wireless Internet",
+          "charge": "free",
+          "is_listable": true
+        },
+        {
+          "name": "Concierge",
+          "charge": "free",
+          "is_listable": true
+        },
+        {
+          "name": "Laundry service",
+          "charge": "free",
+          "is_listable": true
+        }
+      ],
+      "metas": []
+    },
+    "checkinout": {
+      "classifications": [
+        {
+          "name": "Check In",
+          "description": "Saturday 18:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 0
+        },
+        {
+          "name": "Check Out",
+          "description": "Saturday 15:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 1
+        },
+        {
+          "name": "Early Check In",
+          "description": "Saturday 17:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 2
+        },
+        {
+          "name": "Late Check Out",
+          "description": "Saturday 16:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 3
+        }
+      ],
+      "metas": []
+    },
+    "general": {
+      "classifications": [
+        {
+          "name": "Accommodation Category",
+          "value": "Villa"
+        }
+      ],
+      "metas": [
+        {
+          "name": "Number of Apartments",
+          "value": 7,
+          "description": "There are 7 modern Apartments at Hanneman Holiday Residence, each offering all the essentials to ensure a comfortable stay.",
+          "is_listable": true
+        },
+        {
+          "name": "Built in",
+          "value": 2001,
+          "is_listable": true
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "short_description": {
+      "en": "Hanneman Holiday Residence consists 7 spacious self-catering Apartments with full amenities including air-conditioned bedrooms with en-suite bathroom and private terrace; equipped kitchen with dishwasher; dining area; washing machine; satellite TV lounge; private open-air terrace with sitting and dining area, wireless internet and telephone., perfect location for families and friends.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+      "hu": "Hanneman Holiday Residence áll 7 tágas, önellátó apartmanokat kínál teljes felszereltséggel légkondicionált szoba en-suite fürdőszobával és saját terasszal; felszerelt konyha mosogatógéppel; étkező; mosógép; műholdas TV-szoba; privát szabadtéri terasz pihenőhellyel és étkezővel, vezeték nélküli internet és telefon., tökéletes hely a családok és a barátok.",
+      "ru": "Etiam ???? Lorem, Varius ????? Eget, ??? ID ???? ? ?????."
+    },
+    "long_description": {
+      "en": "In the vicinity of the residence is a selection of good restaurants. There are also take-aways, island shops where guests can buy provisions, a bus stop and ATM machine. A variety of evening entertainment is on offer such as discotheque, casino and local dancing shows. From the Hanneman Holiday Residence you can take a 5 minutes walk to Mahé´s most popular beach, the Beau Vallon Bay which is renowned for its adundant marine life and diving opportunities. Here you will find 3 kilometers of white sand and turquoise-blue waters of the Indian Ocean where you can swim year round. This property offers it's guests the option of catering for themselves in addition to enjoying the comforts of a spacious fully equipped Apartment in an ideal location. Our multi-lingual staff speaks English, German, French, Dutch, Afrikaans, Creole as well as some Italian and Spanish. We look forward to welcoming you.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+      "hu": "A környéken a lakóhely válogatott jó étterem. Vannak konklúziói, sziget boltok, ahol a vendégek vásárolhatnak rendelkezések, buszmegálló és ATM gép. A különböző esti szórakozási kínálat, mint a diszkó, kaszinó és a helyi táncesteket. A Hanneman Holiday Residence akkor egy 5 perces sétára a Mahé's legkedveltebb strandja, a Beau Vallon Bay, amely híres a adundant tengeri élet és búvárkodási lehetőségeket. Itt található 3 km-re a fehér homok és türkizkék vize az Indiai-óceán, ahol lehet úszni évben. A szálláshely vendégeit a lehetőséget, vendéglátó maguknak mellett élvezheti a kényelmet egy tágas, teljesen felszerelt apartman ideális helyen. A több nyelven beszélő személyzet beszél angolul, német, francia, holland, afrikaans, kreol, valamint néhány olasz és a spanyol. Bízunk benne, hogy Önt.",
+      "ru": "Etiam ???? Lorem, Varius ????? Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur ??? ID ???? ? ????? Commodo molestie AC Quis ????. Fusce sollicitudin Nulla ?? turpis accumsan auctor ?? Eget Lectus. Pellentesque placerat pulvinar ?????????. Sed facilisis Lorem ? ????? ?????????, ?????????? ? ?????? ??????????? consequat Dolor sagittis. Aenean ultricies arcu ID ??? Mollis luctus. Vivamus ???? arcu ?? sagittis euismod. ????? ? ????? ??. Pellentesque auctor ???? ? ?? Lorem ullamcorper Elementum. Nulla ??? ?????, convallis ? aliquam Vitae, Pretium ?? enim. Nulla Erat neque, suscipit ? ?? ?? ?????????????, dapibus Elementum Sapien. Nullam accumsan, tortor ?? tincidunt ??????, ?????? ???? pulvinar Felis, ?? venenatis ??? ?????? ?????. Phasellus ornare ????? Nunc, ? Elementum ???? venenatis ? ??. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, ?? suscipit ?????.\nPellentesque Vitae turpis ?? ????? ??fermentum sodales. Nulla Sapien tortor, tincidunt ? ?? ???? Vitae, gravida blandit Lectus. ????? molestie ultricies ???, Vitae lobortis nibh placerat ?. Integer ?????? sagittis Varius. ????? consequat ? ??? Vitae finibus. Pellentesque ????????? MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis ?????????. Integer ? ?? Massa pharetra ????? Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat ?? Cursus blandit, nibh ????? sollicitudin ????, ? ?? placerat Lorem ?? ???? ????."
+    }
+  },
+  "age_ranges": [
+    {
+      "from_age": 0,
+      "to_age": 6,
+      "name_taxonomy": "baby"
+    },
+    {
+      "from_age": 7,
+      "to_age": 12,
+      "name_taxonomy": "child"
+    },
+    {
+      "from_age": 13,
+      "to_age": null,
+      "name_taxonomy": "adult"
+    }
+  ],
+  "date_ranges": [
+    {
+      "relative_id": 1,
+      "name": {
+        "en": "2027 Part 1"
+      },
+      "from_time": "2027-04-01",
+      "to_time": "2027-04-19",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 2,
+      "name": {
+        "en": "2027 Part 2"
+      },
+      "from_time": "2027-04-20",
+      "to_time": "2027-05-05",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 3,
+      "name": {
+        "en": "2027 Part 3"
+      },
+      "from_time": "2027-05-06",
+      "to_time": "2027-10-31",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 4,
+      "name": {
+        "en": "2027 Part 4"
+      },
+      "from_time": "2027-11-01",
+      "to_time": "2027-12-31",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    }
+  ],
+  "devices": {
+    "room": [
+      {
+        "name": {
+          "en": "Studio Apartment"
+        },
+        "amount": 2,
+        "short_description": {
+          "en": "The Terrace Studio consists a king-size bed with air-conditioning and ceiling fan, lounge area with small library, open-plan large kitchenette which is fully-equipped including dishwasher and washing machine (and dryer), large-size fridge / freezer, collapsible clothes drying rack, flat-screen TV and storage room.",
+          "de": "Das Ut fringilla elit risus.",
+          "hu": "A Terrace Studio áll egy king-size ággyal és légkondicionáló és mennyezeti ventilátor, társalgó kis könyvtárral, egyterű nagy konyha, amely teljesen felszerelt, beleértve a mosogatógép és mosógép (és szárítógép), nagy méretű hűtőszekrény / fagyasztó, összecsukható ruhák szárítása állvány, síkképernyős TV-vel és tároló helyiség.",
+          "ru": "Etiam ???? Lorem, ???? ? ?????."
+        },
+        "long_description": {
+          "en": "There is a seperate bathroom with shower and 220V razor plug. BOOK NOW : Select your stay by clicking and highlighting the nights on the calendar. Price quoted is for 1 person. For extra adult, please click Extra Person. The Terrace Studio can accommodate up to 2 persons in total. No meals. Child under 6 years stays free. For child or infant, select from Additional options and services.",
+          "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+          "hu": "Van egy külön fürdőszoba zuhanyzóval és 220V borotva dugót. FOGLALÁS: Válassza ki a tartózkodás kattintva, és kiemelve az éjszakák a naptárban. Megajánlott ár 1 fő részére. Az extra felnőtt, küldjön további személy. A Terrace Studio elszállásolására 2 főt. Étkezés nélkül. Gyermek 6 éves kor alatti ingyenes. Mert gyermek vagy csecsemő, válassza ki a További lehetőségek és szolgáltatások.",
+          "ru": "Etiam ???? Lorem, Varius ????? Eget, Varius sagittis Felis.\nVivamus ???? arcu ?? sagittis euismod. ????? ? ????? ??. Pellentesque auctor ???? ? ?? Lorem ullamcorper Elementum. Nulla ??? ?????, convallis ? aliquam Vitae, Pretium ?? enim."
+        },
+        "media": [
+          {
+            "source_url": "10857092.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 0
+          },
+          {
+            "source_url": "10857089.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 1
+          }
+        ],
+        "usages": [
+          {
+            "elements": {
+              "adult": 2,
+              "child": 0,
+              "baby": 1
+            }
+          }
+        ],
+        "availabilities": [
+          {
+            "from_time": "2027-04-01",
+            "to_time": "2027-12-31",
+            "amount": 2
+          },
+          {
+            "from_time": "2027-12-31",
+            "to_time": null,
+            "amount": 2
+          }
+        ],
+        "metas": {
+          "size_from": 15,
+          "size_to": 24,
+          "number": 3
+        },
+        "classifications": {
+          "dining_facilities": {
+            "items": [
+              "air-conditioned",
+              "dining_area",
+              "seating_for_two"
+            ]
+          },
+          "kitchen_facilities": {
+            "items": [
+              "own_kitchen_corner",
+              "4_ring_stove",
+              "oven",
+              "microwave",
+              "dishwasher",
+              "fridge",
+              "deep_freezer",
+              "toaster"
+            ]
+          }
+        },
+        "margin_value": 10,
+        "products": [
+          {
+            "id": 20,
+            "type": "accommodation",
+            "prices": [
+              {
+                "name_taxonomy": {
+                  "en": "Studio"
+                },
+                "age_range": "adult",
+                "amount": 2,
+                "mandatory": 1,
+                "elements": [
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 1,
+                    "net_price": 158,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 194,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 2,
+                    "net_price": 189,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 225,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 3,
+                    "net_price": 215,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 215,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 250,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 4,
+                    "net_price": 158,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 194,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Child"
+                },
+                "age_range": "child",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 1,
+                    "net_price": 20,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 30,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 2,
+                    "net_price": 20,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 30,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 3,
+                    "net_price": 20,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 30,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 250,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 4,
+                    "net_price": 20,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 30,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Baby"
+                },
+                "age_range": "baby",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 1,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 2,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 3,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 4,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 0,
+                    "margin_value": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": {
+          "en": "Penthouse 2 bedrooms"
+        },
+        "amount": 2,
+        "short_description": {
+          "en": "The Penthouse with 2-bedrooms is a spacious 145 sqm unit on one level with a seperate fully-equipped kitchen, living and dining room with flat-screen TV, ceiling fan, guest toilet and furnished balcony of 18 sqm. There is a seperate laundry room with washing machine and integrated tumble dryer. The large master bedroom with king-size bed is air-conditioned with sitting area, study corner, storage room, private terrace and en-suite bathroom and shower. ",
+          "de": "Das Ut fringilla elit risus.",
+          "hu": "A Penthouse 2-hálószoba tágas 145 nm-es egység egy szinten egy külön teljesen felszerelt konyha, nappali és étkező síkképernyős TV, mennyezeti ventilátor, vendég WC és bútorozott erkély 18 nm-es. Van egy külön mosókonyha mosógéppel és integrált szárítógép. A nagy hálószoba king-size ágy, légkondicionált nappali, dolgozósarok, tároló, saját terasszal és fürdőszobával és zuhanyzóval.",
+          "ru": "Etiam ???? Lorem, ???? ? ?????."
+        },
+        "long_description": {
+          "en": "The second air-conditioned bedroom also has a king-size double bed with private terrace and en-suite bathroom with shower. Both showers have 220v shaver plug. All Apartments have a designated private parking bay. BOOK NOW : Select your stay by clicking and highlighting the nights on the calendar below. Price quoted is based on 2 persons sharing. For additional persons, please click Number of Extra persons. The Penthouse with 2-bedroom can accommodate 4 adults + 1 child under 6 years. No meals. Child under 6 years stays free. For child or infant, select from Additional options and services.",
+          "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+          "hu": "A második légkondicionált szoba is van egy king-size ágy, saját terasszal és saját fürdőszoba zuhanyzóval. Mindkét zuhanyzók 220V borotva dugót. Minden apartman egy kijelölt saját parkoló öbölben. FOGLALÁS: Válassza ki a tartózkodás kattintva, és kiemelve az éjszakák alábbi naptárban. Árat alapul 2 fő egy szobában. További személyek, kattintson száma Extra fő. A Penthouse 2 szobás befogadóképessége 4 felnőtt + 1 gyermek 6 éves kor alatt. Étkezés nélkül. Gyermek 6 éves kor alatti ingyenes. Mert gyermek vagy csecsemő, válassza ki a További lehetőségek és szolgáltatások.",
+          "ru": "Etiam ???? Lorem, Varius ????? Eget, Varius sagittis Felis.\nVivamus ???? arcu ?? sagittis euismod. ????? ? ????? ??. Pellentesque auctor ???? ? ?? Lorem ullamcorper Elementum. Nulla ??? ?????, convallis ? aliquam Vitae, Pretium ?? enim."
+        },
+        "media": [
+          {
+            "source_url": "10857092.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 0
+          },
+          {
+            "source_url": "10857089.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 1
+          }
+        ],
+        "usages": [
+          {
+            "elements": {
+              "adult": 4,
+              "baby": 1,
+              "child": 1
+            }
+          }
+        ],
+        "availabilities": [
+          {
+            "from_time": "2027-04-01",
+            "to_time": "2027-12-31",
+            "amount": 2
+          },
+          {
+            "from_time": "2027-12-31",
+            "to_time": null,
+            "amount": 2
+          }
+        ],
+        "metas": {
+          "size_from": 14,
+          "size_to": 23,
+          "number": 4
+        },
+        "classifications": {
+        },
+        "margin_value": 10,
+        "products": [
+          {
+            "id": 21,
+            "type": "accommodation",
+            "prices": [
+              {
+                "name_taxonomy": {
+                  "en": "Penthouse"
+                },
+                "age_range": "adult",
+                "amount": 4,
+                "mandatory": 1,
+                "elements": [
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 1,
+                    "net_price": 308,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 380,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 2,
+                    "net_price": 370,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 441,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 3,
+                    "net_price": 0,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 308,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 380,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 4,
+                    "net_price": 370,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 415,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Child"
+                },
+                "age_range": "child",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 1,
+                    "net_price": 28,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 37,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 2,
+                    "net_price": 33,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 42,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 3,
+                    "net_price": 28,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 37,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 42,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "e/p",
+                    "date_range_relative_id": 4,
+                    "net_price": 28,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 37,
+                    "margin_value": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "discounts": [
+    {
+      "relative_id": 12,
+      "is_active": true,
+      "priority": 1,
+      "name": {
+        "en": "Discount offer"
+      },
+      "type": "discount",
+      "condition": "early_bird",
+      "offer": {
+        "name": "percentage",
+        "classifications": {},
+        "metas": {
+          "modifier_percentage": -15
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-04-01",
+          "to_time": "2027-04-19",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "booking_prior_minimum_days": 10
+      }
+    },
+    {
+      "relative_id": 13,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Free Nights offer"
+      },
+      "type": "discount",
+      "condition": "long_stay",
+      "offer": {
+        "name": "free_nights",
+        "classifications": [
+          "use_last_consecutive_night"
+        ],
+        "metas": {
+          "discounted_nights": 1,
+          "deduction_base_meal_plan_id": 1
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-02-01",
+          "to_time": "2027-04-01",
+          "type": "price_modifier"
+        },
+        {
+          "from_time": "2027-05-01",
+          "to_time": "2027-11-01",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2
+      }
+    }
+  ],
+  "discount_combinations": []
+}

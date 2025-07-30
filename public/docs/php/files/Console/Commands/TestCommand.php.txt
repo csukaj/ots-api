@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+
+class TestCommand extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:test';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'This command can be used for testing anything';
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        $result = [];
+        $discounts = \Illuminate\Support\Facades\DB::select("
+            SELECT DISTINCT organization_date_ranges.organization_id, discounts.id, descriptions.description
+            FROM discounts
+            INNER JOIN discount_periods ON discounts.id = discount_periods.discount_id
+            INNER JOIN organization_date_ranges ON discount_periods.organization_date_range_id = organization_date_ranges.id
+            INNER JOIN descriptions ON descriptions.id = discounts.name_description_id
+            WHERE
+                discounts.deleted_at IS NULL AND
+                discount_periods.deleted_at IS NULL
+            GROUP BY organization_date_ranges.organization_id, discounts.id, descriptions.description
+            HAVING COUNT(discount_periods.id) > 1
+            ORDER BY discounts.id
+        ");
+        
+        foreach ($discounts as $discount) {
+            $dateRanges = \Illuminate\Support\Facades\DB::select("
+                SELECT DISTINCT organization_date_ranges.*
+                FROM discount_periods
+                INNER JOIN organization_date_ranges ON discount_periods.organization_date_range_id = organization_date_ranges.id
+                WHERE discount_periods.discount_id = {$discount->id} AND discount_periods.deleted_at IS NULL
+            ");
+            foreach ($dateRanges as $dateRange) {
+                $overlappingDateRanges = \Illuminate\Support\Facades\DB::select("
+                    SELECT DISTINCT organization_date_ranges.*
+                    FROM discount_periods
+                    INNER JOIN organization_date_ranges ON discount_periods.organization_date_range_id = organization_date_ranges.id
+                    WHERE
+                        discount_periods.deleted_at IS NULL AND
+                        organization_date_ranges.deleted_at IS NULL AND
+                        discount_periods.discount_id = {$discount->id} AND
+                        organization_date_ranges.id != {$dateRange->id} AND
+                        (DATE '{$dateRange->from_time}', DATE '{$dateRange->to_time}') OVERLAPS
+                        (organization_date_ranges.from_time, organization_date_ranges.to_time)
+                ");
+                if (count($overlappingDateRanges)) {
+                    $result[$discount->id] = (array)$discount;
+                }
+            }
+        }
+        
+        $this->table(['Organization ID', 'Discount ID', 'Discount Name'], $result);
+        echo "COUNT: " . count($result) . "\n";
+    }
+}
+

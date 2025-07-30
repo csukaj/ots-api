@@ -1,0 +1,68 @@
+[
+  {
+    "original_price": "880.0",
+    "meal_plan_id": 2,
+    "discounted_price": "880.0",
+    "order_itemable_index": 0,
+    "meal_plan": "b\/b",
+    "discounts": [
+      {
+        "description": {
+          "ru": "\u042d\u0442\u043e \u0442\u0435\u043a\u0441\u0442\u0443\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
+          "de": "Dies ist ein Textangebot",
+          "en": "This is a textual offer",
+          "hu": "Ez egy sz\u00f6veges aj\u00e1nlat"
+        },
+        "offer": "textual",
+        "discount_percentage": 0,
+        "discount_value": 0,
+        "modifier_type": 491,
+        "condition": "long_stay",
+        "name": {
+          "ru": "\u0422\u0435\u043a\u0441\u0442\u043e\u043b\u043e\u0433\u0438\u044f \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
+          "de": "Textangebot",
+          "en": "Textual Offer",
+          "hu": "Sz\u00f6veges Aj\u00e1nlat"
+        }
+      }
+    ],
+    "total_discount": {
+      "percentage": 0,
+      "value": 0
+    },
+    "margin": 80
+  },
+  {
+    "original_price": "891.0",
+    "meal_plan_id": 3,
+    "discounted_price": "891.0",
+    "order_itemable_index": 0,
+    "meal_plan": "h\/b",
+    "discounts": [
+      {
+        "description": {
+          "ru": "\u042d\u0442\u043e \u0442\u0435\u043a\u0441\u0442\u0443\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
+          "de": "Dies ist ein Textangebot",
+          "en": "This is a textual offer",
+          "hu": "Ez egy sz\u00f6veges aj\u00e1nlat"
+        },
+        "offer": "textual",
+        "discount_percentage": 0,
+        "discount_value": 0,
+        "modifier_type": 491,
+        "condition": "long_stay",
+        "name": {
+          "ru": "\u0422\u0435\u043a\u0441\u0442\u043e\u043b\u043e\u0433\u0438\u044f \u043f\u0440\u0435\u0434\u043b\u043e\u0436\u0435\u043d\u0438\u0435",
+          "de": "Textangebot",
+          "en": "Textual Offer",
+          "hu": "Sz\u00f6veges Aj\u00e1nlat"
+        }
+      }
+    ],
+    "total_discount": {
+      "percentage": 0,
+      "value": 0
+    },
+    "margin": 81
+  }
+]

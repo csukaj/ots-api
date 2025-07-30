@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Manipulators\UserSetter;
+use App\Organization;
+use App\User;
+use App\Entities\UserEntity;
+use App\Http\Controllers\ResourceController;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/UserController
+ */
+class UserController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of Users
+     * @return Response
+     */
+    public function index() {
+        $organizations = Organization::getEnglishHotelNames();
+        return [
+            'success' => true,
+            'data' => UserEntity::getCollection(User::all(), ['roles', 'organizations']),
+            'organizations' => $organizations
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified User
+     * @param  int  $id
+     * @return array|Response
+     */
+    public function show($id) {
+        return [
+            'success' => true,
+            'data' => (new UserEntity(User::findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created User
+     * @param  Request  $request
+     * @return array|Response
+     */
+    public function store(Request $request) {
+        $requestArray = $request->toArray();
+        $user = (new UserSetter($requestArray))->set();
+        return ['success' => true, 'data' => (new UserEntity($user))->getFrontendData()];
+    }
+
+    /**
+     * update
+     * Update the specified User
+     * @param  Request  $request
+     * @param  int  $id
+     * @return array|Response
+     */
+    public function update(Request $request, $id) {
+        $requestArray = $request->toArray();
+        $requestArray['id'] = $id;
+        $user = (new UserSetter($requestArray))->set();
+        return ['success' => true, 'data' => (new UserEntity($user))->getFrontendData()];
+    }
+
+    /**
+     * destroy
+     * Remove the specified User
+     * @param  int  $id
+     * @return array|Response
+     */
+    public function destroy($id) {
+        $user = User::findOrFail($id);
+        return ['success' => $user->delete(), 'data' => (new UserEntity(User::withTrashed()->findOrFail($id)))->getFrontendData()];
+    }
+
+}
+

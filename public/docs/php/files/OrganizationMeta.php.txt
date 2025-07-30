@@ -1,0 +1,130 @@
+<?php
+
+namespace App;
+
+use App\ModelValidatorTrait;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\MetaTrait;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\OrganizationMeta
+ *
+ * @property int $id
+ * @property int $organization_id
+ * @property int $parent_classification_id
+ * @property int $taxonomy_id
+ * @property string $value
+ * @property int $priority
+ * @property int $additional_description_id
+ * @property bool $is_listable
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $additionalDescription
+ * @property-read Taxonomy $metaTaxonomy
+ * @property-read Organization $organization
+ * @property-read OrganizationClassification $parentClassification
+ * @mixin \Eloquent
+ */
+class OrganizationMeta extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        MetaTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'organization_id',
+        'parent_classification_id',
+        'taxonomy_id',
+        'value',
+        'priority',
+        'additional_description_id',
+        'is_listable'
+    ];
+
+    /**
+     * Save the model to the database.
+     *
+     * @param  array $options
+     * @return bool
+     */
+    public function save(array $options = []): bool {
+        if (is_null($this->priority)) {
+            $tx = Taxonomy::findOrFail(isset($options['taxonomy_id']) ? $options['taxonomy_id'] : $this->taxonomy_id);
+            $this->priority = $tx->priority;
+            if (!empty($options)) {
+                $options['priority'] = $this->priority;
+            }
+        }
+        return parent::save($options);
+    }
+
+    /**
+     * Relation to organization
+     * 
+     * @return HasOne
+     */
+    public function organization(): HasOne {
+        return $this->hasOne(Organization::class);
+    }
+
+    /**
+     * Relation to parent Classification
+     * 
+     * @return HasOne
+     */
+    public function parentClassification(): HasOne {
+        return $this->hasOne(OrganizationClassification::class, 'id', 'parent_classification_id');
+    }
+
+    /**
+     * Scope a query to only include listable metas.
+     *
+     * @param Builder $query query to scope to
+     * @return Builder
+     */
+    public function scopeListable(Builder $query): Builder {
+        return $query->where('is_listable', '=', true);
+    }
+
+    /**
+     * Scope a query to only include metas which have spacified parent.
+     * 
+     * @param Builder $query
+     * @param int $parent_classification_id parent classification id to filter for
+     * @return Builder
+     */
+    public function scopeForParent(Builder $query, int $parent_classification_id = null): Builder {
+        return is_null($parent_classification_id) ? $query->whereNull('parent_classification_id') : $query->where('parent_classification_id', '=', $parent_classification_id);
+    }
+
+    /**
+     * Find spacified id in list of Organization Metas
+     * @param int $id
+     * @param OrganizationMeta[]|Collection $orgMts
+     * @return OrganizationMeta
+     * @static
+     */
+    static public function findKeyById($id, $orgMts) {
+        foreach ($orgMts as $key => $orgMt) {
+            if ($orgMt->id == $id) {
+                return $key;
+            }
+        }
+        return null;
+    }
+
+}
+

@@ -1,0 +1,60 @@
+{
+    "success": true,
+    "data": [
+        {
+            "id": 1,
+            "type": "Home Port",
+            "poi": {
+                "id": 1,
+                "type": "Port",
+                "name": {
+                    "en": "Port of Victoria"
+                },
+                "description": {
+                    "en": "Although it is the capital of the Seychelles, Victoria on Mahe island is not a large city. It was originally settled in 1778 by the French but was eventually named after Queen Victoria. There is an old part of town with narrow streets and dilapidated colonial buildings, and a new part of the city with wider avenues and tropical gardens. The centre of the city is pinpointed by the clock tower, a copy of the Little Ben outside Victoria station in London, next to which stands the court house. The Anglican and Roman Catholic cathedrals are just a couple of blocks away from one another, but they are both outdone by the impressive Capuchin House, a seminary for priests. A more lively pleasure is to be found at the morning market where the stalls are stacked with tropical fruits, spices and freshly caught fish."
+                },
+                "location": {
+                    "id": 24,
+                    "island": {
+                        "id": 1,
+                        "name_taxonomy": {
+                            "id" : 43,
+                            "parent_id" : 42,
+                            "name" : "Mahé",
+                            "priority" : 0,
+                            "is_active" : true,
+                            "is_required" : false,
+                            "is_readonly" : true,
+                            "is_merchantable" : false,
+                            "is_searchable" : false,
+                            "type" : "unknown",
+                            "icon" : null
+
+                        }
+                    },
+                    "district": {
+                        "id": 8,
+                        "name_taxonomy": {
+                            "id" : 172,
+                            "parent_id" : 43,
+                            "name" : "Bel Air",
+                            "priority" : null,
+                            "is_active" : true,
+                            "is_required" : false,
+                            "is_readonly" : true,
+                            "is_merchantable" : false,
+                            "is_searchable" : false,
+                            "type" : "unknown",
+                            "icon" : null
+
+                        }
+                    },
+                    "longitude": "55.4588122",
+                    "latitude": "-4.622432",
+                    "po_box": null
+                }
+            },
+            "organization_group_id":1
+        }
+    ]
+}

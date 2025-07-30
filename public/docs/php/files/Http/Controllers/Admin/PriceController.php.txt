@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\PriceEntity;
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\PriceSetter;
+use App\OrganizationAgeRange;
+use App\OrganizationDateRange;
+use App\OrganizationMealPlan;
+use App\Price;
+use App\PriceElement;
+use App\Product;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\TaxonomySetter;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+/**
+ * @resource Admin/PriceController
+ */
+class PriceController extends ResourceController {
+
+    /**
+     * store
+     * Store a newly created Price
+     * @param  Request $request
+     * @return array
+     * @throws UserException
+     */
+    public function store(Request $request) {
+        $price = $this->savePrice($request->toArray());
+        return ['success' => true, 'data' => (new PriceEntity($price))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * show
+     * Display the specified Price
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        return ['success' => true, 'data' => (new PriceEntity(Price::findOrFail($id)))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * update
+     * Update the specified Price
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $price = $this->savePrice($request->toArray(), $id);
+        return ['success' => true, 'data' => (new PriceEntity($price))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * destroy
+     * Remove the specified Price
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $price = Price::findOrFail($id);
+        return ['success' => $price->delete(), 'data' => (new PriceEntity($price))->getFrontendData(['admin'])];
+    }
+    
+    /**
+     * savePrice
+     * @param type $priceData
+     * @param type $id
+     * @return type
+     */
+    private function savePrice($priceData, $id = null) {
+        $nameTaxonomy = (new TaxonomySetter(
+            array_merge(['en' => $priceData['name']['name']], $priceData['name']['translations']),
+            isset($priceData['name']['id']) ? $priceData['name']['id'] : null,
+            Config::get('taxonomies.names.price_name')
+        ))->set();
+        $priceData['name_taxonomy_id'] = $nameTaxonomy->id;
+        
+        $device = Product::findOrFail($priceData['product_id'])->productable;
+        $ageRange = OrganizationAgeRange::findByNameOrFail($priceData['age_range'], $device->organization_id);
+        $priceData['organization_age_range_id'] = $ageRange->id;
+        
+        $price = (new PriceSetter($priceData))->set($id);
+        
+        if (!empty($priceData['elements'])) {
+            foreach ($priceData['elements'] as $elementData) {
+                $this->savePriceElement($price->id, $elementData);
+            }
+        }
+        
+        return $price;
+    }
+    
+    /**
+     * savePriceElement
+     * @param type $priceId
+     * @param type $elementData
+     */
+    private function savePriceElement($priceId, $elementData) {
+        $dateRange = OrganizationDateRange::findOrFail($elementData['date_range_id']);
+        $priceElement = !empty($elementData['id']) ? PriceElement::findOrFail($elementData['id']) : new PriceElement();
+        $priceElement->price_id = $priceId;
+        $priceElement->organization_date_range_id = $dateRange->id;
+        $priceElement->organization_meal_plan_id = OrganizationMealPlan::findByName($elementData['meal_plan'], $dateRange->organization_id, $dateRange->id)->id;
+        $priceElement->net_price = $elementData['net_price'];
+        $priceElement->rack_price = $elementData['rack_price'];
+        $priceElement->margin_type_taxonomy_id = Taxonomy::getTaxonomy($elementData['margin_type'], Config::get('taxonomies.margin_type'))->id;
+        $priceElement->margin_value = $elementData['margin_value'];
+        $priceElement->recalculatePrices()->saveOrFail();
+    }
+
+}
+

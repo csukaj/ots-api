@@ -1,0 +1,115 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Product
+ *
+ * @property int $id
+ * @property int $productable_id
+ * @property string $productable_type
+ * @property int $type_taxonomy_id
+ * @property int $margin_type_taxonomy_id
+ * @property float $margin_value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property int $name_description_id
+ * @property-read Taxonomy $marginType
+ * @property-read Description $name
+ * @property-read Collection|Price[] $prices
+ * @property-read Model\Eloquent $productable
+ * @property-read Taxonomy $type
+ * @mixin \Eloquent
+ */
+class Product extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name_description_id', 'productable_id', 'productable_type', 'type_taxonomy_id', 'margin_type_taxonomy_id', 'margin_value'];
+
+    /**
+     * productable
+     * function to construct morphto relation
+     *
+     * @return MorphTo
+     */
+    public function productable() {
+        return $this->morphTo();
+    }
+
+    /**
+     * type
+     * Relation to type taxonomy
+     *
+     * @return HasOne
+     */
+    public function type() {
+        return $this->hasOne(Taxonomy::class, 'id', 'type_taxonomy_id');
+    }
+
+    /**
+     * marginType
+     * Relation to Margin type taxonomy
+     *
+     * @return HasOne
+     */
+    public function marginType() {
+        return $this->hasOne(Taxonomy::class, 'id', 'margin_type_taxonomy_id');
+    }
+
+    /**
+     * type
+     * Relation to Price
+     *
+     * @return HasMany
+     */
+    public function prices() {
+        return $this->hasMany(Price::class, 'product_id', 'id')->orderBy('extra', 'asc')->orderBy('amount', 'asc');
+    }
+
+    /**
+     * type
+     * Relation to name description
+     *
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Description::class, 'id', 'name_description_id');
+    }
+
+    /**
+     * 
+     * @param string $name Product name o find
+     * @param string $productableType Class name of productable object
+     * @param int $productableId Id of productable object
+     * @return Product
+     * @static
+     */
+    static public function findByName(string $name, string $productableType, int $productableId): Product {
+        return Product
+                        ::join('descriptions', 'products.name_description_id', '=', 'descriptions.id')
+                        ->where('descriptions.description', '=', $name)
+                        ->where('products.productable_type', '=', $productableType)
+                        ->where('products.productable_id', '=', $productableId)
+                        ->whereNull('products.deleted_at')
+                        ->first();
+    }
+
+}
+

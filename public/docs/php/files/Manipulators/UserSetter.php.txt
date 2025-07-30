@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Organization;
+use App\User;
+use App\Exceptions\UserException;
+use Illuminate\Support\Facades\Hash;
+use Modules\Stylersauth\Entities\Role;
+
+/**
+ * Manipulator to create a new User 
+ * instance after the supplied data passes validation
+ */
+class UserSetter {
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'name' => null,
+        'email' => null,
+        'password' => null,
+        'roles' => null,
+        'organizations' => null
+    ];
+
+    /**
+     * Constructs Setter and validates input data
+     * @param array $attributes
+     * @throws UserException
+     */
+    public function __construct(array $attributes) {
+
+        if (empty($attributes['name'])) {
+            throw new UserException('Empty name');
+        }
+
+        if (empty($attributes['email'])) {
+            throw new UserException('Empty email');
+        }
+
+        if (isset($attributes['password']) && empty($attributes['password'])) {
+            throw new UserException('Empty password');
+        }
+
+        if (isset($attributes['roles']) && empty($attributes['roles'])) {
+            throw new UserException('Empty roles');
+        } elseif (in_array('manager', $attributes['roles']) && empty($attributes['organizations'])) {
+            throw new UserException('Organizations must be defined for managers');
+        }
+
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+    }
+
+    /**
+     * Creates new Model or updates if exists
+     * @return User
+     */
+    public function set() {
+        if ($this->attributes['id']) {
+            $user = User::findOrFail($this->attributes['id']);
+        } else {
+            $user = new User();
+        }
+
+        $user->name = $this->attributes['name'];
+        $user->email = $this->attributes['email'];
+
+        if (!empty($this->attributes['password'])) {
+            $user->password = Hash::make($this->attributes['password']);
+        }
+
+        $user->saveOrFail();
+
+        if ($this->attributes['roles'] !== null) {
+            $roles = Role::whereIn('name', $this->attributes['roles'])->get();
+            $user->roles()->sync($roles);
+
+            if (in_array('manager', $this->attributes['roles'])) {
+                $organizations = Organization::whereIn('id', $this->attributes['organizations'])->get();
+                $user->organizations()->sync($organizations);
+            }
+        }
+
+        return $user;
+    }
+
+}
+

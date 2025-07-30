@@ -1,0 +1,10 @@
+[{
+    "margin_type_taxonomy_id": 57,
+    "minimum_nights": 3,
+    "name_description_id": 15,
+    "from_time": "2027-06-01 00:00:00",
+    "type_taxonomy_id": 62,
+    "to_time": "2027-09-01 23:59:59",
+    "margin_value": 3.0,
+    "id": 6
+}]

@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Entities;
+
+use App\Product;
+
+class ProductEntity extends Entity
+{
+    protected $product;
+
+    public function __construct(Product $product) {
+        parent::__construct();
+
+        $this->product = $product;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $productableKeyAndId = $this->productableKeyAndId();
+        $return = [
+            'id' => $this->product->id,
+            'name' => $this->product->name ? ['en' => $this->product->productable->name->name . ': ' . $this->product->name->description] : null,
+            'name_description' => $this->product->name ? $this->getDescriptionWithTranslationsData($this->product->name) : null,
+            'type' => $this->product->type->name,
+            $productableKeyAndId['key'] => $productableKeyAndId['id']
+        ];
+        
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'prices':
+                    $return['prices'] = $this->getPrices();
+                    break;
+            }
+        }
+        
+        return $return;
+    }
+    
+    private function productableKeyAndId() {
+        $classNameParts = explode('\\', $this->product->productable_type);
+        return [
+            'key' => $this->camelcaseToUnderscore(array_pop($classNameParts)) . '_id',
+            'id' => $this->product->productable_id
+        ];
+    }
+    
+    private function camelcaseToUnderscore($string) {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
+    }
+    
+    private function getPrices(array $additions = ['admin']) {
+        return PriceEntity::getCollection($this->product->prices, $additions);
+    }
+}

@@ -1,0 +1,118 @@
+<?php
+
+namespace App\Entities;
+
+use App\Device;
+use App\DeviceClassification;
+use App\DeviceMeta;
+use App\Facades\Config;
+use Modules\Stylersmedia\Entities\File;
+use Modules\Stylersmedia\Entities\FileEntity;
+
+class DeviceEntity extends Entity
+{
+    const MODEL_TYPE = 'device';
+    const CONNECTION_COLUMN = 'device_id';
+
+    protected $device;
+    protected $products;
+    protected $fromDate;
+    protected $toDate;
+    protected $usageJson;
+    protected $orderItemableIndexes;
+
+    public function __construct(Device $device, $fromDate = null, $toDate = null, $usageJson = '', array $orderItemableIndexes = null) {
+        parent::__construct();
+
+        $this->device = $device;
+        $this->fromDate = $fromDate;
+        $this->toDate = $toDate;
+        $this->usageJson = $usageJson;
+        $this->orderItemableIndexes = $orderItemableIndexes;
+    }
+
+    public function getFrontendData(array $additions = [], $productType = null) {
+        $return = [
+            'id' => $this->device->id,
+            'organization_id' => $this->device->organization_id,
+            'name' => $this->getTaxonomyTranslation($this->device->name),
+            'type' => $this->device->type->name,
+            'metas' => [],
+            'classifications' => []
+        ];
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'amount':
+                    $return['amount'] = $this->device->amount;
+                    break;
+
+                case 'usages':
+                    $return['usages'] = DeviceUsageEntity::getCollection($this->device->usages, ['admin']);
+                    break;
+
+                case 'prices':
+                    if (!is_null($productType)) {
+                        $products = $this->device->products()
+                                    ->where('type_taxonomy_id', '=', Config::getOrFail("taxonomies.product_types.{$productType}"))
+                                    ->get();
+                    } else {
+                        $products = $this->device->products;
+                    }
+                    $return['products'] = ProductEntity::getCollection($products, ['prices']);
+                    break;
+
+                case 'margin':
+                    $return['margin_value'] = $this->device->margin_value;
+                    $return['margin_type'] = $this->device->margin_type_taxonomy_id ? $this->device->marginType->name : null;
+                    break;
+
+                case 'descriptions':
+                    $return['descriptions'] = $this->getEntityDescriptionsData($this->device->id, Config::get('taxonomies.device_description'));
+                    break;
+
+                case 'properties':
+                    $return['metas'] = $this->getMeta($return);
+                    $return['classifications'] = $this->getClassifications($return, ['frontend']);
+                    break;
+
+                case 'images':
+                    $return['images'] = $this->getImages();
+                    break;
+            }
+        }
+
+        return $return;
+    }
+
+    protected function getMeta($return) {
+        $models = (new DeviceMeta())
+            ->where(self::CONNECTION_COLUMN, $this->device->id)
+            //->listable()//TODO
+            //->forParent(null)//TODO
+            //->orderBy('priority')//TODO
+            ->get();
+
+        $metas = DeviceMetaEntity::getCollection($models);
+        return array_merge($return['metas'], $metas);
+    }
+
+    protected function getClassifications($return, $additions = []) {
+        $models = (new DeviceClassification())
+            ->where(self::CONNECTION_COLUMN, $this->device->id)
+            ->forParent(null)
+            ->orderBy('priority')
+            ->get();
+
+        $classifications = DeviceClassificationEntity::getCollection($models, $additions);
+        return array_merge($return['classifications'], $classifications);
+    }
+
+    public function getImages() {
+        $galleryIds = [];
+        foreach ($this->device->galleries as $gallery) {
+            $galleryIds[] = $gallery->id;
+        }
+        return FileEntity::getCollection((new File())->getFromGalleries($galleryIds));
+    }
+}

@@ -1,0 +1,105 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\District
+ *
+ * @property int $id
+ * @property int $name_taxonomy_id
+ * @property int $island_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Island $island
+ * @property-read Taxonomy $name
+ * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\District onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereIslandId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereNameTaxonomyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\District whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\District withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\District withoutTrashed()
+ */
+class District extends Model
+{
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name_taxonomy_id', 'island_id'];
+
+    /**
+     * Relation to name taxonomy
+     *
+     * @return HasOne
+     */
+    public function name(): HasOne
+    {
+        return $this->hasOne(Taxonomy::class, 'id', 'name_taxonomy_id');
+    }
+
+    /**
+     * Relation to island
+     *
+     * @return HasOne
+     */
+    public function island(): HasOne
+    {
+        return $this->hasOne(Island::class, 'id', 'island_id');
+    }
+
+    /**
+     * Find district by name on island
+     *
+     * @param string $name
+     * @param Island $island
+     * @return District
+     */
+    static public function findByName(string $name, Island $island): self
+    {
+        $nameTx = Taxonomy::getTaxonomy($name, $island->name_taxonomy_id);
+        return self::where(['island_id' => $island->id, 'name_taxonomy_id' => $nameTx->id])->firstOrFail();
+    }
+
+    /**
+     * Get all disctrict id for an island
+     * @param int $islandId
+     * @return Collection
+     */
+    static public function getDistrictIds(int $islandId): Collection
+    {
+        return self::where('island_id', '=', $islandId)->pluck('id');
+    }
+
+    /**
+     * Get all disctrict name for an island
+     * @param int $islandId
+     * @return Collection
+     */
+    static public function getDistrictNames(int $islandId): Collection
+    {
+        return self::
+        select(['districts.id', 'taxonomies.name'])
+            ->join('taxonomies', 'districts.name_taxonomy_id', '=', 'taxonomies.id')
+            ->where('island_id', '=', $islandId)
+            ->get();
+    }
+
+}

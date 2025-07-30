@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Console;
+
+use App\Console\Commands\ClearCacheCommand;
+use App\Console\Commands\FlushRedisCommand;
+use App\Console\Commands\RegenerateImagesCommand;
+use App\Console\Commands\TestAccommodationSeederCommand;
+use App\Console\Commands\TestCommand;
+use App\Console\Commands\TestContentSeederCommand;
+use App\Console\Commands\TestManagerSeederCommand;
+use App\Console\Commands\TestParentOrganizationSeederCommand;
+use App\Console\Commands\TruncateDbCommand;
+use App\Console\Commands\UpdateCacheCommand;
+use App\Console\Commands\UpdateTranslationsCommand;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+
+class Kernel extends ConsoleKernel
+{
+    /**
+     * The Artisan commands provided by your application.
+     *
+     * @var array
+     */
+    protected $commands = [
+        TruncateDbCommand::class,
+        TestParentOrganizationSeederCommand::class,
+        TestAccommodationSeederCommand::class,
+        TestManagerSeederCommand::class,
+        TestContentSeederCommand::class,
+        UpdateCacheCommand::class,
+        UpdateTranslationsCommand::class,
+        ClearCacheCommand::class,
+        FlushRedisCommand::class,
+        RegenerateImagesCommand::class,
+        TestCommand::class
+    ];
+
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  Schedule  $schedule
+     * @return void
+     */
+    protected function schedule(Schedule $schedule)
+    {
+        // $schedule->command('inspire')
+        //          ->hourly();
+    }
+}
+

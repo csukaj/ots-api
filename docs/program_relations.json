@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "parent_id": 1,
+    "child_id": 2,
+    "sequence": 1,
+    "relative_time": {
+      "day": 1,
+      "precision": "time_of_day",
+      "time_of_day": "AM",
+      "time": null
+    },
+    "embarkation_type": "none",
+    "embarkation_direction": "none"
+  },
+  {
+    "id": 2,
+    "parent_id": 1,
+    "child_id": 3,
+    "sequence": 2,
+    "relative_time": {
+      "day": 2,
+      "precision": "time_of_day",
+      "time_of_day": "AM",
+      "time": null
+    },
+    "embarkation_type": "technical",
+    "embarkation_direction": "embark"
+  },
+  {
+    "id": 3,
+    "parent_id": 1,
+    "child_id": 4,
+    "sequence": 3,
+    "relative_time": {
+      "day": 3,
+      "precision": "time_of_day",
+      "time_of_day": "AM",
+      "time": null
+    },
+    "embarkation_type": "financial",
+    "embarkation_direction": "2-way"
+  },
+  {
+    "id": 4,
+    "parent_id": 1,
+    "child_id": 5,
+    "sequence": 4,
+    "relative_time": {
+      "day": 4,
+      "precision": "time_of_day",
+      "time_of_day": "AM",
+      "time": null
+    },
+    "embarkation_type": "technical",
+    "embarkation_direction": "disembark"
+  }
+]

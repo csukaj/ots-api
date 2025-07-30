@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Relations;
+
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use App\Entities\OrganizationEntity;
+use App\Organization;
+
+/**
+ * Relation for displaying Organizations with same parent
+ */
+class OrganizationsRelation extends Relation {
+    
+    protected $type = self::TYPE_ONE_TO_MANY;
+    protected $format = self::FORMAT_CSV;
+    protected $modelClass = 'App\Organization';
+    
+    protected $organization;
+
+    public function __construct(Taxonomy $taxonomy, Organization $organization) {
+        parent::__construct($taxonomy);
+        $this->organization = $organization;
+    }
+
+    /**
+     * Format data for displaying on frontend
+     * 
+     * @return array
+     */
+    public function getFrontendData() {
+        if ($this->organization->parent_id) {
+            $options = Organization::where('parent_id', '=', $this->organization->parent_id)->where('id', '!=', $this->organization->id)->get();
+        } else {
+            $options = [];
+        }
+        return [
+            'type' => $this->type,
+            'format' => $this->format,
+            'options' => OrganizationEntity::getCollection($options)
+        ];
+    }
+
+}
+

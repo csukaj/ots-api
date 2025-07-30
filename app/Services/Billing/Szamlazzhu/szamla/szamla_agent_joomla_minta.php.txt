@@ -1,0 +1,192 @@
+<?php
+/*
+------------------------------------------------------------------------
+  Szamlazz.hu PHP kapcsolódás
+------------------------------------------------------------------------
+  author    Roland Soos 
+  copyright Copyright (C) 2011 global-illusion.com. All Rights Reserved.
+  @license - http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+  Websites: http://global-illusion.com
+------------------------------------------------------------------------
+Requirements: 
+  PHP4 or PHP5 with Iconv and Curl
+  Joomla and Virtuemart
+Note:
+  Of course it is just an example. You can use any part of this and 
+  implement this functions to any other webshop engines.
+========================================================================
+
+FONTOS TUDNIVALÓK:
+==================
+
+KÉRJÜK ELŐSZÖR A SZÁMLA AGENT ISMERTETŐT OLVASSA EL, A KÖVETKEZŐ MONDATOK CSAK ANNAK ISMERETÉBEN ÉRTHETŐK!
+
+Ez egy mintakód nem futásképes módosítások nélkül, pl. adatbázis elérés, email cím, könyvtárak beállítandók.
+
+Ez a kód azt az esetet mutatja, amikor kérünk vissza számla pdf-et és a response headerben lévő adatok nem érdekelnek.
+A kód egy szálon futónak van tervezve, tehát mondjuk crontabból hívható bizonyos időközönként.
+
+A jos_vm_orders táblához hozzá kell adni "invoiced" nevű mezőt, melynek típusa szám, amíg nincs kiszámlázva a rendelés addig nulla:
+  alter table jos_vm_orders add invoiced INT not null default 0;
+
+======================================================================== */
+
+/*
+Kapcsolódás az adatbázishoz
+*/
+mysql_connect('host', 'user', 'password') or die(mysql_error());
+mysql_select_db('database') or die(mysql_error());
+mysql_query('set names utf8');
+
+/*
+ 2 napnál régebbi rendelések lekérése Virtuemart-ból, amelyek még nincsenek kiszámlázva, de a státuszuk már Confirmed.
+*/
+$query = "SELECT order_id FROM jos_vm_orders WHERE order_status = 'C' AND invoiced = 0 AND mdate < '".mktime(0, 0, 0, date("m")  , date("d")-2, date("Y"))."' ORDER BY mdate ASC";
+$result = mysql_query($query);
+while($sor = mysql_fetch_assoc($result)){
+  try{
+    /*
+    Xml állomány létrehozása, majd a számla elkészítése
+    */
+    createInvoice($sor['order_id']);
+  } catch (Exception $e) {
+    /*
+    Ha a számla készítése során hiba történt ez az email kerül kiküldésre. A számlát újra ki kell állítani, mert nem készült el a számla!
+    */
+    mail("email@email.hu", "Hiba a számla készítése során", convertBack("Hiba történt! ORDER ID: ".$orderid."\n".$e->getMessage()));
+  }
+}
+
+/*
+Xml fájl beküldése a szamlazz.hu rendszerébe, majd a visszaérkezett elektronikus számla lementése a szerverre.
+*/
+function sendXML($xmlfile = 'invoice.xml', $orderid){
+  $ch = curl_init("https://www.szamlazz.hu/szamla/");
+  $pdf = './pdf/'.$orderid.'.pdf';
+  $fp = fopen($pdf, "w");
+  curl_setopt($ch, CURLOPT_FILE, $fp);
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, array('action-xmlagentxmlfile'=>'@'.$xmlfile)); 
+  curl_exec($ch);
+  curl_close($ch);
+  fclose($fp);
+  
+  if(mime_content_type($pdf) == 'text/plain'){
+    /*
+    Nem pdf típusú féjl érkezett vissza a válaszban. Ez általában hibát jelez. Az email tartalmazni fogja a szamlazz.hu rendszeréből visszaérkezett hibajelentést.
+    */
+    mail("email@example.com", "Hiba a számla készítése során", convertBack("Hiba történt! ORDER ID: ".$orderid."\n".file_get_contents($pdf)));
+  }else{
+    /*
+    A számla elkészült! Beállítjuk a rendelés számlázási státuszát 1-re, hogy nehogy mégegyszer kiszámlázásra kerüljön.
+    */
+    mysql_query("UPDATE `jos_vm_orders` SET `invoiced` = 1 WHERE order_id = '".$orderid."'");
+  }
+}
+
+function createInvoice($orderId){
+  if($orderId<1) return;
+  $query = "SELECT o.order_id, o.mdate, oui.country, oui.zip, oui.company, oui.first_name, oui.last_name, oui.city, oui.address_1, oui.user_email, oi.order_item_name , oi.product_quantity , oi.product_item_price , oi.product_final_price 
+    FROM jos_vm_orders AS o
+    LEFT JOIN jos_vm_order_item AS oi ON o.order_id = oi.order_id
+    LEFT JOIN jos_vm_order_user_info AS oui ON o.order_id = oui.order_id
+    LEFT JOIN jos_vm_order_payment AS op ON o.order_id = op.order_id
+    WHERE o.order_id = ".$orderId."
+      AND oui.address_type = 'bt'
+      AND o.order_status = 'C'
+      AND o.invoiced = '0'
+    ";
+  $result = mysql_query($query);
+  if (mysql_num_rows($result) == 0) {
+    print "Nem található a rendelés a rendszerben! SQL - ".$orderId."\n";
+    return false;
+  }
+  $rows = array();
+  while ($row = mysql_fetch_assoc($result)) {
+    $rows[] = $row;
+  }
+  if (count($rows) == 0) {
+    print "Nem található a rendelés a rendszerben! ".$orderId."\n";
+    return false;
+  }
+  $data = $rows[0];
+  /*
+  Xml felépítése
+  */
+  $szamla = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><xmlszamla xmlns="http://www.szamlazz.hu/xmlszamla" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamla xmlszamla.xsd"></xmlszamla>');
+  
+  $beallitasok = $szamla->addChild('beallitasok');
+  
+  $beallitasok->addChild('felhasznalo', 'felhasználónév');
+  $beallitasok->addChild('jelszo', 'jelszó');
+  
+  $beallitasok->addChild('eszamla', 'true');
+  
+  $beallitasok->addChild('kulcstartojelszo', 'Kulcstartó jelszó e-számlához');
+  
+  $beallitasok->addChild('szamlaLetoltes', 'true');
+  
+  $fejlec = $szamla->addChild('fejlec');
+  $fejlec->addChild('keltDatum', date('Y-m-d') );
+  $fejlec->addChild('teljesitesDatum', date('Y-m-d', $data['mdate']));
+  $fejlec->addChild('fizetesiHataridoDatum', date('Y-m-d',mktime(0, 0, 0, date("m")  , date("d")+7, date("Y"))));
+  $fejlec->addChild('fizmod', 'Átutalás');
+  $fejlec->addChild('penznem', 'HUF');
+  $fejlec->addChild('szamlaNyelve', 'en');
+  $fejlec->addChild('megjegyzes', '');
+  $fejlec->addChild('rendelesSzam', $data['order_id']);
+  $fejlec->addChild('elolegszamla', 'false');
+  $fejlec->addChild('vegszamla', 'false');
+  
+  $elado = $szamla->addChild('elado');
+  $elado->addChild('bank', 'OTP Bank');
+  $elado->addChild('bankszamlaszam', 'Bankszámlaszám');
+  $elado->addChild('emailReplyto', 'E-mail');
+  $elado->addChild('emailTargy', 'E-mail tárgy');
+  $elado->addChild('emailSzoveg', 'E-mail szöveg');
+  
+  $vevo = $szamla->addChild('vevo');
+  $vevo->addChild('nev', ($data['company'] ? convert($data['company']).' - ' : '').convert($data['first_name']).' '.convert($data['last_name']) );
+  $vevo->addChild('irsz', $data['country'].'-'.convert($data['zip']));
+  $vevo->addChild('telepules', convert($data['city']));
+  $vevo->addChild('cim', convert($data['address_1']));
+  $vevo->addChild('email', convert($data['user_email']));
+  $vevo->addChild('adoszam', '');
+  
+  $tetelek = $szamla->addChild('tetelek');
+  foreach($rows as $d){
+    $tetel = $tetelek->addChild('tetel');
+    $tetel->addChild('megnevezes',$d['order_item_name']);
+    $tetel->addChild('mennyiseg',$d['product_quantity']);
+    $tetel->addChild('mennyisegiEgyseg','db');
+    $tetel->addChild('nettoEgysegar',$d['product_item_price']);
+    $tetel->addChild('afakulcs','25');
+    $tetel->addChild('nettoErtek',$d['product_item_price']*$d['product_quantity']);
+    $tetel->addChild('afaErtek',($d['product_final_price']-$d['product_item_price'])*$d['product_quantity']);
+    $tetel->addChild('bruttoErtek',$d['product_final_price']*$d['product_quantity']);
+    $tetel->addChild('megjegyzes','');
+  }
+  $xml = $szamla->asXML();
+  file_put_contents('./xml/'.$orderId.'.xml', utf2ISO8859($xml));
+  sendXML('./xml/'.$orderId.'.xml', $orderId);
+}
+
+/*
+Néhány segítő funkció melyek megoldást nyújtanak arra az esetre, ha különböző speciális nem latin karaktereket is használnak a vásárlóink. A számlán az ilyen karakterek ? jelre lesznek lecserélve.
+*/
+function utf2ISO8859($string) {
+  return $string;
+}
+function convert($string){
+  return iconv('ISO-8859-2', 'UTF-8', convertBack($string));
+}
+
+function convertBack($string){
+  return iconv('UTF-8', 'ISO-8859-2//TRANSLIT', $string);
+}
+
+
+mysql_close();
+
+?>

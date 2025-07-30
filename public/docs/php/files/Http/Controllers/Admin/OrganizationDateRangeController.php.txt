@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\OrganizationDateRangeEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\OrganizationDateRangeSetter;
+use App\OrganizationDateRange;
+use App\OrganizationMealPlan;
+use App\PriceElement;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
+
+/**
+ * @resource Admin/OrganizationDateRangeController
+ */
+class OrganizationDateRangeController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of OrganizationDateRanges
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $dateRangeFilter = OrganizationDateRange::where('organization_id', '=', $request->input('organization_id'));
+        $types = Config::get('taxonomies.date_range_types');
+        if ($request->has('type') && isset($types[$request->input('type')])) {
+            $dateRangeFilter->where('type_taxonomy_id', $types[$request->input('type')]);
+        }
+        $dateRanges = $dateRangeFilter->orderBy('from_time')->get();
+        return ['success' => true, 'data' => OrganizationDateRangeEntity::getCollection($dateRanges)];
+    }
+
+    /**
+     * store
+     * Store a newly created OrganizationDateRange
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $dateRange = (new OrganizationDateRangeSetter($request->all()))->set();
+        return ['success' => true, 'data' => (new OrganizationDateRangeEntity($dateRange))->getFrontendData()];
+    }
+
+    /**
+     * updateCollection
+     * Bulk update multiple OrganizationDateRanges
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function updateCollection(Request $request) {
+        $dateRangesUpdated = [];
+        foreach ($request->data as $requestItem) {
+            $dateRangesUpdated[] = (new OrganizationDateRangeSetter($requestItem))->set();
+        }
+        return ['success' => true, 'data' => OrganizationDateRangeEntity::getCollection($dateRangesUpdated)];
+    }
+
+    /**
+     * show
+     * Display the specified OrganizationDateRange
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $dateRange = OrganizationDateRange::findOrFail($id);
+        return ['success' => true, 'data' => (new OrganizationDateRangeEntity($dateRange))->getFrontendData()];
+    }
+
+    /**
+     * destroy
+     * Remove the specified OrganizationDateRange
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $dateRange = OrganizationDateRange::findOrFail($id);
+        OrganizationMealPlan::where('organization_date_range_id', $dateRange->id)->delete();
+        PriceElement::where('organization_date_range_id', $dateRange->id)->delete();
+        return ['success' => $dateRange->delete(), 'data' => (new OrganizationDateRangeEntity(OrganizationDateRange::withTrashed()->findOrFail($id)))->getFrontendData()];
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "name": "Stylersauth",
+    "alias": "stylersauth",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stylersauth\\Providers\\StylersauthServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate as GateFacade;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    /**
+     * Register any application authentication / authorization services.
+     *
+     * @param  GateContract  $gate
+     * @return void
+     */
+    public function boot(GateContract $gate)
+    {
+        $this->registerPolicies($gate);
+
+        GateFacade::define('create-organization', function ($user) {
+            return $user->hasRole('admin');
+        });
+        GateFacade::define('delete-organization', function ($user) {
+            return $user->hasRole('admin');
+        });
+        GateFacade::define('access-organization', function ($user, $organizationId) {
+            return $user->hasRole('admin') || ($user->hasRole('manager') && $user->hasOrganization($organizationId));
+        });
+        GateFacade::define('create-device', function ($user) {
+            return $user->hasRole('admin');
+        });
+        GateFacade::define('delete-device', function ($user) {
+            return $user->hasRole('admin');
+        });
+        GateFacade::define('access-device', function ($user, $organizationId) {
+            return $user->hasRole('admin') || ($user->hasRole('manager') && $user->hasOrganization($organizationId));
+        });
+        GateFacade::define('access-device-attributes', function ($user, $organizationId) {
+            return $user->hasRole('admin') || ($user->hasRole('manager') && $user->hasOrganization($organizationId));
+        });
+    }
+}
+

@@ -1,0 +1,29 @@
+<?php
+
+    header("Content-Type: text/plain; charset=utf-8");
+    require_once("./invoiceAgent.class.php");
+
+    $szamlazz = new invoiceAgent(null);
+    
+    $settings = [
+        "username" => "[username]",             // username, required, plain text
+        "password" => "[password]",             // user password, required, plain text
+        "invoice_num" => "E-MEGFI-2015-265",
+        "additive" => true
+    ];
+    
+    $szamlazz->addPayment([
+        "date" => "2015-12-13",
+        "transaction_title" => "készpénz",
+        "amount" => "999",
+    ]);
+    
+    if ($szamlazz->_payInvoice($settings)) {
+        echo "sikerült";
+    } else {
+        echo "nem sikerült";
+    }
+    
+    unset($szamlazz);
+
+?>

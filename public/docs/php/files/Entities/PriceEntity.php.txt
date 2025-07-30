@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Entities;
+
+use App\Price;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class PriceEntity extends Entity
+{
+    protected $price;
+
+    public function __construct(Price $price) {
+        parent::__construct();
+
+        $this->price = $price;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [
+            'id' => $this->price->id,
+            'name' => (new TaxonomyEntity($this->price->name))->getFrontendData(['translations']),
+            'age_range' => $this->price->organizationAgeRange ? $this->price->organizationAgeRange->name->name : null,
+            'amount' => $this->price->amount,
+            'extra' => $this->price->extra,
+            'elements' => PriceElementEntity::getCollection($this->price->elements, $additions)
+        ];
+        
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'admin':
+                    $return['product_id'] = $this->price->product_id;
+                    $return['margin_type'] = $this->price->marginType ? $this->price->marginType->name : null;
+                    $return['margin_value'] = $this->price->margin_value;
+                    $return['mandatory'] = $this->price->mandatory;
+                    break;
+            }
+        }
+
+        return $return;
+    }
+}

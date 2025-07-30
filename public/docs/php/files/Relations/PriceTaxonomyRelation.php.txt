@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Relations;
+
+use App\Organization;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * Relation for displaying Price Name Taxonomies
+ */
+class PriceTaxonomyRelation extends Relation {
+    
+    protected $type = self::TYPE_ONE_TO_MANY_KEYS;
+    protected $format = self::FORMAT_JSON;
+    protected $modelClass = 'Modules\Stylerstaxonomy\Entities\Taxonomy';
+    
+    protected $organization;
+
+    public function __construct(Taxonomy $taxonomy, Organization $organization) {
+        parent::__construct($taxonomy);
+        $this->organization = $organization;
+    }
+    
+    /**
+     * Format data for displaying on frontend
+     * 
+     * @return array
+     */
+    public function getFrontendData() {
+        $nameIds = $this->organization->prices()->pluck('prices.name_taxonomy_id')->unique()->values()->all();
+        
+        return [
+            'type' => $this->type,
+            'format' => $this->format,
+            'options' => TaxonomyEntity::getCollection(Taxonomy::find($nameIds), [], [], true)
+        ];
+    }
+
+}
+

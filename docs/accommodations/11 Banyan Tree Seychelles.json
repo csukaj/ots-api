@@ -1,0 +1,817 @@
+{
+  "id": 11,
+  "name": {
+    "en": "Banyan Tree Seychelles",
+    "de": "Banyan Tree Seychelles",
+    "hu": "Banyan Tree Seychelles",
+    "ru": "Banyan Tree Seychelles"
+  },
+  "type": "accommodation",
+  "parent": "Hotel Chain B",
+  "is_active": true,
+  "pricing_logic": "from_net_price",
+  "margin_type": "percentage",
+  "created": "2016-03-08 09:33:33",
+  "updated": "2016-03-08 09:33:33",
+  "deleted": null,
+  "location": {
+    "island": "Mahé",
+    "district": "Anse aux Pins",
+    "latitude": "-4.6930494",
+    "longitude": "55.5173608",
+    "po_box": "012345"
+  },
+  "media": [
+    {
+      "source_url": "10857092.jpg",
+      "description": {
+        "en": "Lorem"
+      },
+      "type": "image",
+      "highlighted": true,
+      "priority": 0
+    }
+  ],
+  "classifications": {
+    "settings": {
+      "classifications": [
+        {
+          "name": "Availability mode",
+          "value": "binary"
+        },
+        {
+          "name": "Price level",
+          "value": "$$$$",
+          "is_listable": true
+        },
+        {
+          "name": "Discount calculations base",
+          "value": "rack prices"
+        },
+        {
+          "name": "Merged free nights",
+          "value": "enabled"
+        }
+      ],
+      "metas": []
+    },
+    "facilities": {
+      "classifications": [
+        {
+          "name": "Pool and wellness",
+          "value": "Private beach area, towels",
+          "description": "Towels for the pool.",
+          "is_listable": true,
+          "is_highlighted": true
+        },
+        {
+          "name": "Wireless Internet",
+          "charge": "free",
+          "is_listable": true
+        },
+        {
+          "name": "Bathroom",
+          "value": "Well equipped",
+          "description": "Slippers, toilet, bathrobe, bathtub, shower.",
+          "is_listable": true,
+          "is_highlighted": true
+        },
+        {
+          "name": "Outdoor units",
+          "description": "Outdoor pool (all year), private pool, grilling, garden.",
+          "is_listable": true,
+          "is_highlighted": true
+        }
+      ],
+      "metas": []
+    },
+    "checkinout": {
+      "classifications": [
+        {
+          "name": "Check In",
+          "description": "Saturday 18:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 0
+        },
+        {
+          "name": "Check Out",
+          "description": "Saturday 15:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 1
+        },
+        {
+          "name": "Early Check In",
+          "description": "Saturday 17:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 2
+        },
+        {
+          "name": "Late Check Out",
+          "description": "Saturday 16:00\nWith option to leave your luggage on the boat.",
+          "is_listable": true,
+          "priority": 3
+        }
+      ],
+      "metas": []
+    },
+    "general": {
+      "classifications": [
+        {
+          "name": "Accommodation Category",
+          "value": "Hotel"
+        }
+      ],
+      "metas": [
+        {
+          "name": "Number of rooms",
+          "value": 60,
+          "description": "Member of the Banyan Tree Hotels & Resorts hotel chain.",
+          "is_listable": true
+        },
+        {
+          "name": "Built in",
+          "value": 2012,
+          "is_listable": true
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "short_description": {
+      "en": "This accommodation is 1 minute walk from the waterfront. The Banyan Tree Seychelles is located in Intendance Bay, Mahe in the south-west coast. It offers spacious villas with private pools. The building has direct access to the beach. Banyan Tree Seychelles spa facilities, fitness center and tennis court facilities.",
+      "de": "Diese Unterkunft ist 1 Minuten zu Fuß von der Uferpromenade entfernt. Die Banyan Tree Seychelles liegt in der Intendance Bay, Süd-Westküste von Mahé entfernt. Es bietet geräumige Villen mit privaten Pools. Das Gebäude verfügt über einen direkten Zugang zum Strand. Banyan Tree Seychelles Wellnessbereich , ein Fitnesscenter und Tennisplatz Einrichtungen.",
+      "hu": "Ez a szállás 1 perces sétára van a vízparttól. A Banyan Tree Seychelles épülete az Intendance-öbölben, Mahé délnyugati partján található. A szálláshely tágas villákat kínál saját medencével. Az épületből közvetlenül elérhető a strand. A Banyan Tree Seychelles wellnesslétesítményekkel, fitneszközponttal és teniszpályával is várja a vendégeket.",
+      "ru": "Этот отель находится в 1 минуте ходьбы от набережной. Banyan Tree Seychelles находится в заливе Интенданс, Махе на юго-западном побережье. К услугам гостей просторные виллы с частными бассейнами. Здание имеет прямой доступ к пляжу. Спа-центр Banyan Tree Seychelles, фитнес-центр и теннисный корт."
+    },
+    "long_description": {
+      "en": "The luxuriously furnished villas combine the local and the modern architectural style. The Indian Ocean views, air-conditioned villas with satellite TV. The resort's restaurant serves a variety of local and international dishes for the guests. The Saffron Thai cuisine and Southeast Asian specialties, while La Varangue light meals and pizzas. Guests can relax by the infinity pool with a fruit cocktail consumed, or take yoga lessons and tennis. The hillside luxuspavilonokban spa treatments. In the vicinity of several sporting facilities are available, such as mountain biking, snorkeling and canoeing. Free bicycle and car rentals on site.",
+      "de": "Die luxuriös eingerichteten Villen verbinden die lokalen und die moderne Architektur. Die Indischen Ozean Ansichten, klimatisierten Villen mit Sat-TV. Das Restaurant des Resorts serviert eine Auswahl an lokalen und internationalen Gerichten für die Gäste. Die Safran-Thai-Küche und südostasiatischen Spezialitäten, während La Varangue leichte Mahlzeiten und Pizzen. Die Gäste können am Infinity-Pool mit einem Fruchtcocktail verbraucht, oder nehmen Sie Yoga-Stunden und Tennis entspannen. Die Hügel luxuspavilonokban Spa-Behandlungen. In der Nähe von mehreren Sportanlagen zur Verfügung stehen, wie Mountainbiking , Schnorcheln und Kanufahren . Gratis Fahrrad- und Autovermietung vor Ort.",
+      "hu": "A fényűzően berendezett villák egyesítik a helyi és a modern építészeti stílust. Az Indiai-óceánra néző, légkondicionált villák műholdas TV-vel rendelkeznek. Az üdülőközpont éttermében különféle helyi és nemzetközi ételeket fogyaszthatnak a vendégek. A Saffron thai ételeket és délkelet-ázsiai specialitásokat, míg a La Varangue könnyű ételeket és pizzákat kínál. A vendégek pihenhetnek a feszített víztükrű medence mellett egy gyümölcskoktélt fogyasztva, vagy jógaleckéket vehetnek, illetve teniszezhetnek is. A domboldalon elhelyezkedő luxuspavilonokban wellnesskezeléseket kínálnak. A környéken többféle sportolási lehetőség is rendelkezésre áll, például hegyi kerékpározás, snorkeling, valamint kajak-kenu. A helyszínen ingyenes kerékpár- és autókölcsönzés biztosított.",
+      "ru": "Роскошно меблированные виллы сочетают местный и современный архитектурный стиль. Вид на Индийский океан, виллы с кондиционером и спутниковым телевидением. В ресторане отеля подают разнообразные блюда местной и интернациональной кухни. Тайская кухня из шафранов и блюда юго-восточной Азии, а также легкие закуски La Vangangue и пиццы. Гости могут отдохнуть у бассейна с фруктовым коктейлем, заняться йогой и заняться теннисом. Спа-процедуры на склоне холма luxuspavilonokban. В непосредственной близости от нескольких спортивных сооружений доступны, такие как горный велосипед, подводное плавание и гребля на каноэ. Бесплатный прокат велосипедов и автомобилей на территории отеля."
+    }
+  },
+  "reviews":[
+    {
+      "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+      "hu": "Az Praesent vel augue in eros pretium ornare et id velit.",
+      "ru": "Etiam Орси Lorem, Varius магна Eget, Лев ID патч в Метус."
+    },
+    {
+      "en": "Morbi nulla elit, lacinia ac nibh ut, mattis pretium arcu."
+    },
+    {
+      "en": "Duis commodo vestibulum ipsum, vel feugiat tortor. ",
+      "hu": "Donec iaculis velit at dui iaculis, eu euismod elit gravida."
+    }
+  ],
+  "age_ranges": [
+    {
+      "from_age": 0,
+      "to_age": 12,
+      "name_taxonomy": "child"
+    },
+    {
+      "from_age": 13,
+      "to_age": 16,
+      "name_taxonomy": "teenager"
+    },
+    {
+      "from_age": 17,
+      "to_age": null,
+      "name_taxonomy": "adult"
+    }
+  ],
+  "date_ranges": [
+    {
+      "relative_id": 1,
+      "name": {
+        "en": "2027 Part 1"
+      },
+      "from_time": "2027-03-01",
+      "to_time": "2027-04-04",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 2,
+      "name": {
+        "en": "2027 Part 2"
+      },
+      "from_time": "2027-04-05",
+      "to_time": "2027-04-30",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 3,
+      "name": {
+        "en": "2027 Part 3"
+      },
+      "from_time": "2027-05-01",
+      "to_time": "2027-09-05",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 2
+    },
+    {
+      "relative_id": 4,
+      "name": {
+        "en": "2027 Part 4"
+      },
+      "from_time": "2027-09-06",
+      "to_time": "2027-10-31",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 5,
+      "name": {
+        "en": "2027 Part 5"
+      },
+      "from_time": "2027-11-01",
+      "to_time": "2027-12-30",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    },
+    {
+      "relative_id": 6,
+      "name": {
+        "en": "2027 Part 6"
+      },
+      "from_time": "2027-12-31",
+      "to_time": "2028-01-05",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 3
+    }
+  ],
+  "devices": {
+    "room": [
+      {
+        "name": {
+          "en": "OCEAN VIEW POOL VILLA"
+        },
+        "amount": 2,
+        "short_description": {
+          "en": "A haven nestled away amongst the fullness of verdant forest life.",
+          "de": "Das Ut fringilla elit risus.",
+          "hu": "A csend fészkel távol között teljessége zöldellő erdő élete.",
+          "ru": "Лорем ипсум долор сит амет, граецис нолуиссе ехпетендис яуи ут."
+        },
+        "long_description": {
+          "en": "A bird's eye view of both windswept ocean and wild hill terrain in full natural glory entwine to bring you where only utter peace, rest and gentle tranquillity may follow. Slip into a sky-suspended pool adjoining a comfortable terrace lounge or rest in the pool's loveseat for couples. Surrounded with lush palm fronds and the canopy of sheltering rainforest, this villa in Seychelles also presents you with a his-and-hers vanity counter, an indoor sunken bathtub, pavilion with living and dining quarters and a very comfortable king-sized bed. ",
+          "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+          "hu": "A madártávlatból mindkét szeles óceán és vad domb terep teljes természetes dicsőség körülfon hogy hol csak tökéletes béke, pihenés és szelíd nyugalom követheti. Csúszik ég felfüggesztett medence szomszédos kényelmes teraszon, vagy a többi a medence loveseat párok számára. Körül buja pálmafa felszínű levelek és a lombkorona oltalmazó esőerdők, ez a villa a Seychelles is be fogja mutatni a saját-és övé hiúság pult, fedett süllyesztett káddal, pavilonnal nappali és étkező negyed és egy nagyon kényelmes king-size ágy.",
+          "ru": "Лорем ипсум долор сит амет, граецис нолуиссе ехпетендис яуи ут, ест яуандо феугиат елецтрам но, идяуе медиоцритатем яуо те. Меа иудицабит принципес те, еос ех агам опортере интеллегебат. Адхуц епицуреи мандамус при ат, алияуам темпорибус тхеопхрастус еам ет, дуо путант ехпетенда те. Цу сингулис сусципиантур меа, меа те хабео вениам доминг."
+        },
+        "media": [
+          {
+            "source_url": "10857092.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 0
+          },
+          {
+            "source_url": "10857089.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 1
+          }
+        ],
+        "usages": [
+          {
+            "elements": {
+              "adult": 2,
+              "child": 1,
+              "teenager": 1
+            }
+          }
+        ],
+        "availabilities": [
+          {
+            "from_time": "2021-04-01",
+            "to_time": "2022-01-05",
+            "amount": 2
+          },
+          {
+            "from_time": "2022-01-05",
+            "to_time": null,
+            "amount": 2
+          }
+        ],
+        "metas": {
+          "size_from": 15,
+          "size_to": 24,
+          "number": 3
+        },
+        "classifications": {
+          "view": {
+            "additional_description": "Furnished patio ocean views"
+          },
+          "relax": {
+            "items": [
+              "private_pool"
+            ]
+          }
+        },
+        "margin_value": 10,
+        "products": [
+          {
+            "id": 18,
+            "type": "accommodation",
+            "prices": [
+              {
+                "name_taxonomy": {
+                  "en": "Villa"
+                },
+                "age_range": "adult",
+                "amount": 1,
+                "mandatory": 1,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 1550,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 845,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 745,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 840,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 845,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 940,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 978,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 1073,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 1550,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 1645,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Child"
+                },
+                "age_range": "child",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 90,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 90,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 90,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 50,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 90,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Extra Teenager"
+                },
+                "age_range": "teenager",
+                "amount": 1,
+                "extra": true,
+                "elements": [
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 100,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 195,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 100,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 270,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 100,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 195,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 100,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 210,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "b/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 175,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 210,
+                    "margin_value": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": {
+          "en": "SPA SANCTUARY POOL VILLA"
+        },
+        "amount": 2,
+        "short_description": {
+          "en": "The soothing quiet of sea and sand in a fresh tropical abode.",
+          "de": "Das Ut fringilla elit risus.",
+          "hu": "A nyugtató csendes tenger és a homok egy friss trópusi tartózkodási hely.",
+          "ru": "Лорем ипсум долор сит амет, граецис нолуиссе ехпетендис яуи ут."
+        },
+        "long_description": {
+          "en": "Enjoy the cool sea breeze in the beautiful day time as you wander into your expansive verendah patio. Be pampered by unlimited spa treatments await at this Spa Sanctuary Pool Villa or take a dip in your outdoor jetpool and personal swimming pool.",
+          "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+          "hu": "Élvezze a hűvös tengeri szellő a gyönyörű napos idő, ahogy vándorol be kiterjedt verendah terasz. Kényeztesse magát korlátlan wellness kezelések várják a ebben Spa Sanctuary Pool Villa vagy megmártózhatnak a szabadtéri jetpool és személyes medence.",
+          "ru": "Лорем ипсум долор сит амет, граецис нолуиссе ехпетендис яуи ут, ест яуандо феугиат елецтрам но, идяуе медиоцритатем яуо те. Меа иудицабит принципес те, еос ех агам опортере интеллегебат. Адхуц епицуреи мандамус при ат, алияуам темпорибус тхеопхрастус еам ет, дуо путант ехпетенда те. Цу сингулис сусципиантур меа, меа те хабео вениам доминг."
+        },
+        "media": [
+          {
+            "source_url": "10857092.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 0
+          },
+          {
+            "source_url": "10857089.jpg",
+            "description": {
+              "en": "Lorem ipsum sit dolor amet"
+            },
+            "type": "image",
+            "role": "room_picture",
+            "highlighted": true,
+            "priority": 1
+          }
+        ],
+        "usages": [
+          {
+            "elements": {
+              "adult": 2
+            }
+          }
+        ],
+        "availabilities": [
+          {
+            "from_time": "2021-04-01",
+            "to_time": "2022-01-05",
+            "amount": 2
+          },
+          {
+            "from_time": "2022-01-05",
+            "to_time": null,
+            "amount": 2
+          }
+        ],
+        "metas": {
+          "size_from": 14,
+          "size_to": 23,
+          "number": 4
+        },
+        "classifications": {
+        },
+        "margin_value": 10,
+        "products": [
+          {
+            "id": 19,
+            "type": "accommodation",
+            "prices": [
+              {
+                "name_taxonomy": {
+                  "en": "Sanctuary"
+                },
+                "age_range": "adult",
+                "amount": 1,
+                "mandatory": 1,
+                "elements": [
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 1273,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 1173,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 1273,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 1273,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 1178,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 1725,
+                    "margin_value": 10
+                  }
+                ]
+              },
+              {
+                "name_taxonomy": {
+                  "en": "Double"
+                },
+                "age_range": "adult",
+                "amount": 2,
+                "elements": [
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 1,
+                    "net_price": 1368,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 2,
+                    "net_price": 1268,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 3,
+                    "net_price": 1978,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 4,
+                    "net_price": 1978,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 5,
+                    "net_price": 1368,
+                    "margin_value": 10
+                  },
+                  {
+                    "meal_plan": "h/b",
+                    "date_range_relative_id": 6,
+                    "net_price": 2223,
+                    "margin_value": 10
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "discounts": [
+    {
+      "relative_id": 9,
+      "is_active": true,
+      "priority": 1,
+      "name": {
+        "en": "Early Bird Offer"
+      },
+      "type": "discount",
+      "condition": "early_bird",
+      "offer": {
+        "name": "percentage",
+        "classifications": {},
+        "metas": {
+          "modifier_percentage": -10
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-04-01",
+          "to_time": "2027-04-01",
+          "type": "price_modifier"
+        },
+        {
+          "from_time": "2027-05-01",
+          "to_time": "2027-09-01",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "booking_prior_minimum_days": 45,
+        "booking_prior_maximum_days": 180
+      }
+    },
+    {
+      "relative_id": 10,
+      "is_active": true,
+      "priority": 2,
+      "name": {
+        "en": "Honeymoon Offer"
+      },
+      "type": "discount",
+      "condition": "anniversary",
+      "offer": {
+        "name": "percentage",
+        "classifications": {},
+        "metas": {
+          "modifier_percentage": -30
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-04-01",
+          "to_time": "2027-12-31",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "wedding_in_less_than_days": 60
+      }
+    },
+    {
+      "relative_id": 11,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Bonus Nights offer"
+      },
+      "type": "discount",
+      "condition": "long_stay",
+      "offer": {
+        "name": "free_nights",
+        "classifications": [
+          "use_last_consecutive_night"
+        ],
+        "metas": {
+          "discounted_nights": 1
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-02-01",
+          "to_time": "2027-05-01",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2
+      }
+    }
+  ],
+  "discount_combinations": [
+  ]
+}

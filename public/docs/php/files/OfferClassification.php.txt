@@ -1,0 +1,55 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\ClassificationTrait;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\OfferClassification
+ *
+ * @property int $id
+ * @property int $discount_id
+ * @property int $classification_taxonomy_id
+ * @property int $value_taxonomy_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $additionalDescription
+ * @property-read Taxonomy $classificationTaxonomy
+ * @property-read Discount $discount
+ * @property-read Taxonomy $priceTaxonomy
+ * @property-read Taxonomy $valueTaxonomy
+ * @mixin \Eloquent
+ */
+class OfferClassification extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        ClassificationTrait;
+
+    protected $table = 'offer_classifications';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['classification_taxonomy_id', 'value_taxonomy_id', 'discount_id'];
+
+    /**
+     * Relation to discount
+     * 
+     * @return HasOne
+     */
+    public function discount() {
+        return $this->hasOne(PriceModifier::class, 'id', 'discount_id');
+    }
+
+}
+

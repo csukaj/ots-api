@@ -1,0 +1,267 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+
+/**
+ * App\DeviceAvailability
+ * 
+ * No soft delete...
+ *
+ * @property int $id
+ * @property int $device_id
+ * @property string $from_time
+ * @property string $to_time
+ * @property int $amount
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property-read Device $device
+ * @mixin \Eloquent
+ */
+class DeviceAvailability extends Model {
+
+    protected $table = 'device_availabilities';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['device_id', 'from_time', 'to_time', 'amount'];
+
+    /* Relation to device
+     * 
+     * @return HasOne
+     */
+
+    public function device() {
+        return $this->hasOne(Device::class, 'id', 'device_id');
+    }
+
+    /**
+     * set FromTime Attribute
+     * 
+     * @param string $date
+     */
+    public function setFromTimeAttribute($date) {
+        $this->attributes['from_time'] = $this->getSeparationTime($date);
+    }
+
+    /**
+     * get FromTime Attribute
+     * @param string $time
+     * @return string
+     */
+    public function getFromTimeAttribute($time) {
+        return substr($time, 0, 10);
+    }
+
+    /**
+     * set ToTime Attribute
+     * @param string $date
+     */
+    public function setToTimeAttribute($date) {
+        $this->attributes['to_time'] = $this->getSeparationTime($date);
+    }
+
+    /**
+     * get ToTime Attribute
+     * @param string $time
+     * @return string
+     */
+    public function getToTimeAttribute($time) {
+        return $time ? substr($time, 0, 10) : null;
+    }
+
+    /**
+     * Adds separation time to a date
+     * 
+     * @param string|null $date
+     * @return string|null
+     */
+    static public function getSeparationTime($date) {
+        if (is_null($date)) {
+            return null;
+        }
+        if (strlen($date) > 10) {
+            return $date;
+        }
+        return $date . ' ' . Config::get('ots.midday_separation_time');
+    }
+
+    /**
+     * Returns all availabilities of a device
+     * 
+     * @param int $deviceId
+     * @return Collection
+     * @static
+     */
+    static public function getAll(int $deviceId) {
+        return self::where('device_id', $deviceId)->orderBy('from_time')->get();
+    }
+
+    /**
+     * get Availabilities for a device In Interval specified by fromdate and todate
+     * 
+     * @param int $deviceId
+     * @param string $fromDate
+     * @param string $toDate
+     * @return array
+     * @throws Exception
+     */
+    static public function getAvailabilitiesInInterval(int $deviceId, string $fromDate, string $toDate): array {
+
+        if (is_null($deviceId)) throw new Exception('Invalid argument for device id.');
+        if (is_null($fromDate)) throw new Exception('Invalid argument for from date.');
+        if (is_null($toDate)) throw new Exception('Invalid argument for to date.');
+
+        $fromTime = self::getSeparationTime($fromDate);
+        $toTime = self::getSeparationTime($toDate);
+
+        $query1 = DB::table('device_availabilities')
+                ->where('device_id', '=', $deviceId)
+                ->where('from_time', '<=', $fromTime)
+                ->where(function($query) use ($toTime) {
+            $query
+            ->orWhere('to_time', '>=', $toTime)
+            ->orWhere('to_time', '=', null);
+        });
+
+        $query2 = DB::table('device_availabilities')
+                ->where('device_id', '=', $deviceId)
+                ->where('from_time', '>=', $fromTime)
+                ->where('from_time', '<=', $toTime);
+
+        $query3 = DB::table('device_availabilities')
+                ->where('device_id', '=', $deviceId)
+                ->whereNotNull('to_time')
+                ->where(function($query) use ($fromTime, $toTime) {
+            $query
+            ->where('to_time', '>', $fromTime)
+            ->where('to_time', '<=', $toTime);
+        });
+
+        return $query3->union($query2)->union($query1)->orderBy('from_time')->get()->toArray();
+    }
+
+    /**
+     * checks if device has Availabilities in interval specified by fromtime and totime
+     * 
+     * @param int $deviceId
+     * @param string $fromTime
+     * @param string $toTime
+     * @return bool
+     */
+    static public function hasAvailabilities(int $deviceId, string $fromTime = null, string $toTime = null): bool {
+
+        $query = DB::table('device_availabilities')
+                ->select('id')
+                ->where('device_id', '=', $deviceId)
+                ->where(function ($query) use ($fromTime, $toTime) {
+            if (!is_null($fromTime)) {
+                $query->orWhere(function($query) use ($fromTime) {
+                    $query->where('from_time', '<=', $fromTime);
+                    $query->whereRaw('(to_time > ? OR to_time IS NULL)', [$fromTime]);
+                });
+            }
+            if (!is_null($toTime)) {
+                $query->orWhere(function($query) use ($toTime) {
+                    $query->where('from_time', '<', $toTime);
+                    $query->where('to_time', '>=', $toTime);
+                });
+            }
+            if (!is_null($fromTime) && !is_null($toTime)) {
+                $query->orWhere(function($query) use ($fromTime, $toTime) {
+                    $query->where('from_time', '<', $fromTime);
+                    $query->where('to_time', '>=', $toTime);
+                });
+                $query->orWhere(function($query) use ($fromTime, $toTime) {
+                    $query->where('from_time', '>=', $fromTime);
+                    $query->where('to_time', '<', $toTime);
+                });
+            }
+        });
+        return $query->count() > 0;
+    }
+
+    /**
+     * Get infinte interval that includes specified date (if any)
+     * 
+     * @param int $deviceId
+     * @param string $fromTime
+     * @return DeviceAvailability|null
+     * @static
+     */
+    static public function getOverallInfiniteInterval(int $deviceId, string $fromTime) {
+        return DB::table('device_availabilities')
+            ->where('from_time', '<=', $fromTime)
+            ->where('device_id', '=', $deviceId)
+            ->whereNull('to_time')
+            ->first();
+    }
+
+    /**
+     * Get interval that includes specified date (if any)
+     * 
+     * @param int $deviceId
+     * @param string $fromTime
+     * @return DeviceAvailability|null
+     */
+    static public function getStartInterval(int $deviceId, string $fromTime) {
+        return DB::table('device_availabilities')
+            ->where('from_time', '<=', $fromTime)
+            ->where('device_id', '=', $deviceId)
+            ->where('to_time', '>', $fromTime)
+            ->first();
+    }
+
+    /**
+     * Get interval that includes specified date 
+     * or is an infinite interval (if any)
+     * 
+     * @param int $deviceId
+     * @param string $toTime
+     * @return DeviceAvailability|null
+     * @static
+     */
+    static public function getEndInterval(int $deviceId, string $toTime) {
+        return DB::table('device_availabilities')
+            ->where('from_time', '<=', $toTime)
+            ->where('device_id', '=', $deviceId)
+            ->where(function($query) use ($toTime) {
+                $query
+                ->orWhere('to_time', '>=', $toTime)
+                ->orWhere('to_time', '=', null);
+            })
+            ->first();
+    }
+
+    /**
+     * Creates new infinite interval for device from today to infinity and beyond with specified amount.
+     * If infinide interval already exists updates it.
+     * 
+     * @param int $deviceId
+     * @param int $amount
+     * @static
+     */
+    static public function createOrUpdateInfiniteInterval(int $deviceId, int $amount) {
+        $deviceInterval = self::whereNull('to_time')->where('device_id', $deviceId)->first();
+
+        if (!$deviceInterval) {
+            $deviceInterval = new self;
+            $deviceInterval->from_time = self::getSeparationTime(date('Y-m-d'));
+            $deviceInterval->device_id = $deviceId;
+        }
+
+        $deviceInterval->amount = $amount;
+        $deviceInterval->saveOrFail();
+    }
+
+}
+

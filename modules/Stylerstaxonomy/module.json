@@ -1,0 +1,15 @@
+{
+    "name": "Stylerstaxonomy",
+    "alias": "stylerstaxonomy",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stylerstaxonomy\\Providers\\StylerstaxonomyServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

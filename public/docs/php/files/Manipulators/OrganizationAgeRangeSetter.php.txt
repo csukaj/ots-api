@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\OrganizationAgeRange;
+use App\Traits\FileTrait;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\TaxonomySetter;
+
+/**
+ * Manipulator to create a new OrganizationAgeRange 
+ * instance after the supplied data passes validation
+ */
+class OrganizationAgeRangeSetter {
+    use FileTrait;
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'organization_id' => null,
+        'from_age' => null,
+        'to_age' => null,
+        'name_taxonomy_id' => null,
+        'taxonomy' => null,
+        'banned' => false,
+        'free' => false
+    ];
+
+    public function __construct(array $attributes) {
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        if (!empty($attributes['name_taxonomy'])) {
+            $this->nameTaxonomy = $attributes['name_taxonomy'];
+        }
+    }
+
+    /**
+     * Creates new age range and throws error in case of any overlap
+     * @return OrganizationAgeRange
+     */
+    public function set() {
+        if (count(OrganizationAgeRange::getAgeRangesInInterval(
+            $this->attributes['organization_id'],
+            $this->attributes['from_age'],
+            $this->attributes['to_age'],
+            $this->attributes['id']
+        ))) {
+            throw new UserException('Age range overlap.');
+        }
+
+        if (empty($this->nameTaxonomy) && empty($this->attributes['taxonomy'])) {
+            throw new UserException('Empty taxonomy.');
+        }
+
+        if ($this->attributes['taxonomy']) {
+            $nameTx = $this->createOrUpdateTaxonomy($this->attributes['taxonomy']);
+        } else {
+            $nameTx = Taxonomy::getOrCreateTaxonomy($this->nameTaxonomy, Config::get('taxonomies.age_range'));
+        }
+
+        if (is_null($this->attributes['id'])) {
+            $this->validateNameTaxonomy($nameTx->id);
+        }
+
+        $this->attributes['name_taxonomy_id'] = $nameTx->id;
+
+        if ($this->attributes['id']) {
+            $ageRange = OrganizationAgeRange::findOrFail($this->attributes['id']);
+            if ($ageRange->name_taxonomy_id != $this->attributes['name_taxonomy_id'] && $ageRange->name_taxonomy_id == Config::getOrFail('taxonomies.age_ranges.adult.id')) {
+                throw new UserException('You can not change default age range name');
+            }
+        } else {
+            $ageRange = new OrganizationAgeRange($this->attributes);
+        }
+        $ageRange->fill($this->attributes);
+        $ageRange->saveOrFail();
+
+        return $ageRange;
+    }
+
+    public function validateNameTaxonomy($nameTaxonomyId) {
+        $rangeNumber = OrganizationAgeRange::where('organization_id', $this->attributes['organization_id'])->where('name_taxonomy_id', $nameTaxonomyId)->count();
+
+        if ($rangeNumber > 0) {
+            throw new UserException('Age range name already used.');
+        }
+    }
+
+    private function createOrUpdateTaxonomy($data) {
+        $defaultLanguage = Language::getDefault();
+        if (!empty($data['has_plurals'])) {
+            $translations = $data['translations_with_plurals'];
+        } else {
+            $translations = $data['translations'];
+            $translations[$defaultLanguage->iso_code] = $data['name'];
+        }
+        $id = !empty($data['id']) ? $data['id'] : null;
+        $parentId = !empty($data['parent_id']) ? $data['parent_id'] : Config::get('taxonomies.age_range');
+        if (empty($id) && Taxonomy::taxonomyExists($data['name'], $parentId)) {
+            throw new UserException('There is already a taxonomy with the same name. Instead of creating a duplication try to use the existing one!');
+        }
+        return (new TaxonomySetter($translations, $id, $parentId, null, $data))->set();
+    }
+
+}
+

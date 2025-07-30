@@ -1,0 +1,29 @@
+[
+  {
+    "contactable": {
+      "type": "supplier",
+      "id": 401
+    },
+    "type": "bank_account_number",
+    "value": "HU1174 5678 1234 5678 0000 0000",
+    "is_public": false
+  },
+  {
+    "contactable": {
+      "type": "supplier",
+      "id": 401
+    },
+    "type": "limonetik_merchant_id",
+    "value": "ots-testvendor2-hu",
+    "is_public": false
+  },
+  {
+    "contactable": {
+      "type": "supplier",
+      "id": 402
+    },
+    "type": "limonetik_merchant_id",
+    "value": "ots-fr",
+    "is_public": false
+  }
+]

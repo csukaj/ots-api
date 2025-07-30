@@ -1,0 +1,681 @@
+{
+  "id": 1,
+  "name": {
+    "en": "Cruise A",
+    "de": "Kreuzfahrt A",
+    "hu": "Hajóút A",
+    "ru": "Круиз A"
+  },
+  "location": {
+    "island": "Mahé",
+    "district": "Bel Air",
+    "latitude": "-4.622432",
+    "longitude": "55.4588122"
+  },
+  "ship_company_id": 301,
+  "ship_group_id": 1,
+  "itinerary_id": 1,
+  "is_active": true,
+  "pricing_logic": "from_net_price",
+  "margin_type": "percentage",
+  "created": "2016-03-08 09:33:33",
+  "updated": "2016-03-08 09:33:33",
+  "deleted": null,
+  "classifications": {
+    "settings": {
+      "classifications": [
+        {
+          "name": "Discount calculations base",
+          "value": "rack prices"
+        },
+        {
+          "name": "Merged free nights",
+          "value": "enabled"
+        }
+      ],
+      "metas": []
+    },
+    "facilities": {
+      "classifications": [
+        {
+          "name": "Wireless Internet",
+          "charge": "free",
+          "is_listable": true,
+          "is_highlighted": true
+        }
+      ],
+      "metas": []
+    },
+    "conditions": {
+      "classifications": [],
+      "metas": [
+        {
+          "name": "Free cancellation (in days before check-in)",
+          "value": 10,
+          "is_listable": false
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "long_description": {
+      "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+      "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+      "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. Curabitur consequat lectus nec pretium elementum. In porttitor ullamcorper pellentesque. Pellentesque lectus eros, fringilla in fringilla ut, semper in magna. Aliquam neque justo, pretium vehicula nunc ut, efficitur feugiat felis. Phasellus semper nisl vitae ligula fermentum porta. Sed eu massa vitae velit rhoncus tristique. Phasellus eu dui ex. Duis fringilla neque nisl. Quisque in aliquam urna.\nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi. Mauris elit purus, malesuada id eros eget, blandit scelerisque nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed tristique elementum arcu vitae volutpat. Duis ac justo augue. Cras accumsan, massa in convallis porta, nulla mauris faucibus enim, eget pulvinar ante sem eu arcu. Vivamus eget libero varius, tincidunt libero eu, semper leo. Curabitur ornare urna efficitur, varius metus quis, gravida nisi. Nullam ornare tellus sit amet nulla blandit hendrerit. Morbi augue massa, fringilla ac malesuada ac, pellentesque ut mauris. Vestibulum enim orci, fringilla et tempor id, suscipit quis elit. Pellentesque porttitor est id arcu luctus auctor.\nVivamus orci dolor, auctor a nunc et, fermentum imperdiet lorem. Morbi ac vulputate nisl. Morbi laoreet suscipit ligula, vestibulum semper velit vestibulum a. Nulla egestas justo non augue accumsan, vitae lobortis est porttitor. Cras imperdiet scelerisque nisl id hendrerit. Proin vel porta quam. Mauris at dictum elit. Suspendisse vestibulum est quis augue vulputate viverra. Suspendisse purus orci, porta ac metus ornare, fermentum laoreet nulla.",
+      "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur Лев ID патч в Метус Commodo molestie AC Quis диам. Fusce sollicitudin Nulla на turpis accumsan auctor не Eget Lectus. Pellentesque placerat pulvinar изречение. Sed facilisis Lorem в Метус экскретов, включенные в другие группировки consequat Dolor sagittis. Aenean ultricies arcu ID дуй Mollis luctus. Vivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim. Nulla Erat neque, suscipit и др ех идентификатор, dapibus Elementum Sapien. Nullam accumsan, tortor ес tincidunt зетрег, бывший Элит pulvinar Felis, ес venenatis Лев либеро магна. Phasellus ornare Метус Nunc, в Elementum диам venenatis и др. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, ут suscipit Метус.\nPellentesque Vitae turpis ЕС фелис ​​fermentum sodales. Nulla Sapien tortor, tincidunt и др Квам Vitae, gravida blandit Lectus. Донец molestie ultricies дуй, Vitae lobortis nibh placerat в. Integer Маттис sagittis Varius. Донец consequat в Эст Vitae finibus. Pellentesque обитатель MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis экскретов. Integer и др Massa pharetra велит Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat ут Cursus blandit, nibh велит sollicitudin пзиз, и др placerat Lorem ех СЕПГ миль."
+    }
+  },
+  "age_ranges": [
+    {
+      "from_age": 0,
+      "to_age": 2,
+      "name_taxonomy": "baby"
+    },
+    {
+      "from_age": 3,
+      "to_age": 6,
+      "name_taxonomy": "child"
+    },
+    {
+      "from_age": 7,
+      "to_age": null,
+      "name_taxonomy": "adult"
+    }
+  ],
+  "date_ranges": [
+    {
+      "relative_id": 1,
+      "name": {
+        "en": "Summer 2026"
+      },
+      "from_time": "2026-06-01",
+      "to_time": "2026-09-01",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 1
+    },
+    {
+      "relative_id": 2,
+      "name": {
+        "en": "Autumn 2026"
+      },
+      "from_time": "2026-09-02",
+      "to_time": "2026-10-01",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 1
+    },
+    {
+      "relative_id": 3,
+      "name": {
+        "en": "Restoration 2026"
+      },
+      "from_time": "2026-07-11",
+      "to_time": "2026-08-01",
+      "type": "closed"
+    },
+    {
+      "relative_id": 4,
+      "name": {
+        "en": "Summer 2027"
+      },
+      "from_time": "2027-06-01",
+      "to_time": "2027-09-01",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 1
+    },
+    {
+      "relative_id": 5,
+      "name": {
+        "en": "Autumn 2027"
+      },
+      "from_time": "2027-09-02",
+      "to_time": "2027-10-01",
+      "type": "open",
+      "margin_value": 3,
+      "minimum_nights": 1
+    }
+  ],
+  "schedule": [
+    {
+      "from_date": "2026-06-01",
+      "to_date": "2026-09-01",
+      "frequency": "weekly",
+      "relative_time": {
+        "day": 1,
+        "precision": "time",
+        "time_of_day": null,
+        "time": "8:00"
+      }
+    },
+    {
+      "from_date": "2026-09-02",
+      "to_date": "2026-10-01",
+      "frequency": "once",
+      "relative_time": {
+        "day": 2,
+        "precision": "time",
+        "time_of_day": null,
+        "time": "10:00"
+      }
+    },
+    {
+      "from_date": "2027-06-01",
+      "to_date": "2027-09-01",
+      "frequency": "weekly",
+      "relative_time": {
+        "day": 1,
+        "precision": "time",
+        "time_of_day": null,
+        "time": "8:00"
+      }
+    },
+    {
+      "from_date": "2027-09-02",
+      "to_date": "2027-10-01",
+      "frequency": "once",
+      "relative_time": {
+        "day": 2,
+        "precision": "time",
+        "time_of_day": null,
+        "time": "10:00"
+      }
+    }
+  ],
+  "cruise_devices": [
+    {
+      "device_relative_id": 1,
+      "products": [
+        {
+          "id": 39,
+          "type": "accommodation",
+          "prices": [
+            {
+              "name_taxonomy": {
+                "en": "Single"
+              },
+              "age_range": "adult",
+              "amount": 1,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 110,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 200,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 100,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 190,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 110,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 200,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 100,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 190,
+                  "margin_value": 15
+                }
+              ]
+            },
+            {
+              "name_taxonomy": {
+                "en": "Double"
+              },
+              "age_range": "adult",
+              "amount": 2,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 210,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 250,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 200,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 290,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 210,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 250,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 200,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 290,
+                  "margin_value": 15
+                }
+              ]
+            },
+            {
+              "name_taxonomy": {
+                "en": "Extra Child"
+              },
+              "age_range": "child",
+              "amount": 1,
+              "extra": true,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 55,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 75,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 100,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 135,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 55,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 75,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 100,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 135,
+                  "margin_value": 15
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "device_relative_id": 2,
+      "products": [
+        {
+          "id": 40,
+          "type": "accommodation",
+          "prices": [
+            {
+              "name_taxonomy": {
+                "en": "Single"
+              },
+              "age_range": "adult",
+              "amount": 1,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 123,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 211,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 134,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 188,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 123,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 211,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 134,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 188,
+                  "margin_value": 15
+                }
+              ]
+            },
+            {
+              "name_taxonomy": {
+                "en": "Double"
+              },
+              "age_range": "adult",
+              "amount": 2,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 213,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 257,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 209,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 293,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 213,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 257,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 209,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 293,
+                  "margin_value": 15
+                }
+              ]
+            },
+            {
+              "name_taxonomy": {
+                "en": "Extra Child"
+              },
+              "age_range": "child",
+              "amount": 1,
+              "extra": true,
+              "elements": [
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 1,
+                  "rack_price": 57,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 1,
+                  "rack_price": 78,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 2,
+                  "rack_price": 105,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 2,
+                  "rack_price": 132,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 4,
+                  "rack_price": 57,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 4,
+                  "rack_price": 78,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "e/p",
+                  "date_range_relative_id": 5,
+                  "rack_price": 105,
+                  "margin_value": 15
+                },
+                {
+                  "meal_plan": "f/b",
+                  "date_range_relative_id": 5,
+                  "rack_price": 132,
+                  "margin_value": 15
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "discounts": [
+    {
+      "relative_id": 1,
+      "is_active": true,
+      "priority": 1,
+      "name": {
+        "en": "Minimum Nights Only",
+        "hu": "Csak minimum éjszaka"
+      },
+      "type":"discount",
+"condition": "minimum_nights",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-44}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-06-01",
+          "to_time": "2027-06-30",
+          "type": "price_modifier"
+        }
+      ],
+      "cruise_id": 1,
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 4
+      }
+    },
+    {
+      "relative_id": 2,
+      "is_active": true,
+      "priority": 2,
+      "name": {
+        "en": "Wedding Anniversary in same month"
+      },
+      "type":"discount",
+"condition": "anniversary",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-20}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-07-01",
+          "to_time": "2027-08-01",
+          "type": "price_modifier"
+        }
+      ],
+      "cruise_id": 1,
+      "classifications": {},
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2
+      }
+    },
+    {
+      "relative_id": 3,
+      "is_active": true,
+      "priority": 3,
+      "name": {
+        "en": "Early bird"
+      },
+      "type":"discount",
+"condition": "early_bird",
+      "offer": {
+        "name": "fixed_price",
+        "classifications": {},
+        "metas": {
+          "modifier_value": "{\"adult\":-150}"
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-09-01",
+          "to_time": "2027-10-01",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": [],
+      "metas": {
+        "minimum_nights_checking_level": "minimum_nights_of_holiday",
+        "minimum_nights": 2,
+        "booking_prior_minimum_days": "90"
+      }
+    },
+    {
+      "relative_id": 4,
+      "is_active": true,
+      "priority": 16,
+      "name": {
+        "en": "Repeater Clients",
+        "hu": "Visszatérő vendég"
+      },
+      "type":"discount",
+"condition": "returning_client",
+      "offer": {
+        "name": "percentage",
+        "classifications": {},
+        "metas": {
+          "modifier_percentage": -10
+        }
+      },
+      "date_ranges": [
+        {
+          "from_time": "2027-03-15",
+          "to_time": "2027-03-24",
+          "type": "price_modifier"
+        }
+      ],
+      "classifications": {},
+      "metas": {
+      }
+    }
+  ],
+  "discount_combinations": [
+    [
+      1,
+      3
+    ]
+  ]
+}

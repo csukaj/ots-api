@@ -1,0 +1,87 @@
+[
+  {
+    "schedule": {
+      "financial_offset_days": 0,
+      "embarkation_time": {
+        "precision_taxonomy_id": 339,
+        "time_of_day_taxonomy_id": null,
+        "time": "08:00:00"
+      },
+      "from_date": "2026-06-01",
+      "to_date": "2026-06-03",
+      "technical_length_days": 3,
+      "id": 1,
+      "financial_length_days": 3
+    },
+    "availability": [
+      {
+        "available": 4,
+        "is_overbooked": false,
+        "usage_pairs": [
+          0
+        ],
+        "device_id": 42
+      },
+      {
+        "available": 6,
+        "is_overbooked": false,
+        "usage_pairs": [
+          0
+        ],
+        "device_id": 43
+      }
+    ],
+    "results": [
+      [
+        {
+          "prices": [
+            {
+              "original_price": "330.0",
+              "order_itemable_index": 0,
+              "discounted_price": "330.0",
+              "meal_plan": "e\/p",
+              "discounts": [],
+              "meal_plan_id": 1
+            },
+            {
+              "original_price": "600.0",
+              "order_itemable_index": 0,
+              "discounted_price": "600.0",
+              "meal_plan": "f\/b",
+              "discounts": [],
+              "meal_plan_id": 4
+            }
+          ],
+          "usages": {
+            "adult": 1
+          },
+          "device_id": 42
+        },
+        {
+          "prices": [
+            {
+              "original_price": "369.0",
+              "order_itemable_index": 0,
+              "discounted_price": "369.0",
+              "meal_plan": "e\/p",
+              "discounts": [],
+              "meal_plan_id": 1
+            },
+            {
+              "original_price": "633.0",
+              "order_itemable_index": 0,
+              "discounted_price": "633.0",
+              "meal_plan": "f\/b",
+              "discounts": [],
+              "meal_plan_id": 4
+            }
+          ],
+          "usages": {
+            "adult": 1
+          },
+          "device_id": 43
+        }
+      ]
+    ]
+  }
+]

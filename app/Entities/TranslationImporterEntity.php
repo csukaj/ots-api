@@ -1,0 +1,82 @@
+<?php
+namespace App\Entities;
+
+use App\Exceptions\UserException;
+use Illuminate\Support\Facades\File;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+class TranslationImporterEntity extends TranslationEntity {
+
+    protected $uploadedFile;
+    protected $isoCodes;
+    protected $translationsFromCSV;
+
+    public function __construct(UploadedFile $uploadedFile) {
+        parent::__construct();
+        $this->uploadedFile = $uploadedFile;
+    }
+
+    public function validate() {
+        if (!$this->uploadedFile->isValid()) {
+            throw new UserException($this->uploadedFile->getErrorMessage());
+        }
+
+        if (strtolower($this->uploadedFile->getClientOriginalExtension()) !== 'csv') {
+            throw new UserException("Sorry, " . $this->uploadedFile->getClientOriginalName() . " is not a valid CSV");
+        }
+
+        $mimes = ['application/vnd.ms-excel', 'text/plain', 'text/csv', 'text/tsv'];
+        if (!in_array(strtolower($this->uploadedFile->getClientMimeType()), $mimes)) {
+            throw new UserException("Sorry, mime type not allowed");
+        }
+
+    }
+
+    public function generateNewTranslations() {
+        $this->validate();
+        $this->setISOCodeByFileName();
+        $this->makeArchiveFromOldTranslation();
+        $this->loadTranslationsFromCSV();
+        $this->createJson($this->isoCode, $this->translationsFromCSV);
+        $this->releaseTranslations($this->isoCode);
+    }
+
+    protected function csvToArray($file) {
+        $result = [];
+        $array = array_map('str_getcsv', \file($file));
+        foreach ($array as $details){
+            if(!empty($details[0])){
+                // remove illegal strings from the keys (BOM characters)
+                $key = preg_replace("/[^\#\:\/\-a-zA-Z0-9._]+/", "", $details[0]);
+                $result[$key] = !empty($details[2]) ? $details[2] : '';
+            }
+        }
+
+        return $result;
+    }
+
+    protected function setISOCodeByFileName() {
+        $fileName = $this->uploadedFile->getClientOriginalName();
+        $fileChunks = explode('_', $fileName);
+        foreach ($fileChunks as $fileChunk) {
+            if (in_array($fileChunk, $this->getIsoCodes())) {
+                $this->isoCode = $fileChunk;
+            }
+        }
+
+        if (empty($this->isoCode)) {
+            throw new UserException('Valid ISO code can NOT be found in the uploaded filename: "' .
+                $this->uploadedFile->getClientOriginalName() .
+                '"<br> Valid ISO code must be surrounded by underscore (_)' .
+                '<br> Example for valid filename: translation_hu_2017_02_16_153044.csv'
+            );
+        }
+    }
+
+    private function loadTranslationsFromCSV() {
+        $tempFilePathname = $this->uploadedFile->getPathname();
+        $this->translationsFromCSV = $this->unflatten($this->csvToArray($tempFilePathname));
+    }
+
+}

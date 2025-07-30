@@ -1,0 +1,107 @@
+{
+  "availability": [
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 1
+    },
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 2
+    },
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 3
+    }
+  ],
+  "results": [
+    [
+      {
+        "prices": [
+          {
+            "original_price": "792.0",
+            "meal_plan_id": 2,
+            "discounted_price": "792.0",
+            "order_itemable_index": 0,
+            "meal_plan": "b/b",
+            "discounts": []
+          },
+          {
+            "original_price": "864.6",
+            "meal_plan_id": 3,
+            "discounted_price": "864.6",
+            "order_itemable_index": 0,
+            "meal_plan": "h/b",
+            "discounts": []
+          }
+        ],
+        "usages": {
+          "baby": 1,
+          "adult": 1
+        },
+        "device_id": 1
+      },
+      {
+        "prices": [
+          {
+            "original_price": "1320.0",
+            "meal_plan_id": 2,
+            "discounted_price": "1320.0",
+            "order_itemable_index": 0,
+            "meal_plan": "b/b",
+            "discounts": []
+          },
+          {
+            "original_price": "1320.0",
+            "meal_plan_id": 3,
+            "discounted_price": "1320.0",
+            "order_itemable_index": 0,
+            "meal_plan": "h/b",
+            "discounts": []
+          }
+        ],
+        "usages": {
+          "baby": 1,
+          "adult": 1
+        },
+        "device_id": 2
+      },
+      {
+        "prices": [
+          {
+            "original_price": "871.2",
+            "meal_plan_id": 2,
+            "discounted_price": "871.2",
+            "order_itemable_index": 0,
+            "meal_plan": "b/b",
+            "discounts": []
+          },
+          {
+            "original_price": "871.2",
+            "meal_plan_id": 3,
+            "discounted_price": "871.2",
+            "order_itemable_index": 0,
+            "meal_plan": "h/b",
+            "discounts": []
+          }
+        ],
+        "usages": {
+          "baby": 1,
+          "adult": 1
+        },
+        "device_id": 3
+      }
+    ]
+  ]
+}

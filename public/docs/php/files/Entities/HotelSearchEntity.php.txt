@@ -1,0 +1,282 @@
+<?php
+
+namespace App\Entities;
+
+use App\Caches\HotelIdsCache;
+use App\Device;
+use App\Exceptions\UserException;
+use App\Island;
+use App\MealPlan;
+use App\Organization;
+use DateTime;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use stdClass;
+use function json_encode;
+
+class HotelSearchEntity extends Entity {
+
+    protected $parameters = [];
+    protected $searchResult = [];
+    protected $usageJson = '';
+    protected $hasValidInterval = false;
+
+    public function setParameters($parameters) {
+        if (!is_array($parameters) || empty($parameters)) {
+            return $this;
+        }
+
+        if (!empty($parameters['interval'])) {
+            $this->validateInterval($parameters['interval']);
+        }
+
+        if (!empty($parameters['organizations'])) {
+            $this->validateOrganizations($parameters['organizations']);
+        }
+
+        if (!empty($parameters['islands'])) {
+            $this->validateIslands($parameters['islands']);
+        }
+
+        if (!empty($parameters['meal_plans'])) {
+            $this->validateMealPlans($parameters['meal_plans']);
+        }
+
+        foreach ($parameters['rooms'] as $index => &$roomParameters) {
+            $this->validateRoomParameters($roomParameters, $index);
+            foreach ($roomParameters['usage'] as &$usageParameters) {
+                $this->filterUsageParameters($usageParameters);
+            }
+        }
+
+        $parameters['booking_date'] = date('Y-m-d');
+
+        if (!empty($parameters['wedding_date'])) {
+            $this->validateDate($parameters['wedding_date']);
+        }
+
+        if (!empty($parameters['search_options'])) {
+            $parameters['search_options'] = null;
+        }
+
+        $this->parameters = $parameters;
+        return $this;
+    }
+
+    protected function validateDate($dateInput) {
+        $date = DateTime::createFromFormat('Y-m-d', $dateInput);
+        if (count(DateTime::getLastErrors()['errors']) > 0) {
+            throw new UserException('Invalid interval!');
+        }
+        $date->setTime(0, 0, 0);
+        return $date;
+    }
+
+    protected function validateInterval($interval) {
+        if (empty($interval['date_from']) && empty($interval['date_to'])) {
+            return true; // we can search without specified dates
+        }
+
+        if (empty($interval['date_from']) || empty($interval['date_to'])) {
+            throw new UserException('Invalid interval!');
+        }
+
+        $fromDate = $this->validateDate($interval['date_from']);
+        $toDate = $this->validateDate($interval['date_to']);
+
+        if ($fromDate >= $toDate) {
+            throw new UserException('Invalid interval!');
+        }
+
+        $today = new DateTime();
+        $today->setTime(0, 0, 0);
+
+        if ($fromDate < $today) {
+            throw new UserException('search.error.fromDateIsBeforeToday');
+        }
+
+        $this->hasValidInterval = true;
+    }
+
+    protected function validateMealPlans(array $mealPlans) {
+        $numMealPlans = count($mealPlans);
+        $mealPlanIds = MealPlan::getMealPlanIds();
+        for ($i = 0; $i < $numMealPlans; $i++) {
+            if (!in_array($mealPlans[$i], $mealPlanIds)) {
+                throw new UserException('Invalid meal plan!');
+            }
+        }
+    }
+
+    protected function validateIslands(array $islands) {
+        $islandIds = Island::getIslandIds();
+        foreach ($islands as $island) {
+            if (!in_array($island, $islandIds)) {
+                throw new UserException('Invalid island!');
+            }
+        }
+    }
+
+    protected function validateOrganizations(array $organizations) {
+        $numOrgs = count($organizations);
+        $organizationIds = (new HotelIdsCache())->getValues();
+        for ($i = 0; $i < $numOrgs; $i++) {
+            if (!in_array($organizations[$i], $organizationIds)) {
+                throw new UserException('Invalid organization!');
+            }
+        }
+    }
+
+    protected function validateUsageParameters($usageParameters, $index) {
+        if (!is_numeric($usageParameters['age']) || $usageParameters['age'] < 0 || strpos($usageParameters['age'], '.') !== false) {
+            throw new UserException('Invalid age range!');
+        }
+
+        if (!is_numeric($usageParameters['amount']) || $usageParameters['amount'] <= 0 || strpos($usageParameters['amount'], '.') !== false) {
+            throw new UserException('Invalid amount!');
+        }
+
+        if ($index === 0 && $usageParameters['age'] >= 18 && $usageParameters['amount'] == 0) {
+            throw new UserException('Must be at least one adult in the first room!');
+        }
+    }
+
+    private function validateRoomParameters($roomParameters, $index) {
+        if (empty($roomParameters['usage'])) {
+            throw new UserException("One of the rooms is empty! Please fill your room request!");
+        }
+
+        $firstRoomHasAtLeastOneAdult = false;
+        foreach ($roomParameters['usage'] as &$usageParameters) {
+            $this->validateUsageParameters($usageParameters, $index);
+            if ($index === 0 && $usageParameters['age'] >= 18 && $usageParameters['amount'] > 0) {
+                $firstRoomHasAtLeastOneAdult = true;
+            }
+        }
+
+        if ($index == 0 && !$firstRoomHasAtLeastOneAdult) {
+            throw new UserException('First room has no adults');
+        }
+    }
+
+    protected function filterUsageParameters(&$usageParameters) {
+        $usageParameters['age'] = (int) $usageParameters['age'];
+        $usageParameters['amount'] = (int) $usageParameters['amount'];
+    }
+
+    public function getFrontendData(array $additions = []) {
+
+        $organizations = [];
+        $this->searchResult = $this->getHotelDataByParameters();
+        $additions[] = 'hotel_info';
+
+        foreach ($this->searchResult as $searchResultItem) {
+            $hotel = Organization::find($searchResultItem->id);
+            $orgEntity = (new OrganizationEntity($hotel))->getFrontendData($additions);
+            $resultRooms = ($this->hasValidInterval) ? \json_decode($searchResultItem->result_rooms, true) : [];
+            $organizations[$hotel->id] = [
+                'hotel_info' => $orgEntity,
+                'results' => (isset($resultRooms['results'])) ? $resultRooms['results'] : [],
+                'best_price' => ($this->hasValidInterval) ? $this->calculateBestPrice($resultRooms['results']) : []
+            ];
+            if (in_array('availability', $additions)) {
+                $organizations[$hotel->id]['availability'] = (isset($resultRooms['availability'])) ? $resultRooms['availability'] : [];
+            }
+        }
+        return $organizations;
+    }
+
+    protected function getAllHotelIds() {
+        return Organization::hotel()
+                        ->select('id')
+                        ->pluck('id');
+    }
+
+    protected function getHotelDataByParameters() {
+        $this->usageJson = isset($this->parameters['rooms']) ? json_encode($this->parameters['rooms']) : '[]';
+        $weddingDate = !empty($this->parameters['wedding_date']) ? "TEXT '{$this->parameters['wedding_date']}'" : 'NULL';
+        $cartSummary = 'NULL';
+        if (!empty($this->parameters['cart_summary'])) {
+            $cartSummary = "TEXT '" . json_encode($this->parameters['cart_summary']) . "'";
+        }
+        
+        $subQuery = DB::table('organizations AS o')->distinct();
+        $subQuery->whereRaw('o.is_active');
+        $subQuery->whereRaw('o.deleted_at IS NULL');
+        if ($this->hasValidInterval) {
+            $subQuery->selectRaw("
+                o.id,
+                get_result_rooms(
+                    o.id,
+                    TEXT '{$this->usageJson}',
+                    TEXT '{$this->parameters['interval']['date_from']}',
+                    TEXT '{$this->parameters['interval']['date_to']}',
+                    TEXT '{$this->parameters['booking_date']}',
+                    {$weddingDate},
+                    {$cartSummary}
+                ) AS result_rooms
+            ");
+        } else {
+            $subQuery->selectRaw("o.id, get_result_rooms(o.id, TEXT '{$this->usageJson}', NULL, NULL, NULL, NULL, NULL) AS result_rooms");
+        }
+
+        if (!empty($this->parameters['organizations'])) {
+            $subQuery->whereRaw('o.id IN(' . implode(',', $this->parameters['organizations']) . ')');
+        }
+
+        $query = DB::table(DB::raw('(' . $subQuery->toSql() . ')  as temp'));
+        $query->select('*')
+                ->whereRaw('result_rooms IS NOT NULL');
+
+        return $query->get();
+    }
+
+    protected function calculateBestPrice($results) {
+        $usagePrices = [];
+        $bestDevices = [];
+
+        for ($requestIndex = 0; $requestIndex < count($results); $requestIndex++) {
+            $usagePrices[$requestIndex] = [];
+            foreach ($results[$requestIndex] as $device) {
+                foreach ($device['prices'] as $priceData) {
+                    if (
+                        empty($usagePrices[$requestIndex]) ||
+                        $priceData['discounted_price'] < $usagePrices[$requestIndex]['discounted_price'] ||
+                        (
+                            $priceData['discounted_price'] == $usagePrices[$requestIndex]['discounted_price'] &&
+                            $priceData['meal_plan_id'] > $usagePrices[$requestIndex]['meal_plan_id']
+                        )
+                    ) {
+                        $usagePrices[$requestIndex] = $priceData;
+                        $bestDevices[$requestIndex] = (new DeviceEntity(Device::findOrFail($device['device_id'])))->getFrontendData();
+                    }
+                }
+            }
+        }
+
+        $bestPrice = [
+            'discounted_price' => 0,
+            'original_price' => 0,
+            'total_discount' => [
+                'value' => 0,
+                'percentage' => 0
+            ],
+            'devices' => $bestDevices,
+            'meal_plan' => null
+        ];
+        foreach ($usagePrices as $requestIndex => $priceElement) {
+            $bestPrice['discounted_price'] += $priceElement['discounted_price'];
+            $bestPrice['original_price'] += $priceElement['original_price'];
+            $bestPrice['meal_plan'] = $priceElement['meal_plan'];
+        }
+
+        if ($bestPrice['original_price'] != 0) {
+            $bestPrice['total_discount']['value'] = $bestPrice['original_price'] - $bestPrice['discounted_price'];
+            $bestPrice['total_discount']['percentage'] = round($bestPrice['total_discount']['value'] / $bestPrice['original_price'] * 100, 2);
+        }
+
+        return $bestPrice ?: new stdClass();
+    }
+
+}
+

@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\OrganizationClassificationEntity;
+use App\Entities\OrganizationMetaEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\OrganizationPropertySetter;
+use App\OrganizationMeta;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/OrganizationMetaController
+ */
+class OrganizationMetaController extends ResourceController {
+
+    /**
+     * store
+     * Store a newly created OrganizationMeta
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $orgMt = (new OrganizationPropertySetter())->setMeta(new OrganizationMeta(), $request->toArray());
+
+        return [
+            'success' => true,
+            'data' => (new OrganizationMetaEntity($orgMt))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified OrganizationMeta
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $orgMt = OrganizationMeta::findOrFail($id);
+
+        return [
+            'success' => true,
+            'data' => (new OrganizationMetaEntity($orgMt))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * update
+     * Update the specified OrganizationMeta
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $orgMt = (new OrganizationPropertySetter())->setMeta(OrganizationMeta::findOrFail($id), $request->toArray());
+
+        return [
+            'success' => true,
+            'data' => (new OrganizationMetaEntity($orgMt))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * destroy
+     * Remove the specified OrganizationMeta
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $orgMt = OrganizationMeta::findOrFail($id);
+        return [
+            'success' => (bool) $orgMt->delete(),
+            'data' => (new OrganizationMetaEntity(OrganizationMeta::withTrashed()->findOrFail($id)))->getFrontendData(['admin']),
+            'options' => OrganizationClassificationEntity::getOptions()
+        ];
+    }
+
+}
+

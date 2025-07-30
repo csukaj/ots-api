@@ -1,0 +1,110 @@
+<?php
+
+/*
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
+
+/**
+ * Public
+ */
+Route::group(
+    [
+        'middleware' => ['cors']
+    ],
+    function() {
+        Route::get('/', function () {
+            return view('welcome');
+        });
+        Route::post('/log', 'LogController@log');
+        Route::get('/age-ranges', 'AgeRangeController@index');
+
+        Route::post('/hotel-search', 'HotelSearchController@index');
+        Route::get('/hotel-search/searchable-texts', 'HotelSearchController@searchableTexts');
+        Route::get('/hotel-search/search-options', 'HotelSearchController@searchOptions');
+
+        Route::post('/cart/update', 'CartController@update');
+        Route::post('/order', 'OrderController@send');
+        Route::post('/contact', 'ContactController@send');
+
+        Route::get('/content/posts', 'ContentController@posts');
+        Route::get('/content/pages', 'ContentController@pages');
+        Route::get('/content/posts-of-category/{id}', 'ContentController@postsOfCategory')->where('id', '[0-9]+');
+        Route::get('/content/{id}', 'ContentController@show')->where('id', '[0-9]+');
+        Route::post('/content/by-url', 'ContentController@showByUrl');
+    }
+);
+
+/**
+ * Administrators only
+ */
+Route::group(
+    [
+        'middleware' => ['cors', 'jwt.auth', 'role:admin'],
+        'namespace' => 'Admin',
+        'prefix' => 'admin'
+    ],
+    function() {
+        Route::resource('user', 'UserController');
+        Route::resource('location', 'LocationController');
+        Route::resource('parent-organization', 'ParentOrganizationController');
+
+        Route::resource('organization-classification', 'OrganizationClassificationController');
+        Route::resource('organization-meta', 'OrganizationMetaController');
+        Route::resource('organization-date-range', 'OrganizationDateRangeController');
+        Route::post('organization-date-range/update-collection', 'OrganizationDateRangeController@updateCollection');
+        Route::resource('organization-prices', 'OrganizationPricesController');
+        Route::resource('organization-age-range', 'OrganizationAgeRangeController');
+
+        Route::resource('device-usage', 'DeviceUsageController');
+        Route::resource('device-classification', 'DeviceClassificationController');
+
+        Route::resource('product', 'ProductController');
+        Route::resource('price', 'PriceController');
+        Route::resource('price-element', 'PriceElementController');
+        Route::post('price-element/update-collection', 'PriceElementController@updateCollection');
+        Route::resource('discount', 'DiscountController');
+        Route::resource('discount-combinations', 'DiscountCombinationController');
+
+        Route::resource('order', 'OrderController');
+
+        Route::get('/content/posts', 'ContentController@posts');
+        Route::get('/content/pages', 'ContentController@pages');
+        Route::get('/content/posts-of-category/{id}', 'ContentController@postsOfCategory');
+        Route::resource('content', 'ContentController');
+
+        Route::resource('contentmedia', 'ContentMediaController');
+        Route::post('contentmedia/upload', 'ContentMediaController@upload');
+
+        Route::get('translation/download/{iso_code}', 'TranslationController@download');
+        Route::post('translation/import', 'TranslationController@import');
+        
+        Route::get('device-minimum-nights', 'DeviceMinimumNightsController@index');
+        Route::post('device-minimum-nights', 'DeviceMinimumNightsController@store');
+
+        // Route::get('updateimages', function () { \Illuminate\Support\Facades\Artisan::call('command:regenerateimages', []); });
+    }
+);
+
+/**
+ * Administrators and managers - actions must be manually gated!
+ */
+Route::group(
+    [
+        'middleware' => ['cors', 'jwt.auth', 'role:admin|manager'],
+        'namespace' => 'Gated',
+        'prefix' => 'admin'
+    ],
+    function() {
+        Route::resource('organization', 'OrganizationController');
+        Route::resource('device', 'DeviceController');
+        Route::resource('device-availability', 'DeviceAvailabilityController');
+    }
+);
+

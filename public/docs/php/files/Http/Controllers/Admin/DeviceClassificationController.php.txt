@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\DeviceClassification;
+use App\Entities\DeviceClassificationEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\DevicePropertySetter;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/DeviceClassificationController
+ */
+class DeviceClassificationController extends ResourceController {
+
+    /**
+     * index
+     * List all DeviceClassifications with options
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $devClassifications = DeviceClassification::where('device_id', '=', $request->input('device_id'))->forParent()->orderBy('priority')->get();
+        return [
+            'success' => true,
+            'data' => DeviceClassificationEntity::getCollection($devClassifications, ['admin']),
+            'options' => DeviceClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created DeviceClassification
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $orgCl = (new DevicePropertySetter())->setClassification(new DeviceClassification(), $request->toArray());
+
+        return [
+            'success' => true,
+            'data' => (new DeviceClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => DeviceClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified DeviceClassification
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $orgCl = DeviceClassification::findOrFail($id);
+
+        return [
+            'success' => true,
+            'data' => (new DeviceClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => DeviceClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * update
+     * Update the specified DeviceClassification
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $orgCl = (new DevicePropertySetter())->setClassification(DeviceClassification::findOrFail($id), $request->toArray());
+
+        return [
+            'success' => true,
+            'data' => (new DeviceClassificationEntity($orgCl))->getFrontendData(['admin']),
+            'options' => DeviceClassificationEntity::getOptions()
+        ];
+    }
+
+    /**
+     * destroy
+     * Remove the specified DeviceClassification
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $orgCl = DeviceClassification::findOrFail($id);
+        return [
+            'success' => (bool) $orgCl->delete(),
+            'data' => (new DeviceClassificationEntity(DeviceClassification::withTrashed()->findOrFail($id)))->getFrontendData(['admin']),
+            'options' => DeviceClassificationEntity::getOptions()
+        ];
+    }
+
+}
+

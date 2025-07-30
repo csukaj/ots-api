@@ -1,0 +1,15 @@
+{
+    "name": "Stylerscontact",
+    "alias": "stylerscontact",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Stylerscontact\\Providers\\StylerscontactServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

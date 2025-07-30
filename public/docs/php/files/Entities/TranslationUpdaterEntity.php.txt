@@ -1,0 +1,33 @@
+<?php
+namespace App\Entities;
+
+class TranslationUpdaterEntity extends TranslationEntity {
+
+    public function update() {
+        $isoCodes = $this->getIsoCodes();
+        foreach ($isoCodes as $isoCode) {
+            $exampleJsonFilePath = $this->basePathOfExampleTranslations . '/' . $isoCode . '.json';
+            if (file_exists($exampleJsonFilePath)) {
+                $actualTranslations = [];
+                $exampleTranslations = $this->flatten(json_decode(file_get_contents($exampleJsonFilePath), true));
+                $actualJsonFilePath = $this->basePathOfActiveTranslations . '/' . $isoCode . '.json';
+
+                if (file_exists($actualJsonFilePath)) {
+                    $actualTranslations = $this->flatten(json_decode(file_get_contents($actualJsonFilePath), true));
+                }
+
+                $thereWasNewKeyInTheExampleJSON = false;
+                foreach ($exampleTranslations as $key => $value) {
+                    if(!isset($actualTranslations[$key])) {
+                        $actualTranslations[$key] = $value;
+                        $thereWasNewKeyInTheExampleJSON = true;
+                    }
+                }
+
+                if($thereWasNewKeyInTheExampleJSON){
+                    $this->createJson($isoCode, $this->unflatten($actualTranslations));
+                }
+            }
+        }
+    }
+}

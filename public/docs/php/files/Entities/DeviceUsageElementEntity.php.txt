@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Entities;
+
+use App\DeviceUsageElement;
+
+class DeviceUsageElementEntity extends Entity
+{
+    protected $deviceUsageElement;
+    protected $elements;
+    protected $organizationAgeRange;
+
+    public function __construct(DeviceUsageElement $usageElement) {
+        parent::__construct();
+        $this->deviceUsageElement = $usageElement;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        return [
+            'id' => $this->deviceUsageElement->id,
+            'amount' => $this->deviceUsageElement->amount,
+            'age_range' => $this->deviceUsageElement->ageRange ? (new OrganizationAgeRangeEntity($this->deviceUsageElement->ageRange))->getFrontendData() : null,
+        ];
+    }
+}

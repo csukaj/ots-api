@@ -1,0 +1,96 @@
+{
+  "availability": [
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 1
+    },
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 2
+    },
+    {
+      "available": 2,
+      "is_overbooked": false,
+      "usage_pairs": [
+        0
+      ],
+      "device_id": 3
+    }
+  ],
+  "results": [
+    [
+      {
+        "prices": [
+          {
+            "original_price": "726.0",
+            "order_itemable_index": 0,
+            "discounted_price": "726.0",
+            "meal_plan": "b\/b",
+            "discounts": [],
+            "meal_plan_id": 2
+          }
+        ],
+        "usages": {
+          "adult": 1
+        },
+        "device_id": 1
+      },
+      {
+        "prices": [
+          {
+            "original_price": "726.0",
+            "order_itemable_index": 0,
+            "discounted_price": "726.0",
+            "meal_plan": "b\/b",
+            "discounts": [],
+            "meal_plan_id": 2
+          },
+          {
+            "original_price": "726.0",
+            "order_itemable_index": 0,
+            "discounted_price": "726.0",
+            "meal_plan": "h\/b",
+            "discounts": [],
+            "meal_plan_id": 3
+          }
+        ],
+        "usages": {
+          "adult": 1
+        },
+        "device_id": 2
+      },
+      {
+        "prices": [
+          {
+            "original_price": "1650.0",
+            "order_itemable_index": 0,
+            "discounted_price": "1650.0",
+            "meal_plan": "b\/b",
+            "discounts": [],
+            "meal_plan_id": 2
+          },
+          {
+            "original_price": "1650.0",
+            "order_itemable_index": 0,
+            "discounted_price": "1650.0",
+            "meal_plan": "h\/b",
+            "discounts": [],
+            "meal_plan_id": 3
+          }
+        ],
+        "usages": {
+          "adult": 1
+        },
+        "device_id": 3
+      }
+    ]
+  ]
+}

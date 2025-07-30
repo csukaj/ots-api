@@ -1,0 +1,155 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Exceptions\UserException;
+use App\OrganizationDateRange;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+
+/**
+ * Manipulator to create a new OrganizationDateRange 
+ * instance after the supplied data passes validation
+ */
+class OrganizationDateRangeSetter {
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'organization_id' => null,
+        'from_time' => null,
+        'to_time' => null,
+        'type_taxonomy_id' => null,
+        'margin_value' => null,
+        'meal_plans' => null,
+        'minimum_nights' => null
+    ];
+    private $openOnlyAttributes = [
+        'margin_value' => null,
+        'meal_plans' => null
+    ];
+
+    public function __construct(array $attributes) {
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        if (isset($attributes['from_date'])) {
+            $this->attributes['from_time'] = $attributes['from_date'];
+        }
+
+        if (isset($attributes['to_date'])) {
+            $this->attributes['to_time'] = $attributes['to_date'];
+        }
+
+        if (isset($attributes['type'])) {
+            $this->attributes['type_taxonomy_id'] = Taxonomy::getTaxonomy($attributes['type'], Config::get('taxonomies.date_range_type'))->id;
+        }
+
+        if (isset($attributes['name'])) {
+            $this->nameDescription = $attributes['name'];
+        }
+
+        if (isset($attributes['minimum_nights'])) {
+            if (!is_numeric($attributes['minimum_nights']) || $attributes['minimum_nights'] < 0) {
+                throw new UserException("Minimum nights must be integer.");
+            }
+        }
+
+        if ($this->attributes['type_taxonomy_id'] == Config::get('taxonomies.date_range_type.closed')) {
+            $this->attributes = array_merge($this->attributes, $this->openOnlyAttributes);
+        }
+    }
+
+    /**
+     * Creates new date range and throws error in case of any overlap
+     * @return OrganizationDateRange
+     */
+    public function set() {
+        $this->validate();
+
+        if ($this->attributes['id']) {
+            $dateRange = OrganizationDateRange::findOrFail($this->attributes['id']);
+            $dateRange->fill($this->attributes);
+        } else {
+            $dateRange = OrganizationDateRange::getByData(
+                $this->attributes['organization_id'], 
+                $this->attributes['from_time'], 
+                $this->attributes['to_time'], 
+                $this->attributes['type_taxonomy_id'], 
+                true
+            );
+
+            if (!$dateRange) {
+                $dateRange = new OrganizationDateRange($this->attributes);
+            } else {
+                $dateRange->restore();
+            }
+        }
+
+        if ($this->attributes['id']) {
+            $dateRange->id = $this->attributes['id'];
+            $dateRange->exists = true;
+        }
+        
+        if (!is_null($this->nameDescription)) {
+            $nameDescription = (new DescriptionSetter($this->nameDescription, $dateRange->name_description_id))->set();
+            $dateRange->name_description_id = $nameDescription->id;
+        }
+        
+        $dateRange->saveOrFail();
+
+        if (!is_null($this->attributes['meal_plans'])) {
+            $dateRange->setMealPlans($this->attributes['meal_plans']);
+        }
+
+        return $dateRange;
+    }
+
+    /**
+     * Validates the date range to be set
+     * @throws UserException
+     */
+    private function validate() {
+        $fromTime = OrganizationDateRange::formatTime($this->attributes['from_time'], true);
+        $toTime = OrganizationDateRange::formatTime($this->attributes['to_time'], false);
+        if ($fromTime > $toTime) {
+            throw new UserException('Invalid date range: wrong date order!');
+        }
+
+        $isDiscount = ($this->attributes['type_taxonomy_id'] == Config::get('taxonomies.date_range_types.discount'));
+        $dateRangesInInterval = OrganizationDateRange::getDateRangesInInterval(
+            $this->attributes['organization_id'],
+            $this->attributes['from_time'],
+            $this->attributes['to_time'],
+            $this->attributes['type_taxonomy_id'],
+            $this->attributes['id']
+        );
+
+        if (!$isDiscount && count($dateRangesInInterval) > 0) {
+            throw new UserException('Date range overlap.');
+        }
+
+        if ($isDiscount) {
+            $dateRangesInInterval = OrganizationDateRange::getDateRangesInInterval(
+                $this->attributes['organization_id'],
+                $this->attributes['from_time'],
+                $this->attributes['to_time'],
+                Config::get('taxonomies.date_range_types.open'),
+                null
+            );
+
+            if (count($dateRangesInInterval) == 0) {
+                throw new UserException('Missing open period for discount.');
+            }
+        }
+    }
+
+}
+

@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Exceptions\UserException;
+use App\ParentOrganization;
+
+/**
+ * Manipulator to create a new ParentOrganization 
+ * instance after the supplied data passes validation
+ */
+class ParentOrganizationSetter {
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'name' => null
+    ];
+
+    /**
+     * Constructs Setter and validates input data
+     * @param array $attributes
+     * @throws UserException
+     */
+    public function __construct(array $attributes) {
+
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        if (empty($attributes['name'])) {
+            throw new UserException('Empty name');
+        }
+
+        $query = ParentOrganization::where('name', '=', $attributes['name']);
+        if (isset($attributes['id'])) {
+            $query->where('id', '!=', $attributes['id']);
+        }
+
+        if ($query->exists()) {
+            throw new UserException('Parent organization with same name exists.');
+        }
+    }
+
+    /**
+     * Creates new Model or updates if exists
+     * @return ParentOrganization
+     */
+    public function set(): ParentOrganization {
+        $parentOrganization = new ParentOrganization();
+        if ($this->attributes['id']) {
+            $parentOrganization = ParentOrganization::findOrFail($this->attributes['id']);
+        }
+
+        $parentOrganization->name = $this->attributes['name'];
+        $parentOrganization->saveOrFail();
+
+        return $parentOrganization;
+    }
+
+}
+

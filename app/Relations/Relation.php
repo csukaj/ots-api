@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Relations;
+
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * Class for modelling various relation types with various format.
+ */
+class Relation {
+    use \App\Traits\DependencyTrait;
+    
+    const TYPE_ONE_TO_ONE = 'one_to_one';
+    const TYPE_ONE_TO_MANY = 'one_to_many';
+    const TYPE_ONE_TO_MANY_KEYS = 'one_to_many_keys';
+    
+    const FORMAT_SINGLE_VALUE = 'single_value';
+    const FORMAT_CSV = 'csv';
+    const FORMAT_JSON = 'json';
+    
+    protected $taxonomy;
+    protected $type;
+    protected $format;
+
+    public function __construct(Taxonomy $taxonomy) {
+        $this->taxonomy = $taxonomy;
+    }
+    
+    public function getFrontendData() {
+        return [
+            'type' => $this->type,
+            'format' => $this->format
+        ];
+    }
+
+}

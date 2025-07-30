@@ -1,0 +1,47 @@
+<?php
+
+namespace App;
+
+/**
+ * This trait is used for additional model behaviours
+ */
+trait ModelTrait {
+
+    /**
+     * Returns all fillable attributes with value
+     * 
+     * @return array
+     */
+    public function getFillableAttributes() {
+        $fillable = $this->getFillable();
+        return array_filter(
+            $this->toArray(), function ($key) use ($fillable) {
+                return in_array($key, $fillable);
+            }, ARRAY_FILTER_USE_KEY
+        );
+    }
+
+    /**
+     * Creates or restores a model with specified attributes
+     * 
+     * @param mixed $attributesToFindWith
+     * @return \static
+     */
+    static public function createOrRestore($attributesToFindWith) {
+        $modelQuery = static::withTrashed();
+        foreach ($attributesToFindWith as $key => $value) {
+            $modelQuery->where($key, '=', $value);
+        }
+
+        $model = $modelQuery->first();
+        if (!$model) {
+            $model = new static($attributesToFindWith);
+            $model->saveOrFail();
+        } else {
+            $model->restore();
+        }
+        return $model;
+    }
+
+}
+

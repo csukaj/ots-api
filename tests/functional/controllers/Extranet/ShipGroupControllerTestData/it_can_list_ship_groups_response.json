@@ -1,0 +1,77 @@
+{
+  "success": true,
+  "data": [
+    {
+      "id": 1,
+      "name": {
+        "en": "Ship Group A",
+        "de": "Schiffsgruppe A",
+        "hu": "Haj\u00f3csoport A",
+        "ru": "\u0413\u0440\u0443\u043f\u043f\u0430 \u0441\u0443\u0434\u043e\u0432 A"
+      },
+      "type": "ship_group",
+      "is_active": true,
+      "properties": [],
+      "parent": {
+        "id": 301,
+        "name": {
+          "en": "Ship Company A",
+          "de": "Schiffsfirma A",
+          "hu": "Haj\u00f3z\u00e1si t\u00e1rsas\u00e1g A",
+          "ru": "\u0421\u0443\u0434\u043e\u0432\u0430\u044f \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f A"
+        },
+        "short_name": null,
+        "type": "ship_company",
+        "parent": null,
+        "is_active": true,
+        "properties": [],
+        "reviews": []
+      },
+      "availability_mode": "exact",
+      "amount": 2,
+      "deviceable_type" : "App\\ShipGroup",
+      "galleries": [
+        {
+          "id": 63,
+          "name": null,
+          "galleryable_id": 1,
+          "galleryable_type": "App\\ShipGroup",
+          "role": "frontend_gallery",
+          "items": [
+            {
+              "id": 42,
+              "extension": "jpeg",
+              "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000042.jpeg",
+              "thumbnails": [
+                {
+                  "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000042_xs.jpeg",
+                  "width": 576
+                },
+                {
+                  "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000042_sm.jpeg",
+                  "width": 768
+                },
+                {
+                  "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000042_md.jpeg",
+                  "width": 1024
+                },
+                {
+                  "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000042_lg.jpeg",
+                  "width": 1280
+                }
+              ],
+              "width": 2556,
+              "height": 1221,
+              "type": null,
+              "description": null,
+              "priority": null,
+              "highlighted": true,
+              "gallery_id": 63
+            }
+          ],
+          "galleryable_name": "Ship Group A"
+        }
+      ]
+    }
+  ]
+}

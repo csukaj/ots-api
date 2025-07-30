@@ -1,0 +1,52 @@
+[
+  {
+    "original_price": "880.0",
+    "meal_plan_id": 2,
+    "discounted_price": "616.0",
+    "order_itemable_index": 0,
+    "meal_plan": "b\/b",
+    "discounts": [
+      {
+        "description": null,
+        "offer": "free_nights",
+        "discount_percentage": -30,
+        "discount_value": -264,
+        "modifier_type": 491,
+        "condition": "anniversary",
+        "name": {
+          "en": "Wedding Anniversary - Only first"
+        }
+      }
+    ],
+    "total_discount": {
+      "percentage": -30,
+      "value": -264
+    },
+    "margin": 56
+  },
+  {
+    "original_price": "891.0",
+    "meal_plan_id": 3,
+    "discounted_price": "623.7",
+    "order_itemable_index": 0,
+    "meal_plan": "h\/b",
+    "discounts": [
+      {
+        "description": null,
+        "offer": "free_nights",
+        "discount_percentage": -30,
+        "discount_value": -267.29999999999995,
+        "modifier_type": 491,
+        "condition": "anniversary",
+        "name": {
+          "en": "Wedding Anniversary - Only first"
+        }
+      }
+    ],
+    "total_discount": {
+      "percentage": -30,
+      "value": -267.29999999999995
+    },
+    "margin": 56.699999999999996
+  }
+]

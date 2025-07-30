@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Entities\DeviceAvailabilityEntity;
+use App\Exceptions\UserException;
+use App\MealPlan;
+use App\Order;
+use App\OrderItem;
+use App\OrderItemGuest;
+use App\OrganizationAgeRange;
+use ErrorException;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
+/**
+ * @resource OrderController
+ */
+class OrderController extends Controller {
+
+    /**
+     * send
+     * Send an order
+     * @param Request $request
+     * @return type
+     * @throws Exception
+     */
+    public function send(Request $request) {
+        $requestArray = $request->toArray();
+
+        $order = new Order($requestArray);
+        $order->saveOrFail();
+
+        try {
+            foreach ($requestArray['items'] as $itemData) {
+                $item = new OrderItem([
+                    'order_id' => $order->id,
+                    'device_id' => $itemData['device']['id'],
+                    'from_date' => $itemData['interval']['date_from'],
+                    'to_date' => $itemData['interval']['date_to'],
+                    'amount' => $itemData['amount'],
+                    'meal_plan_id' => MealPlan::findByName($itemData['mealPlan'])->id,
+                    'order_itemable_index' => $itemData['orderItemableIndex'],
+                    'price' => $itemData['calculatedPrice']['discounted_price'],
+                    'json' => \json_encode($itemData)
+                ]);
+                $item->saveOrFail();
+                $organizationId = $item->device->organization->id;
+                $guestIndex = 0;
+                if (!empty($itemData['guests'])) {
+                    foreach ($itemData['guests'] as $guestData) {
+                        $this->saveGuest($guestData, $item, $guestIndex++, $organizationId);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            $order->delete();
+            throw $e;
+        }
+
+        $order->load(['items']);
+
+        // decrease availabilities
+        foreach ($order->items as $item) {
+            $availability = new DeviceAvailabilityEntity($item->device_id);
+            $availability->decrease($item->from_date, $item->to_date, $item->amount);
+        }
+
+        // transform values
+        foreach ($order->items as $item) {
+            $item->deviceName = $item->device->name->name;
+            $item->mealPlanName = $item->mealPlan->name->name;
+        }
+
+        // send email
+        Mail::send('emails.userorder', ['order' => $order], function ($m) use ($order) {
+            $name = sprintf('%s %s', $order->first_name, $order->last_name);
+            $m
+                ->from(env('OTS_MAIL_FROM_ADDRESS'), env('OTS_MAIL_NAME'))
+                ->to($order->email, $name)
+                ->bcc(env('OTS_MAIL_FROM_ADDRESS'))
+                ->replyTo(env('OTS_REPLY_TO_ADDRESS'))
+                ->subject('OTS Order details');
+        });
+
+        return [
+            'success' => true,
+            'data' => [],
+            'request' => $request->all()
+        ];
+    }
+    
+    /**
+     * saveGuest
+     * Save a guest
+     * @param type $guestData
+     * @param type $item
+     * @param type $guestIndex
+     * @param type $organizationId
+     * @return OrderItemGuest
+     * @throws UserException
+     */
+    private function saveGuest($guestData, $item, $guestIndex, $organizationId) {
+        try {
+            $guest = new OrderItemGuest([
+                'order_item_id' => $item->id,
+                'guest_index' => $guestIndex,
+                'age_range_id' => !empty($guestData['age_range']) ? OrganizationAgeRange::findByNameOrFail($guestData['age_range'], $organizationId)->id : null,
+                'first_name' => $guestData['first_name'],
+                'last_name' => $guestData['last_name']
+            ]);
+            $guest->saveOrFail();
+        } catch (ErrorException $e) {
+            throw new UserException($e->getMessage());
+        }
+        return $guest;
+    }
+
+}
+

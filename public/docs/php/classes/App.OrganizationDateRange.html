@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/App.html">\App</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">802</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-458709058"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-458709058" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-134738940"></a>
+                                <a href="../namespaces/App.html" style="margin-left: 30px; padding-left: 0">App</a>
+            </div>
+            <div id="namespace-134738940" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1396990042"></a>
+                                <a href="../namespaces/App.Caches.html" style="margin-left: 30px; padding-left: 0">Caches</a>
+            </div>
+            <div id="namespace-1396990042" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Caches.HotelIdsCache.html">HotelIdsCache</a></li>
+                                                    <li class="class"><a href="../classes/App.Caches.HotelSearchableTextsCache.html">HotelSearchableTextsCache</a></li>
+                                                    <li class="class"><a href="../classes/App.Caches.HotelSearchOptionsCache.html">HotelSearchOptionsCache</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1417495889"></a>
+                                <a href="../namespaces/App.Console.html" style="margin-left: 30px; padding-left: 0">Console</a>
+            </div>
+            <div id="namespace-1417495889" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1570073295"></a>
+                                <a href="../namespaces/App.Console.Commands.html" style="margin-left: 30px; padding-left: 0">Commands</a>
+            </div>
+            <div id="namespace-1570073295" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-697176976"></a>
+                                <a href="../namespaces/App.Console.Commands.TestAccommodationSeeder.html" style="margin-left: 30px; padding-left: 0">TestOrganizationSeeder</a>
+            </div>
+            <div id="namespace-697176976" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeeder.TestDiscountSeeder.html">TestDiscountSeeder</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeeder.TestHotelSeeder.html">TestHotelSeeder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Commands.ClearCacheCommand.html">ClearCacheCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.FlushRedisCommand.html">FlushRedisCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.RegenerateImagesCommand.html">RegenerateImagesCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeederCommand.html">TestAccommodationSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestCommand.html">TestCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestContentSeederCommand.html">TestContentSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestManagerSeederCommand.html">TestManagerSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestParentOrganizationSeederCommand.html">TestParentOrganizationSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TruncateDbCommand.html">TruncateDbCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.UpdateCacheCommand.html">UpdateCacheCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.UpdateTranslationsCommand.html">UpdateTranslationsCommand</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Kernel.html">Kernel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2078181789"></a>
+                                <a href="../namespaces/App.Entities.html" style="margin-left: 30px; padding-left: 0">Entities</a>
+            </div>
+            <div id="namespace-2078181789" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Entities.CartElementEntity.html">CartElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.CartEntity.html">CartEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ContentEntity.html">ContentEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ContentModificationEntity.html">ContentModificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceAvailabilityEntity.html">DeviceAvailabilityEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceClassificationEntity.html">DeviceClassificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceEntity.html">DeviceEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceMetaEntity.html">DeviceMetaEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceMinimumNightsEntity.html">DeviceMinimumNightsEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceUsageElementEntity.html">DeviceUsageElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceUsageEntity.html">DeviceUsageEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DiscountCombinationEntity.html">DiscountCombinationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DiscountEntity.html">DiscountEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.Entity.html">Entity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.HotelSearchEntity.html">HotelSearchEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.LocationEntity.html">LocationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.MealPlanEntity.html">MealPlanEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrderEntity.html">OrderEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrderItemEntity.html">OrderItemEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationAgeRangeEntity.html">OrganizationAgeRangeEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationClassificationEntity.html">OrganizationClassificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationDateRangeEntity.html">OrganizationDateRangeEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationEntity.html">OrganizationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationMetaEntity.html">OrganizationMetaEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ParentOrganizationEntity.html">ParentOrganizationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.PriceElementEntity.html">PriceElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.PriceEntity.html">PriceEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ProductEntity.html">ProductEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationEntity.html">TranslationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationExporterEntity.html">TranslationExporterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationImporterEntity.html">TranslationImporterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationUpdaterEntity.html">TranslationUpdaterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.UserEntity.html">UserEntity</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-550261880"></a>
+                                <a href="../namespaces/App.Events.html" style="margin-left: 30px; padding-left: 0">Events</a>
+            </div>
+            <div id="namespace-550261880" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Events.Event.html">Event</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-666122445"></a>
+                                <a href="../namespaces/App.Exceptions.html" style="margin-left: 30px; padding-left: 0">Exceptions</a>
+            </div>
+            <div id="namespace-666122445" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Exceptions.Handler.html">Handler</a></li>
+                                                    <li class="class"><a href="../classes/App.Exceptions.UserException.html">UserException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1283135186"></a>
+                                <a href="../namespaces/App.Facades.html" style="margin-left: 30px; padding-left: 0">Facades</a>
+            </div>
+            <div id="namespace-1283135186" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Facades.Config.html">Config</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1611984996"></a>
+                                <a href="../namespaces/App.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-1611984996" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1098443138"></a>
+                                <a href="../namespaces/App.Http.Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
+            </div>
+            <div id="namespace-1098443138" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-584169915"></a>
+                                <a href="../namespaces/App.Http.Controllers.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
+            </div>
+            <div id="namespace-584169915" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ContentController.html">ContentController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ContentMediaController.html">ContentMediaController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceClassificationController.html">DeviceClassificationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceMinimumNightsController.html">DeviceMinimumNightsController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceUsageController.html">DeviceUsageController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DiscountCombinationController.html">DiscountCombinationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DiscountController.html">DiscountController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.LocationController.html">LocationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrderController.html">OrderController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationAgeRangeController.html">OrganizationAgeRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationClassificationController.html">OrganizationClassificationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationDateRangeController.html">OrganizationDateRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationMetaController.html">OrganizationMetaController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationPricesController.html">OrganizationPricesController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ParentOrganizationController.html">ParentOrganizationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.PriceController.html">PriceController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.PriceElementController.html">PriceElementController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ProductController.html">ProductController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.TranslationController.html">TranslationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.UserController.html">UserController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-908622987"></a>
+                                <a href="../namespaces/App.Http.Controllers.Auth.html" style="margin-left: 30px; padding-left: 0">Auth</a>
+            </div>
+            <div id="namespace-908622987" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Auth.AuthController.html">AuthController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Auth.PasswordController.html">PasswordController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-441889474"></a>
+                                <a href="../namespaces/App.Http.Controllers.Gated.html" style="margin-left: 30px; padding-left: 0">Gated</a>
+            </div>
+            <div id="namespace-441889474" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.DeviceAvailabilityController.html">DeviceAvailabilityController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.DeviceController.html">DeviceController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.OrganizationController.html">OrganizationController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.AgeRangeController.html">AgeRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.CartController.html">CartController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ContactController.html">ContactController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ContentController.html">ContentController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.HotelSearchController.html">HotelSearchController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.LogController.html">LogController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.OrderController.html">OrderController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ResourceController.html">ResourceController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1293452544"></a>
+                                <a href="../namespaces/App.Http.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-1293452544" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Middleware.Authenticate.html">Authenticate</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.EncryptCookies.html">EncryptCookies</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.ExposeAuthorizationHeader.html">ExposeAuthorizationHeader</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html">RedirectIfAuthenticated</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.VerifyCsrfToken.html">VerifyCsrfToken</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-378798375"></a>
+                                <a href="../namespaces/App.Http.Requests.html" style="margin-left: 30px; padding-left: 0">Requests</a>
+            </div>
+            <div id="namespace-378798375" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Requests.Request.html">Request</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Kernel.html">Kernel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-128268906"></a>
+                                <a href="../namespaces/App.Jobs.html" style="margin-left: 30px; padding-left: 0">Jobs</a>
+            </div>
+            <div id="namespace-128268906" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Jobs.Job.html">Job</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1412901781"></a>
+                                <a href="../namespaces/App.Manipulators.html" style="margin-left: 30px; padding-left: 0">Manipulators</a>
+            </div>
+            <div id="namespace-1412901781" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Manipulators.ContentSetter.html">ContentSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceAvailabilitySetter.html">DeviceAvailabilitySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceMinimumNightsSetter.html">DeviceMinimumNightsSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DevicePropertySetter.html">DevicePropertySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceSetter.html">DeviceSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceUsageSetter.html">DeviceUsageSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DiscountSetter.html">DiscountSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationAgeRangeSetter.html">OrganizationAgeRangeSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationDateRangeSetter.html">OrganizationDateRangeSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationPropertySetter.html">OrganizationPropertySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationSetter.html">OrganizationSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.ParentOrganizationSetter.html">ParentOrganizationSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.PriceCalculator.html">PriceCalculator</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.PriceSetter.html">PriceSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.ProductSetter.html">ProductSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.UserSetter.html">UserSetter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1425894974"></a>
+                                <a href="../namespaces/App.Providers.html" style="margin-left: 30px; padding-left: 0">Providers</a>
+            </div>
+            <div id="namespace-1425894974" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Providers.AppServiceProvider.html">AppServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.AuthServiceProvider.html">AuthServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.EventServiceProvider.html">EventServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.RouteServiceProvider.html">RouteServiceProvider</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1698230457"></a>
+                                <a href="../namespaces/App.Relations.html" style="margin-left: 30px; padding-left: 0">Relations</a>
+            </div>
+            <div id="namespace-1698230457" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Relations.AgeRangeRelation.html">AgeRangeRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.DevicesRelation.html">DevicesRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.DiscountedAccommodationProductsRelation.html">DiscountedAccommodationProductsRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.MealPlanRelation.html">MealPlanRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.MealPlansRelation.html">MealPlansRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.OrganizationsRelation.html">OrganizationsRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.PriceTaxonomyRelation.html">PriceTaxonomyRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.Relation.html">Relation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-224708756"></a>
+                                <a href="../namespaces/App.Traits.html" style="margin-left: 30px; padding-left: 0">Traits</a>
+            </div>
+            <div id="namespace-224708756" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/App.Traits.DependencyTrait.html">DependencyTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.Traits.FileTrait.html">FileTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.Traits.RedisTrait.html">RedisTrait</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/App.ModelTrait.html">ModelTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.ModelValidatorTrait.html">ModelValidatorTrait</a></li>
+                                                                            <li class="class"><a href="../classes/App.Content.html">Content</a></li>
+                                                    <li class="class"><a href="../classes/App.ContentMedia.html">ContentMedia</a></li>
+                                                    <li class="class"><a href="../classes/App.ContentModification.html">ContentModification</a></li>
+                                                    <li class="class"><a href="../classes/App.Device.html">Device</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceAvailability.html">DeviceAvailability</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceClassification.html">DeviceClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceDescription.html">DeviceDescription</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceMeta.html">DeviceMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceMinimumNights.html">DeviceMinimumNights</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceUsage.html">DeviceUsage</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceUsageElement.html">DeviceUsageElement</a></li>
+                                                    <li class="class"><a href="../classes/App.Discount.html">Discount</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountClassification.html">DiscountClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountCombination.html">DiscountCombination</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountMeta.html">DiscountMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountPeriod.html">DiscountPeriod</a></li>
+                                                    <li class="class"><a href="../classes/App.District.html">District</a></li>
+                                                    <li class="class"><a href="../classes/App.Island.html">Island</a></li>
+                                                    <li class="class"><a href="../classes/App.Location.html">Location</a></li>
+                                                    <li class="class"><a href="../classes/App.MealPlan.html">MealPlan</a></li>
+                                                    <li class="class"><a href="../classes/App.OfferClassification.html">OfferClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.OfferMeta.html">OfferMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.Order.html">Order</a></li>
+                                                    <li class="class"><a href="../classes/App.OrderItem.html">OrderItem</a></li>
+                                                    <li class="class"><a href="../classes/App.OrderItemGuest.html">OrderItemGuest</a></li>
+                                                    <li class="class"><a href="../classes/App.Organization.html">Organization</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationAgeRange.html">OrganizationAgeRange</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationClassification.html">OrganizationClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationDateRange.html">OrganizationDateRange</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationDescription.html">OrganizationDescription</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationManager.html">OrganizationManager</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationMealPlan.html">OrganizationMealPlan</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationMeta.html">OrganizationMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.ParentOrganization.html">ParentOrganization</a></li>
+                                                    <li class="class"><a href="../classes/App.Price.html">Price</a></li>
+                                                    <li class="class"><a href="../classes/App.PriceElement.html">PriceElement</a></li>
+                                                    <li class="class"><a href="../classes/App.PriorityOrderScope.html">PriorityOrderScope</a></li>
+                                                    <li class="class"><a href="../classes/App.Product.html">Product</a></li>
+                                                    <li class="class"><a href="../classes/App.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/App.html">\App</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\App</small>OrganizationDateRange</h1>
+                    <p><em>App\OrganizationDateRange</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/App.ModelTrait.html#method_getFillableAttributes" class="">getFillableAttributes()</a><br />
+                                                                    <a href="../classes/App.ModelTrait.html#method_createOrRestore" class="">createOrRestore()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_save" class="">save()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_name" class="">name()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_organization" class="">organization()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_organizationMealPlans" class="">organizationMealPlans()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_type" class="">type()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_marginType" class="">marginType()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_prices" class="">prices()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_discountPeriods" class="">discountPeriods()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_deviceMinimumNights" class="">deviceMinimumNights()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_scopeOpen" class="">scopeOpen()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_scopeClosed" class="">scopeClosed()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_scopeDiscount" class="">scopeDiscount()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_setFromTimeAttribute" class="">setFromTimeAttribute()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getFromTimeAttribute" class="">getFromTimeAttribute()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_setToTimeAttribute" class="">setToTimeAttribute()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getToTimeAttribute" class="">getToTimeAttribute()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_setMealPlans" class="">setMealPlans()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getOverlapDays" class="">getOverlapDays()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_formatTime" class="">formatTime()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getSeparationTime" class="">getSeparationTime()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getAll" class="">getAll()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getDateRangesInInterval" class="">getDateRangesInInterval()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_hasDateRanges" class="">hasDateRanges()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getStartInterval" class="">getStartInterval()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getEndInterval" class="">getEndInterval()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_getByData" class="">getByData()</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#method_setByData" class="">setByData()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_id" class="">$id</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_name_description_id" class="">$name_description_id</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_organization_id" class="">$organization_id</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_from_time" class="">$from_time</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_to_time" class="">$to_time</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_type_taxonomy_id" class="">$type_taxonomy_id</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_margin_type_taxonomy_id" class="">$margin_type_taxonomy_id</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_margin_value" class="">$margin_value</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_created_at" class="">$created_at</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_updated_at" class="">$updated_at</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_deleted_at" class="">$deleted_at</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_minimum_nights" class="">$minimum_nights</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_deviceMinimumNights" class="">$deviceMinimumNights</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_discountPeriods" class="">$discountPeriods</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_marginType" class="">$marginType</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_name" class="">$name</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_organization" class="">$organization</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_organizationMealPlans" class="">$organizationMealPlans</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_prices" class="">$prices</a><br />
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_type" class="">$type</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/App.OrganizationDateRange.html#property_fillable" class="">$fillable</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/OrganizationDateRange.html"><div class="path-wrapper">OrganizationDateRange.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper">\Illuminate\Database\Eloquent\Model</div>
+                                                                                                    <div class="namespace-wrapper">\App\OrganizationDateRange</div>
+                            </dd>
+
+                        
+                                                                                    <dt>Uses traits</dt>
+                                                        <dd>
+                                                                    <div class="namespace-wrapper">\Illuminate\Database\Eloquent\SoftDeletes</div>
+                                                            </dd>
+                                                                                <dd>
+                                <a href="../classes/App.ModelTrait.html">                                    <div class="namespace-wrapper">\App\ModelTrait</div>
+                                </a>                            </dd>
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                mixin
+                            </th>
+                            <td>
+                                                                    <p>\Eloquent</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_id" name="property_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$id</h3>
+                <pre class="signature">$id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_name_description_id" name="property_name_description_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$name_description_id</h3>
+                <pre class="signature">$name_description_id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_organization_id" name="property_organization_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$organization_id</h3>
+                <pre class="signature">$organization_id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_from_time" name="property_from_time" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$from_time</h3>
+                <pre class="signature">$from_time : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_to_time" name="property_to_time" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$to_time</h3>
+                <pre class="signature">$to_time : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_type_taxonomy_id" name="property_type_taxonomy_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$type_taxonomy_id</h3>
+                <pre class="signature">$type_taxonomy_id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_margin_type_taxonomy_id" name="property_margin_type_taxonomy_id" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$margin_type_taxonomy_id</h3>
+                <pre class="signature">$margin_type_taxonomy_id : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_margin_value" name="property_margin_value" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$margin_value</h3>
+                <pre class="signature">$margin_value : float</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                float
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_created_at" name="property_created_at" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$created_at</h3>
+                <pre class="signature">$created_at : \Carbon\Carbon</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Carbon\Carbon
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_updated_at" name="property_updated_at" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$updated_at</h3>
+                <pre class="signature">$updated_at : \Carbon\Carbon</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Carbon\Carbon
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_deleted_at" name="property_deleted_at" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$deleted_at</h3>
+                <pre class="signature">$deleted_at : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_minimum_nights" name="property_minimum_nights" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$minimum_nights</h3>
+                <pre class="signature">$minimum_nights : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_deviceMinimumNights" name="property_deviceMinimumNights" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$deviceMinimumNights</h3>
+                <pre class="signature">$deviceMinimumNights : \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\DeviceMinimumNights&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\DeviceMinimumNights&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_discountPeriods" name="property_discountPeriods" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$discountPeriods</h3>
+                <pre class="signature">$discountPeriods : \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\DiscountPeriod&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\DiscountPeriod&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_marginType" name="property_marginType" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$marginType</h3>
+                <pre class="signature">$marginType : \Modules\Stylerstaxonomy\Entities\Taxonomy</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Modules\Stylerstaxonomy\Entities\Taxonomy
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_name" name="property_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$name</h3>
+                <pre class="signature">$name : \Modules\Stylerstaxonomy\Entities\Description</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Modules\Stylerstaxonomy\Entities\Description
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_organization" name="property_organization" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$organization</h3>
+                <pre class="signature">$organization : \App\Organization</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \App\Organization
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_organizationMealPlans" name="property_organizationMealPlans" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$organizationMealPlans</h3>
+                <pre class="signature">$organizationMealPlans : \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\OrganizationMealPlan&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\OrganizationMealPlan&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_prices" name="property_prices" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$prices</h3>
+                <pre class="signature">$prices : \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\Price&gt;</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Illuminate\Database\Eloquent\Collection|array&lt;mixed,\App\Price&gt;
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_type" name="property_type" class="anchor"></a>
+            <article class="property">
+                <h3 class="public ">$type</h3>
+                <pre class="signature">$type : \Modules\Stylerstaxonomy\Entities\Taxonomy</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Modules\Stylerstaxonomy\Entities\Taxonomy
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_fillable" name="property_fillable" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$fillable</h3>
+                <pre class="signature">$fillable : array</pre>
+                <p><em>The attributes that are mass assignable.</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFillableAttributes" name="method_getFillableAttributes" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFillableAttributes()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFillableAttributes() : array</pre>
+                <p><em>Returns all fillable attributes with value</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/App.ModelTrait.html"><div class="path-wrapper">\App\ModelTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_createOrRestore" name="method_createOrRestore" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">createOrRestore()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createOrRestore(mixed  <span class="argument">$attributesToFindWith</span>) : \static</pre>
+                <p><em>Creates or restores a model with specified attributes</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$attributesToFindWith </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \static
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/App.ModelTrait.html"><div class="path-wrapper">\App\ModelTrait</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_save" name="method_save" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">save()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">save(array  <span class="argument">$options = array()</span>) : boolean</pre>
+                <p><em>Save the model to the database.</em></p>
+                <p>Sets margin_type_taxonomy_id of organization and checks for overlap</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_name" name="method_name" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">name()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">name() : \Illuminate\Database\Eloquent\Relations\HasOne</pre>
+                <p><em>Relation to name description</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasOne
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_organization" name="method_organization" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">organization()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">organization() : \Illuminate\Database\Eloquent\Relations\HasOne</pre>
+                <p><em>Relation to organization</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasOne
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_organizationMealPlans" name="method_organizationMealPlans" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">organizationMealPlans()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">organizationMealPlans() : \Illuminate\Database\Eloquent\Relations\HasMany</pre>
+                <p><em>Relation to organization MealPlans</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasMany
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_type" name="method_type" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">type()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">type() : \Illuminate\Database\Eloquent\Relations\HasOne</pre>
+                <p><em>Relation to type taxonomy</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasOne
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_marginType" name="method_marginType" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">marginType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">marginType() : \Illuminate\Database\Eloquent\Relations\HasOne</pre>
+                <p><em>Relation to margin type taxonomy</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasOne
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_prices" name="method_prices" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">prices()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">prices() : \Illuminate\Database\Eloquent\Relations\HasMany</pre>
+                <p><em>Relation to price</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasMany
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_discountPeriods" name="method_discountPeriods" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">discountPeriods()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">discountPeriods() : \Illuminate\Database\Eloquent\Relations\HasMany</pre>
+                <p><em>Relation to discount periods</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasMany
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_deviceMinimumNights" name="method_deviceMinimumNights" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">deviceMinimumNights()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">deviceMinimumNights() : \Illuminate\Database\Eloquent\Relations\HasMany</pre>
+                <p><em>Relation to DeviceMinimumNights</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Relations\HasMany
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_scopeOpen" name="method_scopeOpen" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">scopeOpen()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">scopeOpen(\Illuminate\Database\Eloquent\Builder  <span class="argument">$query</span>) : \Illuminate\Database\Eloquent\Builder</pre>
+                <p><em>Scope a query to only include open date ranges.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Illuminate\Database\Eloquent\Builder</td>
+                                <td>$query </td>
+                                <td><p>query to scope to</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Builder
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_scopeClosed" name="method_scopeClosed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">scopeClosed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">scopeClosed(\Illuminate\Database\Eloquent\Builder  <span class="argument">$query</span>) : \Illuminate\Database\Eloquent\Builder</pre>
+                <p><em>Scope a query to only include closed date ranges.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Illuminate\Database\Eloquent\Builder</td>
+                                <td>$query </td>
+                                <td><p>query to scope to</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Builder
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_scopeDiscount" name="method_scopeDiscount" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">scopeDiscount()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">scopeDiscount(\Illuminate\Database\Eloquent\Builder  <span class="argument">$query</span>) : \Illuminate\Database\Eloquent\Builder</pre>
+                <p><em>Scope a query to only include discount date ranges.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\Illuminate\Database\Eloquent\Builder</td>
+                                <td>$query </td>
+                                <td><p>query to scope to</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Builder
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFromTimeAttribute" name="method_setFromTimeAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFromTimeAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFromTimeAttribute(string  <span class="argument">$date</span>) </pre>
+                <p><em>set FromTime Attribute with separation time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$date </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFromTimeAttribute" name="method_getFromTimeAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFromTimeAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFromTimeAttribute(string  <span class="argument">$time</span>) : string</pre>
+                <p><em>get FromTime Attribute from separated time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$time </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setToTimeAttribute" name="method_setToTimeAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setToTimeAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setToTimeAttribute(string  <span class="argument">$date</span>) </pre>
+                <p><em>set toTime Attribute with separation time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$date </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getToTimeAttribute" name="method_getToTimeAttribute" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getToTimeAttribute()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getToTimeAttribute(string  <span class="argument">$time</span>) : string</pre>
+                <p><em>get toTime Attribute from separated time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$time </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setMealPlans" name="method_setMealPlans" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setMealPlans()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setMealPlans(array  <span class="argument">$mealPlanNames</span>) : boolean</pre>
+                <p><em>Creates or deletes organization meal plans</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$mealPlanNames </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getOverlapDays" name="method_getOverlapDays" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getOverlapDays()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getOverlapDays(string  <span class="argument">$fromDate</span>, string  <span class="argument">$toDate</span>) : integer</pre>
+                <p><em>Get number of overlapping days of two dates</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fromDate </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$toDate </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_formatTime" name="method_formatTime" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">formatTime()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">formatTime(string  <span class="argument">$dateOrTime</span>, boolean  <span class="argument">$isFrom</span>) : \DateTime</pre>
+                <p><em>Creates DateTime object from date string</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dateOrTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isFrom </td>
+                                <td><p>is it from_time?</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \DateTime
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSeparationTime" name="method_getSeparationTime" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSeparationTime()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSeparationTime(string  <span class="argument">$dateOrTime</span>, boolean  <span class="argument">$isFrom</span>) : string</pre>
+                <p><em>Adds separation time to a date</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$dateOrTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$isFrom </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getAll" name="method_getAll" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getAll()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getAll(integer  <span class="argument">$organizationId</span>) : array</pre>
+                <p><em>Returns all date ranges of an organization</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getDateRangesInInterval" name="method_getDateRangesInInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getDateRangesInInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getDateRangesInInterval(integer  <span class="argument">$organizationId</span>, string  <span class="argument">$fromDate</span>, string  <span class="argument">$toDate</span>, integer  <span class="argument">$typeTxId</span>, integer  <span class="argument">$ignoreId = null</span>) : \Illuminate\Database\Eloquent\Collection</pre>
+                <p><em>get DateRanges In Interval by specified parameters</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td><p>organization</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fromDate </td>
+                                <td><p>date from</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$toDate </td>
+                                <td><p>date to</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$typeTxId </td>
+                                <td><p>type taxonomy id</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$ignoreId </td>
+                                <td><p>date range ids to ignore</p></td>
+                            </tr>
+                                            </table>
+                
+                                    <h4>Throws</h4>
+                    <dl>
+                                                    <dt>\App\Exceptions\UserException</dt>
+                            <dd></dd>
+                                                                    </dl>
+                
+                                    <h4>Returns</h4>
+                    \Illuminate\Database\Eloquent\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_hasDateRanges" name="method_hasDateRanges" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">hasDateRanges()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">hasDateRanges(integer  <span class="argument">$organizationId</span>, string  <span class="argument">$fromTime = null</span>, string  <span class="argument">$toTime = null</span>, integer  <span class="argument">$ignoreId = null</span>, integer  <span class="argument">$typeTaxonomyId = null</span>) : boolean</pre>
+                <p><em>Has any date range by specified parameters</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fromTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$toTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$ignoreId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$typeTaxonomyId </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            todo
+                        </th>
+                        <td>
+                                                                                            <p>SoftDelete</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getStartInterval" name="method_getStartInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getStartInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getStartInterval(integer  <span class="argument">$organizationId</span>, string  <span class="argument">$fromTime</span>) : \App\OrganizationDateRange</pre>
+                <p><em>Get interval which matches specified date as start time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fromTime </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/App.OrganizationDateRange.html">\App\OrganizationDateRange</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            static
+                        </th>
+                        <td>
+                                                                                            
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getEndInterval" name="method_getEndInterval" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getEndInterval()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getEndInterval(integer  <span class="argument">$organizationId</span>, string  <span class="argument">$toTime</span>) : \App\OrganizationDateRange</pre>
+                <p><em>Get interval which matches specified date as to time</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$toTime </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/App.OrganizationDateRange.html">\App\OrganizationDateRange</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getByData" name="method_getByData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getByData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getByData(integer  <span class="argument">$organizationId</span>, string  <span class="argument">$fromTime</span>, string  <span class="argument">$toTime</span>, integer  <span class="argument">$typeTxId</span>, boolean  <span class="argument">$withTrashed = false</span>) : \App\OrganizationDateRange|static|null</pre>
+                <p><em>Get organization date range by specified data</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$fromTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$toTime </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>integer</td>
+                                <td>$typeTxId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$withTrashed </td>
+                                <td><p>Include deleted objects too?</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/App.OrganizationDateRange.html">\App\OrganizationDateRange</a>|static|null
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setByData" name="method_setByData" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setByData()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setByData(\App\type  <span class="argument">$organizationId</span>, \App\type  <span class="argument">$dateRangeData</span>) : \App\OrganizationDateRange</pre>
+                <p><em>Date range setter.</em></p>
+                <p>Creates or updates date range with specifiad data setting all needed properties.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\App\type</td>
+                                <td>$organizationId </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>\App\type</td>
+                                <td>$dateRangeData </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/App.OrganizationDateRange.html">\App\OrganizationDateRange</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">OrganizationDateRange.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OrganizationDateRange.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/App.html">\App</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 15th, 2017 at 09:29.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

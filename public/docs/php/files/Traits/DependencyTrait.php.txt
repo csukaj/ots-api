@@ -1,0 +1,38 @@
+<?php
+namespace App\Traits;
+
+use ReflectionClass;
+
+trait DependencyTrait {
+    
+    static protected function orderDependencies(array $objectList) {
+        $className = get_called_class();
+        $dependencyList = $className::listDependencies();
+        $return = [];
+        for ($i = 0; $i < count($dependencyList); $i++) {
+            $return[] = null;
+        }
+        foreach ($objectList as $object) {
+            $index = array_search(get_class($object), $dependencyList);
+            if ($index === false) {
+                continue;
+            }
+            $return[$index] = $object;
+        }
+        return $return;
+    }
+        
+    static public function listDependencies() {
+        $dependencies = [];
+        $reflection = new ReflectionClass(get_called_class());
+        foreach ($reflection->getConstructor()->getParameters() as $parameter) {
+            $dependencies[] = $parameter->getType()->__toString();
+        }
+        return $dependencies;
+    }
+    
+    static public function getInstance(array $dependencies = []) {
+        $className = get_called_class();
+        return new $className(...$className::orderDependencies($dependencies));
+    }
+}

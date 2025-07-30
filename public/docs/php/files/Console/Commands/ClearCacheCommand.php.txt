@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Config;
+
+/**
+ * Clears file cache. Remove generated cache files from every directory
+ */
+class ClearCacheCommand extends Command {
+
+    const TEST_DB = 'testing';
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:clearcache {--database=testing}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Remove model cache files';
+
+    /**
+     * Frontend cache directory
+     */
+    protected $directories;
+
+    /**
+     * Database connection name used
+     */
+    protected $database;
+
+    /**
+     * Additional file name
+     */
+    protected $additionalFileName;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->directories = Config::get('cache.frontend_cache_directories');
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle() {
+        $this->database = $this->option('database');
+        Config::set('database.default', $this->database);
+
+        if ($this->option('database') == self::TEST_DB) {
+            $this->additionalFileName = '_' . self::TEST_DB;
+        }
+        
+        $suffix = $this->additionalFileName. '.ts';
+
+        $this->deleteFile('islands' . $suffix);
+        $this->deleteFile('languages' . $suffix);
+        $this->deleteFile('meal_plans' . $suffix);
+        $this->deleteFile('icons' . $suffix);
+
+        $this->info("Cache files deleted.");
+    }
+
+    private function deleteFile($fileName) {
+        foreach ($this->directories as $directory) {
+            unlink("{$directory}/{$fileName}");
+        }
+    }
+
+}
+

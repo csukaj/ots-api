@@ -1,0 +1,53 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\DescriptionTrait;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\OrganizationDescription
+ *
+ * @property int $id
+ * @property int $organization_id
+ * @property int $taxonomy_id
+ * @property int $description_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $description
+ * @property-read Taxonomy $descriptionTaxonomy
+ * @property-read Organization $organization
+ * @mixin \Eloquent
+ */
+class OrganizationDescription extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        DescriptionTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'organization_id', 'taxonomy_id', 'description_id'
+    ];
+
+    /**
+     * Relation to organization
+     * 
+     * @return HasOne
+     */
+    public function organization() {
+        return $this->hasOne(Organization::class);
+    }
+
+}
+

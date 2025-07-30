@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\DeviceAvailability;
+use App\DeviceUsage;
+use App\DeviceUsageElement;
+
+/**
+ * Manipulator to create a new DeviceUsage 
+ * instance after the supplied data passes validation
+ */
+class DeviceUsageSetter {
+
+    /**
+     * Updates usage and its elements
+     * @param array $usageData
+     * @param int $deviceId
+     * @return DeviceAvailability
+     */
+    public function set($usageData, $deviceId = null) {
+        $usage = new DeviceUsage();
+        if (!empty($usageData['id'])) {
+            $usage = $usage->findOrFail($usageData['id']);
+        }
+        $usage->fill($usageData);
+        if ($deviceId) {
+            $usage->device_id = $deviceId;
+        }
+        $usage->save();
+
+        if (isset($usageData['elements'])) {
+            $elementsToKeep = [];
+            foreach ($usageData['elements'] as $elementData) {
+                $element = new DeviceUsageElement();
+                if (!empty($elementData['id'])) {
+                    $element = $element->findOrFail($elementData['id']);
+                }
+                $element->fill([
+                    'device_usage_id' => $usage->id,
+                    'organization_age_range_id' => $elementData['age_range']['id'],
+                    'amount' => $elementData['amount']
+                ]);
+                $element->save();
+                $elementsToKeep[] = $element->id;
+            }
+
+            DeviceUsageElement::where('device_usage_id', $usage->id)->whereNotIn('id', $elementsToKeep)->delete();
+        }
+
+        return $usage;
+    }
+    
+}
+

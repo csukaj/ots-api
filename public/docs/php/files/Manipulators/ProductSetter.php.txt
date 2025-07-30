@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Product;
+
+/**
+ * Manipulator to create a new Product 
+ * instance after the supplied data passes validation
+ * @todo Use elsewhere than TestHotelSeeder
+ */
+class ProductSetter {
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'productable_id' => null,
+        'productable_type' => null,
+        'type_taxonomy_id' => null,
+        'margin_type_taxonomy_id' => null,
+        'margin_value' => null,
+        'name_description_id' => null
+    ];
+
+    /**
+     * Constructs Setter and validates input data
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = []) {
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+    }
+
+    /**
+     * Creates new Model or updates if exists
+     * @param bool $hardcodedId use supplied id?
+     * @return Product
+     */
+    public function set(bool $hardcodedId = false) {
+        $product = Product
+                ::where('productable_id', '=', $this->attributes['productable_id'])
+                ->where('productable_type', '=', $this->attributes['productable_type'])
+                ->where('type_taxonomy_id', '=', $this->attributes['type_taxonomy_id'])
+                ->first();
+
+        if (!$product) {
+            $product = new Product();
+            $product->productable_id = $this->attributes['productable_id'];
+            $product->productable_type = $this->attributes['productable_type'];
+            $product->type_taxonomy_id = $this->attributes['type_taxonomy_id'];
+        }
+        if ($hardcodedId && $this->attributes['id']) {
+            $product->id = $this->attributes['id'];
+        }
+
+        $product->margin_type_taxonomy_id = $this->attributes['margin_type_taxonomy_id'];
+        $product->margin_value = $this->attributes['margin_value'];
+        $product->name_description_id = $this->attributes['name_description_id'];
+        $product->saveOrFail();
+
+        return $product;
+    }
+
+}
+

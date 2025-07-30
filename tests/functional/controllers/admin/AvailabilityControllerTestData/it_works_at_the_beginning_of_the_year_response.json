@@ -1,0 +1,29 @@
+{
+    "success": true,
+    "data": [{
+            "year": 2027,
+            "month": 1,
+            "day": 1,
+            "amount": 1
+        }, {
+            "year": 2027,
+            "month": 1,
+            "day": 2,
+            "amount": 1
+        }, {
+            "year": 2027,
+            "month": 1,
+            "day": 3,
+            "amount": 1
+        }, {
+            "year": 2027,
+            "month": 1,
+            "day": 4,
+            "amount": 2
+        }, {
+            "year": 2027,
+            "month": 1,
+            "day": 5,
+            "amount": 2
+        }]
+}

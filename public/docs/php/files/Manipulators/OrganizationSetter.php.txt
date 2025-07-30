@@ -1,0 +1,267 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\Location;
+use App\Organization;
+use App\OrganizationClassification;
+use App\OrganizationDescription;
+use App\OrganizationMeta;
+use App\ParentOrganization;
+use Modules\Stylersmedia\Manipulators\GallerySetter;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+
+/**
+ * Manipulator to create a new Organization 
+ * instance after the supplied data passes validation
+ */
+class OrganizationSetter {
+
+    const CONNECTION_COLUMN = 'organization_id';
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'name_description_id' => null,
+        'type_taxonomy_id' => null,
+        'is_active' => null,
+        'short_description' => null,
+        'long_description' => null,
+        'location' => null,
+        'parent' => null
+    ];
+    /**
+     * Organization properties (classfications and meta)
+     * 
+     * @var array 
+     */
+    private $properties = [];
+
+    /**
+     * Constructs Setter and validates input data
+     * @param array $attributes
+     * @throws UserException
+     */
+    public function __construct(array $attributes) {
+
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            } else {
+                $this->properties[] = ['name' => $key, 'value' => $value];
+            }
+        }
+
+        if (isset($attributes['type'])) {
+            $this->attributes['type_taxonomy_id'] = Taxonomy::getTaxonomy($attributes['type'], Config::getOrFail('taxonomies.organization_type'))->id;
+        } else {
+            throw new UserException('Invalid or empty type');
+        }
+
+        if (!empty($attributes['parent'])) {
+            $this->attributes['parent_id'] = ParentOrganization::findByName($attributes['parent'])->id;
+        }
+
+        if (isset($attributes['name'])) {
+            if (!isset($attributes['id']) && count(Organization::getHotelNames($attributes['name']))) {
+                throw new UserException('Organization name already exists');
+            } elseif (isset($attributes['id'])) {
+                if (count(Organization::getHotelNames(array_values($attributes['name']), $attributes['id']))) {
+                    throw new UserException('Organization name already exists');
+                }
+            }
+            $this->nameDescription = $attributes['name'];
+        } else {
+            throw new UserException('Invalid or empty name description');
+        }
+
+        if (isset($attributes['properties'])) {
+            $this->properties = $attributes['properties'];
+        }
+    }
+
+    /**
+     * Creates new Model or updates if exists
+     * @return Organization
+     */
+    public function set($hardcodedId = false) {
+        if (!$hardcodedId && $this->attributes['id']) {
+            $this->organization = Organization::findOrFail($this->attributes['id']);
+            $orgNameDescription = (new DescriptionSetter($this->nameDescription, $this->organization->name_description_id))->set();
+            $this->organization->load('name');
+        } else {
+            $orgNameDescription = (new DescriptionSetter($this->nameDescription))->set();
+            $this->organization = new Organization();
+            if ($hardcodedId && $this->attributes['id']) {
+                $this->organization->id = $this->attributes['id'];
+            }
+        }
+
+        $this->organization->name_description_id = $orgNameDescription->id;
+        $this->organization->type_taxonomy_id = $this->attributes['type_taxonomy_id'];
+
+        if (isset($this->attributes['is_active'])) {
+            $this->organization->is_active = $this->attributes['is_active'];
+        }
+
+        if (empty($this->attributes['location'])) {
+            $location = new Location();
+            $location->saveOrFail();
+            $this->organization->location_id = $location->id;
+        } else {
+            $this->organization->location_id = $this->attributes['location']['id'];
+        }
+
+        if (isset($this->attributes['parent_id'])) {
+            $this->organization->parent_id = $this->attributes['parent_id'];
+        } else {
+            $this->organization->parent_id = null;
+        }
+
+        $this->organization->saveOrFail();
+
+        if ($hardcodedId || !$this->attributes['id']) { //dont update. Done @ orgClSetter
+            if (!empty($this->properties)) {
+                $this->clearOrganizationClassifications();
+            }
+            $this->setOrganizationClassificationCategories();
+            if (!empty($this->properties)) {
+                $this->setOrganizationClassifications();
+
+                $this->clearOrganizationMetas();
+                $this->setOrganizationMetas();
+            }
+        }
+
+        if (!empty($this->attributes['short_description'])) {
+            (new OrganizationDescription())->setDescription(
+                    self::CONNECTION_COLUMN, $this->organization->id, Config::getOrFail('taxonomies.organization_descriptions.short_description'), $this->attributes['short_description']
+            );
+        }
+        if (!empty($this->attributes['long_description'])) {
+            (new OrganizationDescription())->setDescription(
+                    self::CONNECTION_COLUMN, $this->organization->id, Config::getOrFail('taxonomies.organization_descriptions.long_description'), $this->attributes['long_description']
+            );
+        }
+
+        if (!$this->attributes['id']) {
+            if (!$hardcodedId) {
+                //create default (adult) age range for organization   
+                (new OrganizationAgeRangeSetter([
+                    'organization_id' => $this->organization->id,
+                    'name_taxonomy' => 'adult',
+                    'from_age' => 0
+                ]))->set();
+            }
+            //create default gallery for organization
+            (new GallerySetter([
+                'galleryable_id' => $this->organization->id,
+                'galleryable_type' => Organization::class,
+                'role_taxonomy_id' => Config::getOrFail('taxonomies.gallery_roles.frontend_gallery')
+            ]))->set();
+        }
+
+        return $this->organization;
+    }
+
+    /**
+     * Destroys existing OrganizationClassifications
+     */
+    protected function clearOrganizationClassifications() {
+        (new OrganizationClassification())->clearClassifications(
+                self::CONNECTION_COLUMN, $this->organization->id
+        );
+    }
+
+    /**
+     * Destroys existing OrganizationMetas
+     */
+    protected function clearOrganizationMetas() {
+        (new OrganizationMeta())->clearMetas(
+                self::CONNECTION_COLUMN, $this->organization->id
+        );
+    }
+
+    /**
+     * Creates default Organization Classification Categories for an organization
+     */
+    protected function setOrganizationClassificationCategories() {
+        $classificationObj = new OrganizationClassification();
+        $categoriesData = Config::getOrFail('taxonomies.organization_classifications.categories');
+        $priority = 0;
+        foreach ($categoriesData as $categoryData) {
+            $classification = $classificationObj->insertOrUpdateClassification(
+                self::CONNECTION_COLUMN, $this->organization->id, $categoryData['id'], null
+            );
+            $classification->is_highlighted = false;
+            $classification->is_listable = $categoryData['is_listable'];
+            $classification->priority = $priority++;
+            $classification->saveOrFail();
+        }
+    }
+
+    /**
+     * creates OrganizationClassifications from provided data (or updates existing)
+     */
+    protected function setOrganizationClassifications() {
+        $classificationObj = new OrganizationClassification();
+        foreach (Config::getOrFail('taxonomies.organization_classifications.categories') as $category => $cData) {
+            if (empty($cData['items'])) {
+                continue;
+            }
+            $classifications = $cData['items'];
+            foreach ($classifications as $classification) {
+                foreach ($this->properties as $property) {
+                    if ($property['name'] == $classification['name']) {
+                        $nclassification = $classificationObj->insertOrUpdateClassification(
+                            self::CONNECTION_COLUMN, $this->organization->id, $classification['id'], $property['value']
+                        );
+                        $nclassification->is_highlighted = !empty($property['is_highlighted']);
+                        $nclassification->is_listable = !empty($property['is_listable']);
+                        if (isset($property['category']) || isset($property['categoryId'])) {
+                            $classificationTxId =
+                                isset($property['categoryId']) ?
+                                $property['categoryId'] :
+                                Config::getOrFail("taxonomies.organization_classifications.categories.{$property['category']}.id");
+                            $orgCl = OrganizationClassification::findByTaxonomyAndOrganization($classificationTxId, $this->organization->id);
+                            $nclassification->parent_classification_id = $orgCl->id;
+                        }
+                        $nclassification->saveOrFail();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * creates OrganizationMetas from provided data (or updates existing)
+     */
+    protected function setOrganizationMetas() {
+        $orgMeta = new OrganizationMeta();
+
+        foreach (Config::getOrFail('taxonomies.organization_classifications.categories') as $category => $cData) {
+            if (empty($cData['metas'])) {
+                continue;
+            }
+            foreach ($cData['metas'] as $meta) {
+                foreach ($this->properties as $property) {
+                    if ($property['name'] == $meta['name']) {
+                        $orgMeta->insertOrUpdateMeta(
+                                self::CONNECTION_COLUMN, $this->organization->id, $cData['id'], $property, !empty($property['listable']) || !empty($property['is_listable'])
+                        );
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}
+

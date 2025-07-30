@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Entities;
+
+use App\OrganizationClassification;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class OrganizationClassificationEntity extends Entity
+{
+    protected $orgCl;
+
+    public function __construct(OrganizationClassification $orgCl) {
+        parent::__construct();
+        $this->orgCl = $orgCl;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [];
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'admin':
+                    $taxonomyData = $this->orgCl->classification_taxonomy_id ? (new TaxonomyEntity($this->orgCl->classificationTaxonomy))->getFrontendData(['translations']) : null;
+                    $valueData = $this->orgCl->value_taxonomy_id ? (new TaxonomyEntity($this->orgCl->valueTaxonomy))->getFrontendData(['translations']) : null;
+                    $chargeData = $this->orgCl->charge_taxonomy_id ? (new TaxonomyEntity($this->orgCl->chargeTaxonomy))->getFrontendData(['translations']) : null;
+                    $descriptionData = $this->orgCl->additional_description_id ? (new DescriptionEntity($this->orgCl->additionalDescription))->getFrontendData() : null;
+                    $return = [
+                        'id' => $this->orgCl->id,
+                        'organization_id' => $this->orgCl->organization_id,
+                        'parent_classification_id' => $this->orgCl->parent_classification_id,
+                        'taxonomy' => $taxonomyData,
+                        'value' => $valueData,
+                        'priority' => $this->orgCl->priority,
+                        'charge' => $chargeData,
+                        'additional_description' => $descriptionData,
+                        'is_highlighted' => $this->orgCl->is_highlighted,
+                        'is_listable' => $this->orgCl->is_listable,
+                        'child_classifications' => OrganizationClassificationEntity::getCollection($this->orgCl->childClassifications, $additions),
+                        'child_metas' => OrganizationMetaEntity::getCollection($this->orgCl->childMetas, $additions)
+                    ];
+                    break;
+                case 'frontend':
+                    $taxonomyData = $this->orgCl->classification_taxonomy_id ? (new TaxonomyEntity($this->orgCl->classificationTaxonomy))->translations() : null;
+                    $valueData = $this->orgCl->value_taxonomy_id ? (new TaxonomyEntity($this->orgCl->valueTaxonomy))->translations() : null;
+                    $chargeData = $this->orgCl->charge_taxonomy_id ? (new TaxonomyEntity($this->orgCl->chargeTaxonomy))->translations() : null;
+                    $descriptionData = $this->orgCl->additional_description_id ? (new DescriptionEntity($this->orgCl->additionalDescription))->getFrontendData() : null;
+                    $return = [
+                        'name' => $taxonomyData,
+                        'value' => $valueData,
+                        'charge' => $chargeData,
+                        'additional_description' => $descriptionData,
+                        'highlighted' => $this->orgCl->is_highlighted,
+                        'child_classifications' => OrganizationClassificationEntity::getCollection($this->orgCl->listableChildClassifications, $additions),
+                        'child_metas' => OrganizationMetaEntity::getCollection($this->orgCl->childMetas, $additions)
+                    ];
+                    break;
+            }
+        }
+        return $return;
+    }
+    
+    static public function getOptions() {
+        $classificationEn = new TaxonomyEntity(Taxonomy::findOrFail(Config::get('taxonomies.organization_classification')));
+        $chargeEn = new TaxonomyEntity(Taxonomy::findOrFail(Config::get('taxonomies.charge')));
+        
+        return [
+            'classification' => $classificationEn->getFrontendData(['descendants', 'translations']),
+            'charge' => $chargeEn->getFrontendData(['descendants', 'translations'])
+        ];
+    }
+}

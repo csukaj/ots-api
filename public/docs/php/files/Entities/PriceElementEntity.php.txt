@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Entities;
+
+use App\PriceElement;
+
+class PriceElementEntity extends Entity
+{
+    protected $priceElement;
+
+    public function __construct(PriceElement $priceElement) {
+        parent::__construct();
+
+        $this->priceElement = $priceElement;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [
+            'id' => $this->priceElement->id,
+            'date_range_id' => $this->priceElement->organization_date_range_id,
+            'meal_plan' => $this->priceElement->organizationMealPlan->mealPlan->name->name,
+            'rack_price' => $this->priceElement->rack_price
+        ];
+        
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'admin':
+                    $return['price_id'] = $this->priceElement->price_id;
+                    $return['net_price'] = $this->priceElement->net_price;
+                    $return['margin_type'] = $this->priceElement->marginType ? $this->priceElement->marginType->name : null;
+                    $return['margin_value'] = $this->priceElement->margin_value;
+                    break;
+            }
+        }
+
+        return $return;
+    }
+}

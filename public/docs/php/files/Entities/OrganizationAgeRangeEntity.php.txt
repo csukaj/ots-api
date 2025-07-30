@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Entities;
+
+use App\OrganizationAgeRange;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class OrganizationAgeRangeEntity extends Entity {
+
+    protected $ageRange;
+
+    public function __construct(OrganizationAgeRange $ageRange) {
+        parent::__construct();
+
+        $this->ageRange = $ageRange;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [
+            'id' => $this->ageRange->id
+        ];
+        if (in_array('frontend', $additions)) {
+            $name = $this->ageRange->name->name;
+            $translations = (new TaxonomyEntity($this->ageRange->name))->getFrontendData(['translations'])['translations'];
+            $translations['en'] = $name;
+            $return['name'] = $translations;
+        } else {
+            $return = [
+                'id' => $this->ageRange->id,
+                'organization_id' => $this->ageRange->organization_id,
+                'from_age' => $this->ageRange->from_age,
+                'to_age' => $this->ageRange->to_age ? $this->ageRange->to_age : null,
+                'name_taxonomy' => $this->ageRange->name->name .($this->ageRange->banned ? ' (banned)' : ''),
+                'banned' => $this->ageRange->banned,
+                'free' => $this->ageRange->free
+            ];
+        }
+        
+        if (in_array('taxonomy', $additions)){
+            $return['taxonomy'] = (new TaxonomyEntity($this->ageRange->name))->getFrontendData(['translations', 'translations_with_plurals']);
+        }
+
+        return $return;
+    }
+
+}
+

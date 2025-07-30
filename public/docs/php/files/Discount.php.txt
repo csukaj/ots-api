@@ -1,0 +1,260 @@
+<?php
+
+namespace App;
+
+use App\Facades\Config;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Discount
+ *
+ * @property int $id
+ * @property int $name_description_id
+ * @property int $type_taxonomy_id
+ * @property int $offer_taxonomy_id
+ * @property int $description_description_id
+ * @property int $priority
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property string $promo_code
+ * @property bool $is_active
+ * @property bool $is_annual
+ * @property-read Description $description
+ * @property-read Collection|DiscountClassification[] $discountClassifications
+ * @property-read Collection|DiscountMeta[] $discountMetas
+ * @property-read Collection|DiscountPeriod[] $discountPeriods
+ * @property-read Description $name
+ * @property-read Taxonomy $offer
+ * @property-read Collection|OfferClassification[] $offerClassifications
+ * @property-read Collection|OfferMeta[] $offerMetas
+ * @property-read Taxonomy $type
+ * @mixin \Eloquent
+ */
+class Discount extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name_description_id', 'description_description_id', 'type_taxonomy_id', 'offer_taxonomy_id', 'is_active', 'is_annual', 'priority', 'promo_code'
+    ];
+
+    /**
+     * Relation to name Description
+     * 
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Description::class, 'id', 'name_description_id');
+    }
+
+    /**
+     * Relation to description Description
+     * 
+     * @return HasOne
+     */
+    public function description() {
+        return $this->hasOne(Description::class, 'id', 'description_description_id');
+    }
+
+    /**
+     * Relation to type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function type() {
+        return $this->hasOne(Taxonomy::class, 'id', 'type_taxonomy_id');
+    }
+
+    /**
+     * Relation to offer taxonomy
+     * 
+     * @return HasOne
+     */
+    public function offer() {
+        return $this->hasOne(Taxonomy::class, 'id', 'offer_taxonomy_id');
+    }
+
+    /**
+     * Relation to DiscountPeriod
+     * 
+     * @return HasMany
+     */
+    public function discountPeriods() {
+        return $this->hasMany(DiscountPeriod::class, 'discount_id', 'id');
+    }
+
+    /**
+     * Relation to offer metas
+     * 
+     * @return HasMany
+     */
+    public function offerMetas() {
+        return $this->hasMany(OfferMeta::class, 'discount_id', 'id');
+    }
+
+    /**
+     * Relation to Offer Classifications
+     * 
+     * @return HasMany
+     */
+    public function offerClassifications() {
+        return $this->hasMany(OfferClassification::class, 'discount_id', 'id');
+    }
+
+    /**
+     * Relation to Discount Metas
+     * 
+     * @return HasMany
+     */
+    public function discountMetas() {
+        return $this->hasMany(DiscountMeta::class, 'discount_id', 'id');
+    }
+
+    /**
+     * Relation to discount Classifications
+     * 
+     * @return HasMany
+     */
+    public function discountClassifications() {
+        return $this->hasMany(DiscountClassification::class, 'discount_id', 'id');
+    }
+
+    /**
+     * Scope a query to only include discounts for specified organization.
+     *
+     * @param Builder $query query to scope to
+     * @param int $organizationId 
+     * @return Builder
+     */
+    public function scopeOrganization($query, int $organizationId) {
+        return $query->whereIn('id', self::getOrganizationDiscountIds($organizationId));
+    }
+
+    /**
+     * Scope a query to be ordered by discount name.
+     *
+     * @param Builder $query query to scope to
+     * @return Builder
+     */
+    public function scopeOrderByName($query) {
+        return $query->orderByRaw('(SELECT description FROM descriptions WHERE descriptions.id = discounts.name_description_id) ASC');
+    }
+
+    /**
+     * get Organization Id for this discount
+     * @return mixed
+     */
+    public function getOrganizationId() {
+        return DB
+                ::table('organization_date_ranges')->distinct()
+                ->join('discount_periods', 'organization_date_ranges.id', '=', 'discount_periods.organization_date_range_id')
+                ->where('discount_periods.discount_id', '=', $this->id)
+                ->whereNull('organization_date_ranges.deleted_at')
+                ->whereNull('discount_periods.deleted_at')
+                ->value('organization_date_ranges.organization_id');
+    }
+
+    /**
+     * Find sibling discounts (= in same organization)
+     * sorted by the special discount ordering
+     * @see PriceModifier::sortbyPriority()
+     * 
+     * @param bool $withSelf Include self in list?
+     * @return Collection
+     */
+    public function findSiblingsInOrder(bool $withSelf = false) {
+        $organizationId = $this->getOrganizationId();
+        $q = self::organization($organizationId)->orderBy('priority');
+        if (!$withSelf) {
+            $q->where('id', '!=', $this->id);
+        }
+        return self::sortbyPriority($q->get());
+    }
+
+    /**
+     * Custom discount sorter function 
+     * It sorts by offer type (first price row, then free night, then other) 
+     * after thet is sorts by priority
+     * 
+     * @param Collection $discounts
+     * @return Collection
+     */
+    public static function sortbyPriority(Collection $discounts) : Collection {
+        return $discounts->sort(function (Discount $a, Discount $b) {
+                    $offerPriority = [
+                        Config::get('taxonomies.discount_offers.price_row.id') => 0,
+                        Config::get('taxonomies.discount_offers.free_nights.id') => 1
+                    ];
+                    $priority = intval($a->priority) - intval($b->priority);
+                    if (!isset($offerPriority[$a->offer_taxonomy_id]) && !isset($offerPriority[$b->offer_taxonomy_id])) {
+                        return $priority;
+                    } elseif (!isset($offerPriority[$a->offer_taxonomy_id])) {
+                        return 1;
+                    } elseif (!isset($offerPriority[$b->offer_taxonomy_id])) {
+                        return -1;
+                    }
+                    return ($offerPriority[$a->offer_taxonomy_id] - $offerPriority[$b->offer_taxonomy_id]) ?: $priority;
+                }
+                )->values();
+    }
+
+    /**
+     * get Organization's Discount Ids
+     * 
+     * @param int $organizationId
+     * @return array
+     * @static
+     */
+    static public function getOrganizationDiscountIds(int $organizationId): array {
+        return DiscountPeriod
+                    ::join('organization_date_ranges', 'discount_periods.organization_date_range_id', '=', 'organization_date_ranges.id')
+                    ->where('organization_date_ranges.organization_id', '=', $organizationId)
+                    ->whereNull('organization_date_ranges.deleted_at')
+                    ->pluck('discount_periods.discount_id')
+                    ->toArray();
+    }
+
+    /**
+     * Find discount by name in organization
+     * 
+     * @param string $name
+     * @param int $organizationId
+     * @return Discount
+     * @throws ModelNotFoundException
+     */
+    static public function findByName(string $name, int $organizationId) {
+        $discountData = DB
+            ::table('discounts')
+            ->select('discounts.*')
+            ->join('descriptions', 'discounts.name_description_id', '=', 'descriptions.id')
+            ->whereIn('discounts.id', self::getOrganizationDiscountIds($organizationId))
+            ->where('descriptions.description', '=', $name)
+            ->whereNull('discounts.deleted_at')
+            ->first();
+        if (is_null($discountData)) {
+            throw new ModelNotFoundException("Discount with name '{$name}' not found in organization #{$organizationId}.");
+        }
+        $discount = new self((array)$discountData);
+        $discount->id = $discountData->id;
+        $discount->exists = true;
+        return $discount;
+    }
+
+}
+

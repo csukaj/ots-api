@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Entities;
+
+use App\OrganizationDateRange;
+use App\OrganizationMealPlan;
+use Modules\Stylerstaxonomy\Entities\DescriptionEntity;
+
+class OrganizationDateRangeEntity extends Entity
+{
+    protected $dateRange;
+
+    public function __construct(OrganizationDateRange $dateRange) {
+        parent::__construct();
+
+        $this->dateRange = $dateRange;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        return [
+            'id' => $this->dateRange->id,
+            'organization_id' => $this->dateRange->organization_id,
+            'name' => $this->dateRange->name ? (new DescriptionEntity($this->dateRange->name))->getFrontendData() : null,
+            'from_date' => $this->dateRange->from_time,
+            'to_date' => $this->dateRange->to_time,
+            'type' => $this->dateRange->type->name,
+            'margin_type' => $this->dateRange->marginType ? $this->dateRange->marginType->name : null,
+            'margin_value' => $this->dateRange->margin_value,
+            'minimum_nights' => $this->dateRange->minimum_nights ? $this->dateRange->minimum_nights : null,
+            'meal_plans' => OrganizationMealPlan::getNames($this->dateRange->organizationMealPlans)
+        ];
+    }
+}

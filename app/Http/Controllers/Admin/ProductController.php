@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Device;
+use App\Entities\ProductEntity;
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\Http\Controllers\ResourceController;
+use App\Product;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+
+/**
+ * @resource Admin/ProductController
+ */
+class ProductController extends ResourceController
+{
+
+    /**
+     * store
+     * Store a newly created Product
+     * @param  Request $request
+     * @return JsonResponse
+     * @throws UserException
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $product = $this->saveProduct($request);
+        return response()->json(['success' => true, 'data' => (new ProductEntity($product))->getFrontendData()]);
+    }
+
+    /**
+     * show
+     * Display the specified Product
+     * @param  int $id
+     * @return JsonResponse
+     */
+    public function show($id): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'data' => (new ProductEntity(Product::findOrFail($id)))->getFrontendData()
+        ]);
+    }
+
+    /**
+     * update
+     * Update the specified Product
+     * @param  Request $request
+     * @param  int $id
+     * @return JsonResponse
+     * @throws UserException
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function update(Request $request, $id): JsonResponse
+    {
+        $product = $this->saveProduct($request, $id);
+        return response()->json([
+            'success' => $product->save(),
+            'data' => (new ProductEntity($product))->getFrontendData()
+        ]);
+    }
+
+    /**
+     * destroy
+     * Remove the specified Product
+     * @param  int $id
+     * @return JsonResponse
+     */
+    public function destroy($id): JsonResponse
+    {
+        $product = Product::findOrFail($id);
+        return response()->json([
+            'success' => $product->delete(),
+            'data' => (new ProductEntity($product))->getFrontendData()
+        ]);
+    }
+
+    /**
+     * saveProduct
+     * @param Request $request
+     * @param type $id
+     * @return Product
+     * @throws UserException
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    private function saveProduct(Request $request, $id = null): Product
+    {
+        if (is_null($id)) {
+            $product = new Product();
+        } else {
+            $product = Product::findOrFail($id);
+        }
+        $product->fill($request->toArray());
+
+        if ($request->device_id) {
+            $product->productable_type = Device::class;
+            $product->productable_id = $request->device_id;
+        }
+
+        $existingProduct = Product::findByName($request->name_description['en'], $product->productable_type,
+            $product->productable_id);
+        if ($existingProduct && (!$product->exists || $existingProduct->id != $product->id)) {
+            throw new UserException('There is a product with the same name under this device!');
+        }
+
+        $product->type_taxonomy_id = Config::getOrFail('taxonomies.product_types.' . $request->type);
+        $product->name_description_id = (new DescriptionSetter($request->name_description))->set()->id;
+        $product->saveOrFail();
+
+        return $product;
+    }
+
+}

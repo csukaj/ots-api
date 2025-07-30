@@ -1,0 +1,237 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Exceptions\UserException;
+use App\OrganizationClassification;
+use App\OrganizationMeta;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+use Modules\Stylerstaxonomy\Manipulators\TaxonomySetter;
+
+/**
+ * Manipulator to create a new OrganizationClassification or OrganizationMeta
+ * instance after the supplied data passes validation
+ */
+class OrganizationPropertySetter {
+
+    public function __construct() {
+        //
+    }
+
+    /**
+     * Creates or updates an OrganizationClassification
+     * @return OrganizationClassification
+     */
+    public function setClassification(OrganizationClassification $orgCl, $requestArray) {
+        if ($orgCl->organization_id) {
+            $requestArray['organization_id'] = $orgCl->organization_id;
+        }
+        if ($orgCl->parent_classification_id) {
+            $requestArray['parent_classification_id'] = $orgCl->parent_classification_id;
+            $parentOrgCl = OrganizationClassification::find($orgCl->parent_classification_id);
+        } else {
+            $parentOrgCl = null;
+        }
+        $orgCl->fill($requestArray);
+
+        if (empty($requestArray['taxonomy'])) {
+            $orgCl->classification_taxonomy_id = null;
+        } else {
+            if ($parentOrgCl) {
+                $TxParentId = $parentOrgCl->classificationTaxonomy->id;
+            } else {
+                $TxParentId = Config::get('taxonomies.organization_classifications.category');
+            }
+            $requestArray['taxonomy']['type'] = 'classification';
+            $orgCl->classification_taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['taxonomy'], $TxParentId)->id;
+        }
+
+        if ($this->classificationIsDuplicate($orgCl)) {
+            throw new UserException('There is already a property with the same name. Instead of creating a duplication try to edit the existing one!');
+        }
+
+        if (empty($requestArray['value'])) {
+            $orgCl->value_taxonomy_id = null;
+        } else {
+            if (empty($requestArray['value']['parent_id'])) {
+                $requestArray['value']['parent_id'] = $orgCl->classification_taxonomy_id;
+            }
+            $orgCl->value_taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['value'], null)->id;
+        }
+
+        if (empty($requestArray['charge'])) {
+            $orgCl->charge_taxonomy_id = null;
+        } else {
+            $orgCl->charge_taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['charge'], Config::get('taxonomies.charge'))->id;
+        }
+
+        if (isset($requestArray['additional_description'])) {
+            $orgCl->additional_description_id = (new DescriptionSetter($requestArray['additional_description'], $orgCl->additional_description_id))->set()->id;
+        }
+
+        if (isset($requestArray['child_classifications'])) {
+            $this->setClassificationChild($orgCl, $requestArray['child_classifications']);
+        }
+
+        if (isset($requestArray['child_metas'])) {
+            $this->setMetaChild($orgCl, $requestArray['child_metas']);
+        }
+
+        $orgCl->saveOrFail();
+
+        return $orgCl;
+    }
+
+    public function setMeta(OrganizationMeta $orgMt, $requestArray) {
+        $orgMt->fill($requestArray);
+
+        if ($orgMt->parent_classification_id) {
+            $requestArray['parent_classification_id'] = $orgMt->parent_classification_id;
+            $parentOrgCl = OrganizationClassification::find($orgMt->parent_classification_id);
+        } else {
+            $parentOrgCl = null;
+        }
+
+        if (empty($requestArray['taxonomy'])) {
+            $orgMt->taxonomy_id = null;
+        } else {
+            if ($parentOrgCl) {
+                $TxParentId = $parentOrgCl->classificationTaxonomy->id;
+            } else {
+                $TxParentId = Config::get('taxonomies.organization_meta');
+            }
+            $requestArray['taxonomy']['type'] = 'meta';
+            $orgMt->taxonomy_id = $this->createOrUpdateTaxonomy($requestArray['taxonomy'], $TxParentId)->id;
+        }
+
+        if ($this->metaIsDuplicate($orgMt)) {
+            throw new UserException('There is already a property with the same name. Instead of creating a duplication try to edit the existing one!');
+        }
+
+        if (!empty($requestArray['additional_description'])) {
+            $orgMt->additional_description_id = (new DescriptionSetter($requestArray['additional_description'], $orgMt->additional_description_id))->set()->id;
+        }
+
+        $orgMt->saveOrFail();
+        return $orgMt;
+    }
+
+    private function setClassificationChild(OrganizationClassification $parentOrgCl, $childClassificationData) {
+        $return = [];
+        $childClassifications = $parentOrgCl->childClassifications;
+        foreach ($childClassificationData as $childData) {
+            $childCl = null;
+            if (!empty($childData['id'])) {
+                $childKey = OrganizationClassification::findKeyById($childData['id'], $childClassifications);
+                if (!is_null($childKey)) {
+                    $childCl = $childClassifications[$childKey];
+                    unset($childClassifications[$childKey]);
+                }
+            }
+            if (is_null($childCl)) {
+                $childCl = new OrganizationClassification();
+                $childCl->organization_id = $parentOrgCl->organization_id;
+                $childCl->parent_classification_id = $parentOrgCl->id;
+            }
+            $return[] = $this->setClassification($childCl, $childData);
+        }
+        foreach ($childClassifications as $childCl) {
+            $childCl->delete();
+        }
+        return $return;
+    }
+
+    private function setMetaChild(OrganizationClassification $parentOrgCl, $childMetaData) {
+        $return = [];
+        $childMetas = $parentOrgCl->childMetas;
+        foreach ($childMetaData as $childData) {
+            $childMt = null;
+            if (!empty($childData['id'])) {
+                $childKey = OrganizationMeta::findKeyById($childData['id'], $childMetas);
+                if (!is_null($childKey)) {
+                    $childMt = $childMetas[$childKey];
+                    unset($childMetas[$childKey]);
+                }
+            }
+            if (is_null($childMt)) {
+                $childMt = new OrganizationMeta();
+                $childMt->organization_id = $parentOrgCl->organization_id;
+                $childMt->parent_classification_id = $parentOrgCl->id;
+            }
+            $return[] = $this->setMeta($childMt, $childData);
+        }
+        foreach ($childMetas as $childMt) {
+            $childMt->delete();
+        }
+        return $return;
+    }
+
+    private function createOrUpdateTaxonomy($data, $parentTxId = null) {
+        $defaultLanguage = Language::getDefault();
+        $translations = $data['translations'];
+        $translations[$defaultLanguage->iso_code] = $data['name'];
+        $id = !empty($data['id']) ? $data['id'] : null;
+        $parentId = !empty($data['parent_id']) ? $data['parent_id'] : $parentTxId;
+        $type = !empty($data['type']) ? $data['type'] : null;
+        if (empty($id) && Taxonomy::taxonomyExists($data['name'], $parentId)) {
+            throw new UserException('There is already a taxonomy with the same name. Instead of creating a duplication try to use the existing one!');
+        }
+        return (new TaxonomySetter($translations, $id, $parentId, $type, $data))->set();
+    }
+
+    private function classificationIsDuplicate(OrganizationClassification $orgCl) {
+        $orgClExists = OrganizationClassification::where('organization_id', '=', $orgCl->organization_id);
+        $orgClExists->where(function ($query) use ($orgCl) {
+            if (!empty($orgCl->classification_taxonomy_id)) {
+                $query->orWhere('classification_taxonomy_id', '=', $orgCl->classification_taxonomy_id);
+            } else {
+                $query->orWhereNull('classification_taxonomy_id');
+            }
+            if (!empty($orgCl->priority)) {
+                $query->orWhere('priority', '=', $orgCl->priority);
+            }
+        });
+
+        if (!empty($orgCl->parent_classification_id)) {
+            $orgClExists->where('parent_classification_id', '=', $orgCl->parent_classification_id);
+        } else {
+            $orgClExists->whereNull('parent_classification_id');
+        }
+
+        if (!empty($orgCl->id)) {
+            $orgClExists->where('id', '!=', $orgCl->id);
+        }
+
+        $orgClExists->whereNull('deleted_at');
+
+        return (bool) $orgClExists->count();
+    }
+
+    private function metaIsDuplicate(OrganizationMeta $orgMt) {
+        $orgMtExists = OrganizationMeta::where('organization_id', '=', $orgMt->organization_id);
+        $orgMtExists->where(function ($query) use($orgMt) {
+            if (!empty($orgMt->classification_taxonomy_id)) {
+                $query->orWhere('taxonomy_id', '=', $orgMt->taxonomy_id);
+            } else {
+                $query->orWhereNull('taxonomy_id');
+            }
+        });
+
+        if (!empty($orgMt->parent_classification_id)) {
+            $orgMtExists->where('parent_classification_id', '=', $orgMt->parent_classification_id);
+        } else {
+            $orgMtExists->whereNull('parent_classification_id');
+        }
+
+        if (!empty($orgMt->id)) {
+            $orgMtExists->where('id', '!=', $orgMt->id);
+        }
+
+        return (bool) $orgMtExists->count();
+    }
+
+}
+

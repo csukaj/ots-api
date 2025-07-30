@@ -1,0 +1,75 @@
+<?php
+namespace App\Entities;
+
+use App\Facades\Config;
+
+class TranslationExporterEntity extends TranslationEntity {
+
+    protected $translationsForCSV = [];
+
+    public function __construct(string $isoCode = 'en') {
+        parent::__construct();
+        $this->isoCode = $isoCode;
+    }
+
+    public function generateCsv() {
+        $this->generateJsonFilePaths(['en', $this->isoCode]);
+        $this->loadTranslationsFromJsonFiles();
+        $this->generateTranslationsForCSV();
+        $this->generateCSVFileName();
+        $this->generateCSVFilePath();
+        $this->generateCSVFile();
+    }
+
+    public function getCsvFilePath() {
+        return $this->csvFilePath;
+    }
+
+    protected function generateCSVFile() {
+        $file = fopen($this->csvFilePath, 'w');
+        // add BOM to fix UTF-8 in Excel
+        fputs($file, $this->bomString);
+        foreach ($this->translationsForCSV as $row) {
+            fputcsv($file, $row);
+        }
+        fclose($file);
+    }
+
+    protected function generateCSVFileName() {
+        $this->csvFileName = 'translations_' . $this->isoCode . '_' . date('Y_m_d_His') . '.csv';
+    }
+
+    protected function generateCSVFilePath() {
+        $this->csvFilePath = sys_get_temp_dir() . '/' . $this->csvFileName;
+    }
+
+    protected function generateJsonFilePaths(array $isoCodes = ['en']) {
+        foreach ($isoCodes as $isoCode) {
+            $this->jsonFilePaths[$isoCode] = base_path() . '/' . Config::get('cache.frontend_i18n_directory') . '/' . $isoCode . '.json';
+        }
+    }
+
+    protected function generateTranslationsForCSV() {
+        foreach ($this->translations['en'] as $key => $englishTranslation) {
+            $foreignTranslation = '';
+            if (!empty($this->translations[$this->isoCode][$key])) {
+                $foreignTranslation = $this->translations[$this->isoCode][$key];
+            }
+            $this->translationsForCSV[] = [$key, $englishTranslation, $foreignTranslation];
+        }
+    }
+
+    protected function loadTranslationsFromJsonFiles() {
+        foreach ($this->jsonFilePaths as $code => $jsonFilePath) {
+            if (file_exists($jsonFilePath)) {
+                $translationsArray = json_decode(file_get_contents($jsonFilePath), true);
+                $this->translations[$code] = $this->flatten($translationsArray);
+            } else {
+                $this->translations[$code] = [];
+            }
+        }
+    }
+
+
+
+}

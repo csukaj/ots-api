@@ -1,0 +1,264 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\PriceModifier;
+use App\PriceModifierClassification;
+use App\PriceModifierMeta;
+use App\PriceModifierPeriod;
+use App\Exceptions\UserException;
+use App\OfferClassification;
+use App\OfferMeta;
+use App\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Manipulators\DescriptionSetter;
+
+/**
+ * Manipulator to create a new Discount 
+ * instance after the supplied data passes validation
+ */
+class DiscountSetter {
+
+    const CONNECTION_COLUMN = 'discount_id';
+
+    private $discount = null;
+    private $nameDescriptions;
+    private $descriptionDescriptions;
+    private $type_properties;
+    private $offer_properties;
+    
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'date_ranges' => null,
+        'type_taxonomy_id' => null,
+        'offer_taxonomy_id' => null,
+        'is_active' => null,
+        'is_annual' => null,
+        'name_description_id' => null,
+        'promo_code' => null
+    ];
+    protected $typeTaxonomy;
+    protected $offerTaxonomy;
+    private $siblings = null;
+
+    public function __construct(array $attributes) {
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+        if (empty($this->attributes['date_ranges'])) {
+            throw new UserException("Date range required");
+        }
+
+        if (!isset($attributes['type'])) {
+            throw new UserException("Type required");
+        }
+
+        $this->typeTaxonomy = Taxonomy::getTaxonomyGrandChild($attributes['type'], Config::get('taxonomies.discount_application_level'));
+        $this->attributes['type_taxonomy_id'] = $this->typeTaxonomy->id;
+
+        if (!isset($attributes['offer'])) {
+            throw new UserException("Offer required");
+        }
+
+        $this->offerTaxonomy = Taxonomy::getTaxonomy($attributes['offer'], Config::get('taxonomies.discount_offer'));
+        $this->attributes['offer_taxonomy_id'] = $this->offerTaxonomy->id;
+
+        if (!isset($attributes['type_properties']) || !isset($attributes['offer_properties'])) {
+            throw new UserException("Properties required");
+        }
+
+        $this->nameDescriptions = $attributes['name'];
+        $this->descriptionDescriptions = $attributes['description'];
+        $this->type_properties = $attributes['type_properties'];
+        $this->offer_properties = ($this->attributes['id']) ? $attributes['offer_properties'] : $this->addDefaultOfferPropertiesTo($attributes['offer_properties']);
+        $this->attributes['is_annual'] = ($this->attributes['id']) ? !empty($attributes['is_annual']) : true;
+    }
+
+    public function set() {
+        $nameDescriptionId = null;
+        if ($this->attributes['id']) {
+            $this->discount = PriceModifier::find($this->attributes['id']);
+            $nameDescriptionId = $this->discount->name_description_id;
+        }
+
+        if (is_null($this->discount)) {
+            $this->discount = new Discount($this->attributes);
+        } else {
+            if ($this->discount->type_taxonomy_id != $this->typeTaxonomy->id) {
+                $this->clearTypeClassifications();
+                $this->clearTypeMetas();
+                $this->discount->type_taxonomy_id = $this->typeTaxonomy->id;
+            }
+            if ($this->discount->type_taxonomy_id != $this->offerTaxonomy->id) {
+                $this->clearOfferClassifications();
+                $this->clearOfferMetas();
+                $this->discount->offer_taxonomy_id = $this->offerTaxonomy->id;
+            }
+        }
+
+        $nameDescription = (new DescriptionSetter($this->nameDescriptions, $this->discount->name_description_id))->set();
+        $this->discount->name_description_id = $nameDescription->id;
+
+        $descriptionDescription = (new DescriptionSetter($this->descriptionDescriptions, $this->discount->description_description_id))->set();
+        $this->discount->description_description_id = $descriptionDescription->id;
+        $this->discount->promo_code = (!empty($this->attributes['promo_code'])) ? $this->attributes['promo_code'] : null;
+        $this->discount->is_active = !empty($this->attributes['is_active']);
+        $this->discount->is_annual = !empty($this->attributes['is_annual']);
+
+        $this->discount->save();
+
+        $this->setDateRanges($this->attributes['date_ranges']);
+
+        $this->setTypeProperties();
+        $this->setOfferProperties();
+
+        if (!$this->discount->priority) {
+            $this->siblings = $this->discount->findSiblingsInOrder(true);
+            $this->setPriority($this->siblings->count(), false);
+        }
+        $this->updateOrganizationDiscountPriorities();
+
+        return $this->discount;
+    }
+
+    public function setPriority($priority, $standalone = true) {
+        if ($standalone) {
+            $this->discount = PriceModifier::findOrFail($this->attributes['id']);
+        }
+        $this->discount->priority = $priority;
+        $this->discount->save();
+        return $this->discount;
+    }
+
+    protected function setTypeProperties() {
+        if(!empty($this->type_properties['classifications']))
+            $this->setTypeClassifications($this->type_properties['classifications']);
+        if(!empty($this->type_properties['metas']))
+            $this->setTypeMetas($this->type_properties['metas']);
+    }
+
+    protected function setOfferProperties() {
+        if(!empty($this->offer_properties['classifications']))
+            $this->setOfferClassifications($this->offer_properties['classifications']);
+        if(!empty($this->offer_properties['metas']))
+            $this->setOfferMetas($this->offer_properties['metas']);
+    }
+
+    protected function setTypeClassifications(array $classifications) {
+        $discountClass = new DiscountClassification();
+        $parentTxName = $this->typeTaxonomy->parent->name;
+        $txConfig = Config::get('taxonomies.discount_application_levels.' . $parentTxName . '.discount_types.' . $this->typeTaxonomy->name . '.classification');
+        $discountClass->setClassifications(self::CONNECTION_COLUMN, $this->discount->id, $txConfig, $classifications);
+    }
+
+    protected function setOfferClassifications(array $classifications) {
+        $offerClass = new OfferClassification();
+        $offerClass->setClassifications(
+                self::CONNECTION_COLUMN, $this->discount->id, Config::get('taxonomies.discount_offers.' . $this->offerTaxonomy->name . '.classification'), $classifications
+        );
+    }
+
+    protected function setTypeMetas(array $metas) {
+        $discountMeta = new DiscountMeta();
+        $parentTxName = $this->typeTaxonomy->parent->name;
+        $txConfig = Config::get('taxonomies.discount_application_levels.' . $parentTxName . '.discount_types.' . $this->typeTaxonomy->name . '.meta');
+        $discountMeta->setMetas(self::CONNECTION_COLUMN, $this->discount->id, $txConfig, $metas);
+    }
+
+    protected function setOfferMetas(array $metas) {
+        $offerMetas = (new OfferMeta())->setMetas(
+            self::CONNECTION_COLUMN,
+            $this->discount->id,
+            Config::get('taxonomies.discount_offers.' . $this->offerTaxonomy->name . '.meta'),
+            $metas
+        );
+    }
+
+    protected function clearTypeClassifications() {
+        $discountClass = new DiscountClassification();
+        $discountClass->clearClassifications(
+                self::CONNECTION_COLUMN, $this->discount->id
+        );
+    }
+
+    protected function clearOfferClassifications() {
+        $discountClass = new OfferClassification();
+        $discountClass->clearClassifications(
+                self::CONNECTION_COLUMN, $this->discount->id
+        );
+    }
+
+    protected function clearTypeMetas() {
+        $discountClass = new DiscountMeta();
+        $discountClass->clearMetas(
+                self::CONNECTION_COLUMN, $this->discount->id
+        );
+    }
+
+    protected function clearOfferMetas() {
+        $discountClass = new OfferMeta();
+        $discountClass->clearMetas(
+                self::CONNECTION_COLUMN, $this->discount->id
+        );
+    }
+
+    protected function setDateRanges(array $dateRanges) {
+        $numUsedPeriods = count($this->attributes['date_ranges']);
+
+        DiscountPeriod::withTrashed()
+                ->where('discount_id', $this->discount->id)
+                ->delete();
+
+        for ($i = 0; $i < $numUsedPeriods; $i++) {
+            $usedDateRangeId = $this->attributes['date_ranges'][$i]['id'];
+            $discountPeriod = DiscountPeriod::withTrashed()
+                    ->where('discount_id', $this->discount->id)
+                    ->where('organization_date_range_id', $usedDateRangeId)
+                    ->first();
+
+            if (!is_null($discountPeriod)) {
+                $discountPeriod->restore();
+            } else {
+                $period = new DiscountPeriod();
+                $period->discount_id = $this->discount->id;
+                $period->organization_date_range_id = $usedDateRangeId;
+                $period->saveOrFail();
+            }
+        }
+    }
+
+    public function updateOrganizationDiscountPriorities() {
+
+        if (is_null($this->siblings)) {
+            $this->siblings = $this->discount->findSiblingsInOrder(true);
+        }
+
+        foreach (PriceModifier::sortbyPriority($this->siblings) as $idx => $siblingDiscount) {
+            $siblingDiscount->priority = $idx + 1;
+            $siblingDiscount->save();
+        }
+    }
+
+    private function addDefaultOfferPropertiesTo($attributes) {
+        $defaults = [
+            'free_nights' => [
+                'classifications' => [
+                    ['isset' => true, 'name' => "classification", 'value' => "use_last_consecutive_night"]
+                ]
+            ]
+        ];
+        if (isset($defaults[$this->offerTaxonomy->name])) {
+            $attributes = array_merge_recursive($attributes, $defaults[$this->offerTaxonomy->name]);
+        }
+        return $attributes;
+    }
+
+}
+

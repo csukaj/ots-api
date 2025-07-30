@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/App.html">\App</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">802</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">5</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1463122718"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1463122718" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-183523813"></a>
+                                <a href="../namespaces/App.html" style="margin-left: 30px; padding-left: 0">App</a>
+            </div>
+            <div id="namespace-183523813" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-150390346"></a>
+                                <a href="../namespaces/App.Caches.html" style="margin-left: 30px; padding-left: 0">Caches</a>
+            </div>
+            <div id="namespace-150390346" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Caches.HotelIdsCache.html">HotelIdsCache</a></li>
+                                                    <li class="class"><a href="../classes/App.Caches.HotelSearchableTextsCache.html">HotelSearchableTextsCache</a></li>
+                                                    <li class="class"><a href="../classes/App.Caches.HotelSearchOptionsCache.html">HotelSearchOptionsCache</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1140602186"></a>
+                                <a href="../namespaces/App.Console.html" style="margin-left: 30px; padding-left: 0">Console</a>
+            </div>
+            <div id="namespace-1140602186" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-617308062"></a>
+                                <a href="../namespaces/App.Console.Commands.html" style="margin-left: 30px; padding-left: 0">Commands</a>
+            </div>
+            <div id="namespace-617308062" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1197778751"></a>
+                                <a href="../namespaces/App.Console.Commands.TestAccommodationSeeder.html" style="margin-left: 30px; padding-left: 0">TestOrganizationSeeder</a>
+            </div>
+            <div id="namespace-1197778751" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeeder.TestDiscountSeeder.html">TestDiscountSeeder</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeeder.TestHotelSeeder.html">TestHotelSeeder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Commands.ClearCacheCommand.html">ClearCacheCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.FlushRedisCommand.html">FlushRedisCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.RegenerateImagesCommand.html">RegenerateImagesCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestAccommodationSeederCommand.html">TestAccommodationSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestCommand.html">TestCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestContentSeederCommand.html">TestContentSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestManagerSeederCommand.html">TestManagerSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TestParentOrganizationSeederCommand.html">TestParentOrganizationSeederCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.TruncateDbCommand.html">TruncateDbCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.UpdateCacheCommand.html">UpdateCacheCommand</a></li>
+                                                    <li class="class"><a href="../classes/App.Console.Commands.UpdateTranslationsCommand.html">UpdateTranslationsCommand</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Console.Kernel.html">Kernel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-240538925"></a>
+                                <a href="../namespaces/App.Entities.html" style="margin-left: 30px; padding-left: 0">Entities</a>
+            </div>
+            <div id="namespace-240538925" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Entities.CartElementEntity.html">CartElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.CartEntity.html">CartEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ContentEntity.html">ContentEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ContentModificationEntity.html">ContentModificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceAvailabilityEntity.html">DeviceAvailabilityEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceClassificationEntity.html">DeviceClassificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceEntity.html">DeviceEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceMetaEntity.html">DeviceMetaEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceMinimumNightsEntity.html">DeviceMinimumNightsEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceUsageElementEntity.html">DeviceUsageElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DeviceUsageEntity.html">DeviceUsageEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DiscountCombinationEntity.html">DiscountCombinationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.DiscountEntity.html">DiscountEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.Entity.html">Entity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.HotelSearchEntity.html">HotelSearchEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.LocationEntity.html">LocationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.MealPlanEntity.html">MealPlanEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrderEntity.html">OrderEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrderItemEntity.html">OrderItemEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationAgeRangeEntity.html">OrganizationAgeRangeEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationClassificationEntity.html">OrganizationClassificationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationDateRangeEntity.html">OrganizationDateRangeEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationEntity.html">OrganizationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.OrganizationMetaEntity.html">OrganizationMetaEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ParentOrganizationEntity.html">ParentOrganizationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.PriceElementEntity.html">PriceElementEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.PriceEntity.html">PriceEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.ProductEntity.html">ProductEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationEntity.html">TranslationEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationExporterEntity.html">TranslationExporterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationImporterEntity.html">TranslationImporterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.TranslationUpdaterEntity.html">TranslationUpdaterEntity</a></li>
+                                                    <li class="class"><a href="../classes/App.Entities.UserEntity.html">UserEntity</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-978559120"></a>
+                                <a href="../namespaces/App.Events.html" style="margin-left: 30px; padding-left: 0">Events</a>
+            </div>
+            <div id="namespace-978559120" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Events.Event.html">Event</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2054207380"></a>
+                                <a href="../namespaces/App.Exceptions.html" style="margin-left: 30px; padding-left: 0">Exceptions</a>
+            </div>
+            <div id="namespace-2054207380" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Exceptions.Handler.html">Handler</a></li>
+                                                    <li class="class"><a href="../classes/App.Exceptions.UserException.html">UserException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-467617780"></a>
+                                <a href="../namespaces/App.Facades.html" style="margin-left: 30px; padding-left: 0">Facades</a>
+            </div>
+            <div id="namespace-467617780" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Facades.Config.html">Config</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1998609903"></a>
+                                <a href="../namespaces/App.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-1998609903" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1531494215"></a>
+                                <a href="../namespaces/App.Http.Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
+            </div>
+            <div id="namespace-1531494215" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-38627215"></a>
+                                <a href="../namespaces/App.Http.Controllers.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
+            </div>
+            <div id="namespace-38627215" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ContentController.html">ContentController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ContentMediaController.html">ContentMediaController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceClassificationController.html">DeviceClassificationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceMinimumNightsController.html">DeviceMinimumNightsController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DeviceUsageController.html">DeviceUsageController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DiscountCombinationController.html">DiscountCombinationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.DiscountController.html">DiscountController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.LocationController.html">LocationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrderController.html">OrderController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationAgeRangeController.html">OrganizationAgeRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationClassificationController.html">OrganizationClassificationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationDateRangeController.html">OrganizationDateRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationMetaController.html">OrganizationMetaController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.OrganizationPricesController.html">OrganizationPricesController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ParentOrganizationController.html">ParentOrganizationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.PriceController.html">PriceController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.PriceElementController.html">PriceElementController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ProductController.html">ProductController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.TranslationController.html">TranslationController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.UserController.html">UserController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1989562948"></a>
+                                <a href="../namespaces/App.Http.Controllers.Auth.html" style="margin-left: 30px; padding-left: 0">Auth</a>
+            </div>
+            <div id="namespace-1989562948" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Auth.AuthController.html">AuthController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Auth.PasswordController.html">PasswordController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1997434301"></a>
+                                <a href="../namespaces/App.Http.Controllers.Gated.html" style="margin-left: 30px; padding-left: 0">Gated</a>
+            </div>
+            <div id="namespace-1997434301" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.DeviceAvailabilityController.html">DeviceAvailabilityController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.DeviceController.html">DeviceController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Gated.OrganizationController.html">OrganizationController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.AgeRangeController.html">AgeRangeController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.CartController.html">CartController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ContactController.html">ContactController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ContentController.html">ContentController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.HotelSearchController.html">HotelSearchController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.LogController.html">LogController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.OrderController.html">OrderController</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Controllers.ResourceController.html">ResourceController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-627398761"></a>
+                                <a href="../namespaces/App.Http.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-627398761" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Middleware.Authenticate.html">Authenticate</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.EncryptCookies.html">EncryptCookies</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.ExposeAuthorizationHeader.html">ExposeAuthorizationHeader</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html">RedirectIfAuthenticated</a></li>
+                                                    <li class="class"><a href="../classes/App.Http.Middleware.VerifyCsrfToken.html">VerifyCsrfToken</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-323463947"></a>
+                                <a href="../namespaces/App.Http.Requests.html" style="margin-left: 30px; padding-left: 0">Requests</a>
+            </div>
+            <div id="namespace-323463947" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Requests.Request.html">Request</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Http.Kernel.html">Kernel</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-161739829"></a>
+                                <a href="../namespaces/App.Jobs.html" style="margin-left: 30px; padding-left: 0">Jobs</a>
+            </div>
+            <div id="namespace-161739829" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Jobs.Job.html">Job</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2142734517"></a>
+                                <a href="../namespaces/App.Manipulators.html" style="margin-left: 30px; padding-left: 0">Manipulators</a>
+            </div>
+            <div id="namespace-2142734517" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Manipulators.ContentSetter.html">ContentSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceAvailabilitySetter.html">DeviceAvailabilitySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceMinimumNightsSetter.html">DeviceMinimumNightsSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DevicePropertySetter.html">DevicePropertySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceSetter.html">DeviceSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DeviceUsageSetter.html">DeviceUsageSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.DiscountSetter.html">DiscountSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationAgeRangeSetter.html">OrganizationAgeRangeSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationDateRangeSetter.html">OrganizationDateRangeSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationPropertySetter.html">OrganizationPropertySetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.OrganizationSetter.html">OrganizationSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.ParentOrganizationSetter.html">ParentOrganizationSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.PriceCalculator.html">PriceCalculator</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.PriceSetter.html">PriceSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.ProductSetter.html">ProductSetter</a></li>
+                                                    <li class="class"><a href="../classes/App.Manipulators.UserSetter.html">UserSetter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-123659539"></a>
+                                <a href="../namespaces/App.Providers.html" style="margin-left: 30px; padding-left: 0">Providers</a>
+            </div>
+            <div id="namespace-123659539" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Providers.AppServiceProvider.html">AppServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.AuthServiceProvider.html">AuthServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.EventServiceProvider.html">EventServiceProvider</a></li>
+                                                    <li class="class"><a href="../classes/App.Providers.RouteServiceProvider.html">RouteServiceProvider</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-402665597"></a>
+                                <a href="../namespaces/App.Relations.html" style="margin-left: 30px; padding-left: 0">Relations</a>
+            </div>
+            <div id="namespace-402665597" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/App.Relations.AgeRangeRelation.html">AgeRangeRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.DevicesRelation.html">DevicesRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.DiscountedAccommodationProductsRelation.html">DiscountedAccommodationProductsRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.MealPlanRelation.html">MealPlanRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.MealPlansRelation.html">MealPlansRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.OrganizationsRelation.html">OrganizationsRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.PriceTaxonomyRelation.html">PriceTaxonomyRelation</a></li>
+                                                    <li class="class"><a href="../classes/App.Relations.Relation.html">Relation</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-494264641"></a>
+                                <a href="../namespaces/App.Traits.html" style="margin-left: 30px; padding-left: 0">Traits</a>
+            </div>
+            <div id="namespace-494264641" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/App.Traits.DependencyTrait.html">DependencyTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.Traits.FileTrait.html">FileTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.Traits.RedisTrait.html">RedisTrait</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/App.ModelTrait.html">ModelTrait</a></li>
+                                                    <li class="trait"><a href="../classes/App.ModelValidatorTrait.html">ModelValidatorTrait</a></li>
+                                                                            <li class="class"><a href="../classes/App.Content.html">Content</a></li>
+                                                    <li class="class"><a href="../classes/App.ContentMedia.html">ContentMedia</a></li>
+                                                    <li class="class"><a href="../classes/App.ContentModification.html">ContentModification</a></li>
+                                                    <li class="class"><a href="../classes/App.Device.html">Device</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceAvailability.html">DeviceAvailability</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceClassification.html">DeviceClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceDescription.html">DeviceDescription</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceMeta.html">DeviceMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceMinimumNights.html">DeviceMinimumNights</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceUsage.html">DeviceUsage</a></li>
+                                                    <li class="class"><a href="../classes/App.DeviceUsageElement.html">DeviceUsageElement</a></li>
+                                                    <li class="class"><a href="../classes/App.Discount.html">Discount</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountClassification.html">DiscountClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountCombination.html">DiscountCombination</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountMeta.html">DiscountMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.DiscountPeriod.html">DiscountPeriod</a></li>
+                                                    <li class="class"><a href="../classes/App.District.html">District</a></li>
+                                                    <li class="class"><a href="../classes/App.Island.html">Island</a></li>
+                                                    <li class="class"><a href="../classes/App.Location.html">Location</a></li>
+                                                    <li class="class"><a href="../classes/App.MealPlan.html">MealPlan</a></li>
+                                                    <li class="class"><a href="../classes/App.OfferClassification.html">OfferClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.OfferMeta.html">OfferMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.Order.html">Order</a></li>
+                                                    <li class="class"><a href="../classes/App.OrderItem.html">OrderItem</a></li>
+                                                    <li class="class"><a href="../classes/App.OrderItemGuest.html">OrderItemGuest</a></li>
+                                                    <li class="class"><a href="../classes/App.Organization.html">Organization</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationAgeRange.html">OrganizationAgeRange</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationClassification.html">OrganizationClassification</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationDateRange.html">OrganizationDateRange</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationDescription.html">OrganizationDescription</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationManager.html">OrganizationManager</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationMealPlan.html">OrganizationMealPlan</a></li>
+                                                    <li class="class"><a href="../classes/App.OrganizationMeta.html">OrganizationMeta</a></li>
+                                                    <li class="class"><a href="../classes/App.ParentOrganization.html">ParentOrganization</a></li>
+                                                    <li class="class"><a href="../classes/App.Price.html">Price</a></li>
+                                                    <li class="class"><a href="../classes/App.PriceElement.html">PriceElement</a></li>
+                                                    <li class="class"><a href="../classes/App.PriorityOrderScope.html">PriorityOrderScope</a></li>
+                                                    <li class="class"><a href="../classes/App.Product.html">Product</a></li>
+                                                    <li class="class"><a href="../classes/App.User.html">User</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small></small>OfferClassification.php</h1>
+                    <p><em></em></p>
+                    
+
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/App.OfferClassification.html">OfferClassification</a></td>
+                            <td><em>App\OfferClassification</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\Default</div></dd>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/OfferClassification.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/App.html">\App</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 15th, 2017 at 09:29.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

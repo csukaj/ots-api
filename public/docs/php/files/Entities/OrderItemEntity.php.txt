@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Entities;
+
+use App\OrderItem;
+
+class OrderItemEntity extends Entity {
+
+    protected $orderItem;
+
+    public function __construct(OrderItem $orderItem) {
+        parent::__construct();
+
+        $this->orderItem = $orderItem;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = $this->orderItem->attributesToArray();
+        
+        $device = $this->orderItem->device;
+        
+        $return['organization'] = $device ? (new OrganizationEntity($device->organization))->getFrontendData() : null;
+        $return['device'] = $device ? (new DeviceEntity($device))->getFrontendData() : null;
+        $return['guests'] = $this->getGuests();
+
+        return $return;
+    }
+
+    private function getGuests() {
+        $guests = [];
+        foreach ($this->orderItem->guests as $guest) {
+            $guests[] = array_filter($guest->attributesToArray(), function($k) {
+                return in_array($k, ['order_item_id', 'guest_index', 'first_name', 'last_name']);
+            }, ARRAY_FILTER_USE_KEY);
+        }
+        return $guests;
+    }
+
+}
+

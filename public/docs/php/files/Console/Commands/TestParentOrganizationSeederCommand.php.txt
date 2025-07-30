@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Facades\Config;
+use App\ParentOrganization;
+use Illuminate\Console\Command;
+
+/**
+ * Seeds parent organization test data to specified database
+ */
+class TestParentOrganizationSeederCommand extends Command {
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:testparentorganizationseeder {--database=local}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Seeds a database from JSON source';
+
+    /**
+     * Database connection name used
+     */
+    protected $database;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle() {
+        $file = 'docs/parent_organizations.json';
+        $this->database = $this->option('database');
+        Config::set('database.default', $this->database);
+
+        $parentDataRows = json_decode(file_get_contents($file), true);
+        foreach ($parentDataRows as $parentData) {
+            $this->comment("{$parentData['name']}");
+            $this->setParentOrganization($parentData);
+        }
+
+        $this->info("Seeded `{$file}` into database `{$this->database}`.");
+    }
+
+    /**
+     * Saves a new parent organization to database and set associated data
+     * 
+     * @param array $parentData
+     * @return ParentOrganization
+     */
+    public function setParentOrganization($parentData) {
+        $parentOrganization = new ParentOrganization();
+        $parentOrganization->name = $parentData['name'];
+        $parentOrganization->saveOrFail();
+        return $parentOrganization;
+    }
+
+}
+

@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Entities\TranslationUpdaterEntity;
+use Illuminate\Console\Command;
+
+/**
+ * Updating translation files from example
+ */
+class UpdateTranslationsCommand extends Command {
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:updatetranslations';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Updating translation files from example';
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function handle() {
+        (new TranslationUpdaterEntity())->update();
+        (new TranslationUpdaterEntity('cache.frontend_new_i18n_directory'))->update();
+
+        $this->info("Translation files updated.");
+    }
+
+}

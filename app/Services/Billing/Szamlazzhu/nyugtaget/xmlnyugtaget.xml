@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlnyugtaget xmlns="http://www.szamlazz.hu/xmlnyugtaget" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlnyugtaget http://www.szamlazz.hu/docs/xsds/nyugtaget/xmlnyugtaget.xsd">
+  <beallitasok>
+    <felhasznalo>Kérem töltse ki!</felhasznalo>                  <!-- REQ string  --> <!-- felhasználó loginneve -->
+    <jelszo>Kérem töltse ki!</jelszo>                            <!-- REQ string  --> <!-- felhasználó jelszava -->
+    <pdfLetoltes>false</pdfLetoltes>                             <!-- REQ string  --> <!-- PDF formátum letöltése -->
+  </beallitasok>
+  <fejlec>
+    <nyugtaszam>NYGT-2020-1</nyugtaszam>                        <!-- REQ string  --> <!-- a letölteni kívánt számla azonosítója -->
+    
+    <!-- Egyedi PDF sablon (nyugtakép) azonosítója -->
+    <!-- <pdfSablon></pdfSablon> -->
+  </fejlec>
+</xmlnyugtaget>

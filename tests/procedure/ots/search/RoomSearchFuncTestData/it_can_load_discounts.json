@@ -1,0 +1,108 @@
+[
+  {
+    "type_metas": [
+      {
+        "taxonomy_id": 504,
+        "value": "515"
+      },
+      {
+        "taxonomy_id": 69,
+        "value": "2"
+      }
+    ],
+    "application_level_taxonomy_id": 206,
+    "name_description_id": 29,
+    "condition_taxonomy_id": 68,
+    "modifier_type_taxonomy_id": 491,
+    "offer_metas": [
+      {
+        "taxonomy_id": 70,
+        "value": "1"
+      }
+    ],
+    "priority": 2,
+    "offer_taxonomy_id": 84,
+    "offer_classifications": [
+      {
+        "value_taxonomy_id": 72
+      }
+    ],
+    "type_classifications": null,
+    "description_description_id": null,
+    "id": 1
+  },
+  {
+    "type_metas": [
+      {
+        "taxonomy_id": 504,
+        "value": "515"
+      },
+      {
+        "taxonomy_id": 69,
+        "value": "2"
+      }
+    ],
+    "application_level_taxonomy_id": 206,
+    "name_description_id": 30,
+    "condition_taxonomy_id": 68,
+    "modifier_type_taxonomy_id": 491,
+    "offer_metas": [
+      {
+        "taxonomy_id": 95,
+        "value": "-10"
+      }
+    ],
+    "priority": 10,
+    "offer_taxonomy_id": 83,
+    "offer_classifications": null,
+    "type_classifications": null,
+    "description_description_id": null,
+    "id": 2
+  },
+  {
+    "type_metas": [
+      {
+        "taxonomy_id": 504,
+        "value": "515"
+      },
+      {
+        "taxonomy_id": 69,
+        "value": "2"
+      }
+    ],
+    "application_level_taxonomy_id": 206,
+    "name_description_id": 31,
+    "condition_taxonomy_id": 68,
+    "modifier_type_taxonomy_id": 491,
+    "offer_metas": [
+      {
+        "taxonomy_id": 95,
+        "value": "-10"
+      },
+      {
+        "taxonomy_id": 96,
+        "value": "2"
+      }
+    ],
+    "priority": 11,
+    "offer_taxonomy_id": 83,
+    "offer_classifications": null,
+    "type_classifications": null,
+    "description_description_id": null,
+    "id": 3
+  },
+  {
+    "type_metas": null,
+    "application_level_taxonomy_id": 206,
+    "name_description_id": 38,
+    "condition_taxonomy_id": 68,
+    "modifier_type_taxonomy_id": 491,
+    "offer_metas": null,
+    "priority": 14,
+    "offer_taxonomy_id": 85,
+    "offer_classifications": null,
+    "type_classifications": null,
+    "description_description_id": 45,
+    "id": 10
+  }
+]

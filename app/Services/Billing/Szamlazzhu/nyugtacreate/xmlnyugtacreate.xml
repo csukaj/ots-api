@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlnyugtacreate xmlns="http://www.szamlazz.hu/xmlnyugtacreate" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlnyugtacreate http://www.szamlazz.hu/docs/xsds/nyugta/xmlnyugtacreate.xsd">
+
+  <beallitasok>                                                      <!-- REQ         -->
+    <felhasznalo>Kérem töltse ki!</felhasznalo>                      <!-- REQ string  --> <!-- a felhasználó loginneve -->
+    <jelszo>Kérem töltse ki!</jelszo>                                <!-- REQ string  --> <!-- a felhasználó jelszva -->
+    <pdfLetoltes>false</pdfLetoltes>                                 <!-- REQ boolean --> <!-- PDF formátum letöltése -->
+  </beallitasok>
+
+  <fejlec>                                                           <!-- REQ         -->
+    <hivasAzonosito></hivasAzonosito>                                <!--     string  --> <!-- a létrehozás egyedi azonosítója, megakadályozza a nyugta duplikált létrehozását -->
+    <elotag>NYGTA</elotag>                                           <!-- REQ string  --> <!-- nyugtaszám előtag, kötelező ==> NYGTA-2017-111 -->
+    <fizmod>készpénz</fizmod>                                        <!-- REQ string  --> <!-- fizetési mód. bármilyen szöveg lehet, a felületen használt értékek: átutalás, készpénz, bankkártya, csekk, utánvét, ajándékutalvány, barion, barter, csoportos beszedés, OTP Simple, kompenzáció, kupon, PayPal,PayU, SZÉP kártya, utalvány -->
+    <penznem>Ft</penznem>                                            <!-- REQ string  --> <!-- pénznem: Ft, HUF, EUR, USD stb. -->
+    <devizabank>MNB</devizabank>                                     <!--     string  --> <!-- deviza (nem Ft/HUF) pénznem esetén az árfolyamot jegyző bank neve -->
+    <devizaarf>0.0</devizaarf>                                       <!--     string  --> <!-- devizaárfolyam -->
+    <megjegyzes></megjegyzes>                                        <!--     string  --> <!-- általános szöveges megjegyzés, nyugtán megjelenik -->
+    <pdfSablon></pdfSablon>                                          <!--     string  --> <!-- egyedi PDF sablon esetén annak azonosítója -->
+    <fokonyvVevo></fokonyvVevo>                                      <!--     string  --> <!-- vevő főkönyvi azonosítója -->
+  </fejlec>
+
+  <tetelek>                                                          <!-- REQ         -->
+    <tetel>                                                          <!-- REQ         --> <!-- legalább egy tételre szükség van a nyugta kiállításához -->
+      <megnevezes>Kiscicás lábtörlő</megnevezes>                     <!-- REQ string  --> <!-- tétel megnevezése -->
+      <azonosito></azonosito>                                        <!--     string  --> <!-- tétel azonosítója -->
+      <mennyiseg>2.0</mennyiseg>                                     <!-- REQ double  --> <!-- tétel mennyisége -->
+      <mennyisegiEgyseg>db</mennyisegiEgyseg>                        <!-- REQ string  --> <!-- tétel mennyiségi egysége -->
+      <nettoEgysegar>10000</nettoEgysegar>                           <!-- REQ double  --> <!-- nettó egységár -->
+      <netto>20000.0</netto>                                         <!-- REQ double  --> <!-- nettó érték (mennyiség * nettó egységár) -->
+      <afakulcs>27</afakulcs>                                        <!-- REQ string  --> <!-- áfakulcs, értékek: 0, 5, 10, 27, AAM, TAM, EU, EUK, MAA, F.AFA, K.AFA, ÁKK -->
+      <afa>5400.0</afa>                                              <!-- REQ double  --> <!-- áfa összérték -->
+      <brutto>25400.0</brutto>                                       <!-- REQ double  --> <!-- bruttó összérték -->
+      <fokonyv>                                                      <!--             --> <!-- főkönyvi információ -->
+        <arbevetel>...</arbevetel>                                   <!--     string  --> <!-- árbevétel főkönyvi szám -->
+        <afa>...</afa>                                               <!--     string  --> <!-- áfa főkönyvi szám -->
+      </fokonyv>
+    </tetel>
+    <tetel>
+      <megnevezes>Kiskutyás lábtörlő</megnevezes>
+      <mennyiseg>2.0</mennyiseg>
+      <mennyisegiEgyseg>db</mennyisegiEgyseg>
+      <nettoEgysegar>10000</nettoEgysegar>
+      <netto>20000.0</netto>
+      <afakulcs>ÁKK</afakulcs>
+      <afa>5400.0</afa>
+      <brutto>25400.0</brutto>
+    </tetel>
+  </tetelek>
+
+  <!--
+    A kifizetesek nem kötelező, de ha meg van adva,
+    akkor az összegeknek meg kell egyezniük a számla végösszegével.
+  -->
+  <kifizetesek>                                                      <!--     string  --> <!-- fizetési mód részletezése -->
+    <kifizetes>
+      <fizetoeszkoz>utalvány</fizetoeszkoz>                          <!-- REQ string  --> <!-- fizetőeszköz megnevezése -->
+      <osszeg>30000.0</osszeg>                                       <!-- REQ double  --> <!-- fizetőeszközzel kiegyenlített összeg -->
+      <leiras>OTP SZÉP kártya</leiras>                               <!--     double  --> <!-- fizetőeszköz egyedi leírás -->
+    </kifizetes>
+    <kifizetes>
+      <fizetoeszkoz>bankkártya</fizetoeszkoz>
+      <osszeg>20800.0</osszeg>
+    </kifizetes>
+  </kifizetesek>
+
+</xmlnyugtacreate>

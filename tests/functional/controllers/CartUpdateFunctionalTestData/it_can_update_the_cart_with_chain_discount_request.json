@@ -1,0 +1,1965 @@
+{
+  "elements": [
+    {
+      "guests": [],
+      "priceSearchData": [
+        {
+          "14": {
+            "prices": [
+              {
+                "discounted_price": 288,
+                "original_price": 320,
+                "discounts": [
+                  {
+                    "name": {
+                      "en": "Early bird offer"
+                    },
+                    "discount_percentage": -10,
+                    "offer": "percentage",
+                    "discount_value": -32,
+                    "type": "early_bird",
+                    "description": null
+                  }
+                ],
+                "total_discount": {
+                  "percentage": -10,
+                  "value": -32
+                },
+                "order_itemable_index": 0,
+                "meal_plan": "b/b",
+                "meal_plan_id": 2
+              },
+              {
+                "discounted_price": 360,
+                "original_price": 400,
+                "discounts": [
+                  {
+                    "name": {
+                      "en": "Long stay /w Percentage /w room"
+                    },
+                    "discount_percentage": -10,
+                    "offer": "percentage",
+                    "discount_value": -40,
+                    "type": "long_stay",
+                    "description": null
+                  }
+                ],
+                "total_discount": {
+                  "percentage": -10,
+                  "value": -40
+                },
+                "order_itemable_index": 0,
+                "meal_plan": "h/b",
+                "meal_plan_id": 3
+              }
+            ],
+            "usages": {
+              "elements": {
+                "adult": 2
+              }
+            },
+            "device_id": 14,
+            "selectedMealPlan": "b/b"
+          },
+          "15": {
+            "prices": [
+              {
+                "discounted_price": 360,
+                "original_price": 400,
+                "discounts": [
+                  {
+                    "name": {
+                      "en": "Early bird offer"
+                    },
+                    "discount_percentage": -10,
+                    "offer": "percentage",
+                    "discount_value": -40,
+                    "type": "early_bird",
+                    "description": null
+                  }
+                ],
+                "total_discount": {
+                  "percentage": -10,
+                  "value": -40
+                },
+                "order_itemable_index": 0,
+                "meal_plan": "b/b",
+                "meal_plan_id": 2
+              },
+              {
+                "discounted_price": 440,
+                "original_price": 480,
+                "discounts": [
+                  {
+                    "name": {
+                      "en": "Early bird offer"
+                    },
+                    "discount_percentage": -8.33,
+                    "offer": "percentage",
+                    "discount_value": -40,
+                    "type": "early_bird",
+                    "description": null
+                  }
+                ],
+                "total_discount": {
+                  "percentage": -8.33,
+                  "value": -40
+                },
+                "order_itemable_index": 0,
+                "meal_plan": "h/b",
+                "meal_plan_id": 3
+              }
+            ],
+            "usages": {
+              "elements": {
+                "adult": 2
+              }
+            },
+            "device_id": 15,
+            "selectedMealPlan": ""
+          }
+        }
+      ],
+      "compulsoryFee": 0,
+      "productableType": "App\\Accommodation",
+      "productableModel": {
+        "priceSearchData": [
+          {
+            "14": {
+              "prices": [
+                {
+                  "discounted_price": 288,
+                  "original_price": 320,
+                  "discounts": [
+                    {
+                      "name": {
+                        "en": "Early bird offer"
+                      },
+                      "discount_percentage": -10,
+                      "offer": "percentage",
+                      "discount_value": -32,
+                      "type": "early_bird",
+                      "description": null
+                    }
+                  ],
+                  "total_discount": {
+                    "percentage": -10,
+                    "value": -32
+                  },
+                  "order_itemable_index": 0,
+                  "meal_plan": "b/b",
+                  "meal_plan_id": 2
+                },
+                {
+                  "discounted_price": 360,
+                  "original_price": 400,
+                  "discounts": [
+                    {
+                      "name": {
+                        "en": "Long stay /w Percentage /w room"
+                      },
+                      "discount_percentage": -10,
+                      "offer": "percentage",
+                      "discount_value": -40,
+                      "type": "long_stay",
+                      "description": null
+                    }
+                  ],
+                  "total_discount": {
+                    "percentage": -10,
+                    "value": -40
+                  },
+                  "order_itemable_index": 0,
+                  "meal_plan": "h/b",
+                  "meal_plan_id": 3
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 14,
+              "selectedMealPlan": "b/b"
+            },
+            "15": {
+              "prices": [
+                {
+                  "discounted_price": 360,
+                  "original_price": 400,
+                  "discounts": [
+                    {
+                      "name": {
+                        "en": "Early bird offer"
+                      },
+                      "discount_percentage": -10,
+                      "offer": "percentage",
+                      "discount_value": -40,
+                      "type": "early_bird",
+                      "description": null
+                    }
+                  ],
+                  "total_discount": {
+                    "percentage": -10,
+                    "value": -40
+                  },
+                  "order_itemable_index": 0,
+                  "meal_plan": "b/b",
+                  "meal_plan_id": 2
+                },
+                {
+                  "discounted_price": 440,
+                  "original_price": 480,
+                  "discounts": [
+                    {
+                      "name": {
+                        "en": "Early bird offer"
+                      },
+                      "discount_percentage": -8.33,
+                      "offer": "percentage",
+                      "discount_value": -40,
+                      "type": "early_bird",
+                      "description": null
+                    }
+                  ],
+                  "total_discount": {
+                    "percentage": -8.33,
+                    "value": -40
+                  },
+                  "order_itemable_index": 0,
+                  "meal_plan": "h/b",
+                  "meal_plan_id": 3
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 15,
+              "selectedMealPlan": ""
+            }
+          }
+        ],
+        "search_options": {
+          "Hotel Chain": "Hotel Chain A",
+          "Accommodation Category": "Luxury Hotel"
+        },
+        "meal_plans": [
+          {
+            "selected": true,
+            "id": 2,
+            "name": "b/b"
+          },
+          {
+            "selected": true,
+            "id": 3,
+            "name": "h/b"
+          }
+        ],
+        "id": 10,
+        "name": {
+          "en": "Hilton Budapest",
+          "de": "Hilton Budapest",
+          "hu": "Hilton Budapest",
+          "ru": "Hilton Budapest"
+        },
+        "type": "accommodation",
+        "parent": {
+          "id": 101,
+          "type": "hotel_chain",
+          "name": {
+            "en": "Hotel Chain A",
+            "de": "Hotelkette A",
+            "hu": "Szállodalánc A",
+            "ru": "Гостиничная сеть A"
+          }
+        },
+        "is_active": true,
+        "properties": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [
+              {
+                "highlighted": true,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Fitness centre"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Nunc ut diam lacus. In egestas blandit scelerisque. Donec bibendum interdum nibh eu eleifend."
+                }
+              },
+              {
+                "highlighted": true,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Free WiFi"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Parking"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": true,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Indoor Pool"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Non-Smoking Rooms"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "24-hour front desk"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Concierge service"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Restaurant"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Bar"
+                },
+                "value": null,
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Business Centre"
+                },
+                "value": null,
+                "additional_description": {}
+              }
+            ],
+            "child_metas": [],
+            "name": {
+              "en": "Facilities",
+              "hu": "Felszereltség"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Amenities",
+              "hu": "Szolgáltatások"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Check In"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 18:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Check Out"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 15:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Early Check In"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 17:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Late Check Out"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 16:00\nWith option to leave your luggage on the boat."
+                }
+              }
+            ],
+            "child_metas": [],
+            "name": {
+              "en": "Check In/Out",
+              "hu": "Be- és kijelentkezés"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Policies",
+              "hu": "Szabályok"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Conditions",
+              "hu": "Feltételek"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Number of rooms"
+                },
+                "value": "80",
+                "additional_description": {}
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Built in"
+                },
+                "value": "1965",
+                "additional_description": {}
+              }
+            ],
+            "name": {
+              "en": "General",
+              "hu": "Általános"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Contact",
+              "hu": "Elérhetőségek"
+            },
+            "value": null,
+            "additional_description": {}
+          }
+        ],
+        "devices": {
+          "room": [
+            {
+              "id": 14,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 10,
+              "name": {
+                "en": "Standard Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "15",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "24",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "3",
+                  "additional_description": {}
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+                  "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Az Praesent vel id velit.",
+                  "ru": "Etiam Орси Lorem, патч в Метус."
+                }
+              },
+              "images": []
+            },
+            {
+              "id": 15,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 10,
+              "name": {
+                "en": "Business Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "9",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "20",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "3",
+                  "additional_description": {}
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+                  "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Az Praesent vel id velit.",
+                  "ru": "Etiam Орси Lorem, патч в Метус."
+                }
+              },
+              "images": []
+            }
+          ]
+        },
+        "location": {
+          "id": 10,
+          "island": "Cerf",
+          "district": "Mont Fleuri",
+          "longitude": "55.494444006176764",
+          "latitude": "-4.630386406621911",
+          "po_box": "645745"
+        },
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. Curabitur consequat lectus nec pretium elementum. In porttitor ullamcorper pellentesque. Pellentesque lectus eros, fringilla in fringilla ut, semper in magna. Aliquam neque justo, pretium vehicula nunc ut, efficitur feugiat felis. Phasellus semper nisl vitae ligula fermentum porta. Sed eu massa vitae velit rhoncus tristique. Phasellus eu dui ex. Duis fringilla neque nisl. Quisque in aliquam urna.\nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi. Mauris elit purus, malesuada id eros eget, blandit scelerisque nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed tristique elementum arcu vitae volutpat. Duis ac justo augue. Cras accumsan, massa in convallis porta, nulla mauris faucibus enim, eget pulvinar ante sem eu arcu. Vivamus eget libero varius, tincidunt libero eu, semper leo. Curabitur ornare urna efficitur, varius metus quis, gravida nisi. Nullam ornare tellus sit amet nulla blandit hendrerit. Morbi augue massa, fringilla ac malesuada ac, pellentesque ut mauris. Vestibulum enim orci, fringilla et tempor id, suscipit quis elit. Pellentesque porttitor est id arcu luctus auctor.\nVivamus orci dolor, auctor a nunc et, fermentum imperdiet lorem. Morbi ac vulputate nisl. Morbi laoreet suscipit ligula, vestibulum semper velit vestibulum a. Nulla egestas justo non augue accumsan, vitae lobortis est porttitor. Cras imperdiet scelerisque nisl id hendrerit. Proin vel porta quam. Mauris at dictum elit. Suspendisse vestibulum est quis augue vulputate viverra. Suspendisse purus orci, porta ac metus ornare, fermentum laoreet nulla.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur Лев ID патч в Метус Commodo molestie AC Quis диам. Fusce sollicitudin Nulla на turpis accumsan auctor не Eget Lectus. Pellentesque placerat pulvinar изречение. Sed facilisis Lorem в Метус экскретов, включенные в другие группировки consequat Dolor sagittis. Aenean ultricies arcu ID дуй Mollis luctus. Vivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim. Nulla Erat neque, suscipit и др ех идентификатор, dapibus Elementum Sapien. Nullam accumsan, tortor ес tincidunt зетрег, бывший Элит pulvinar Felis, ес venenatis Лев либеро магна. Phasellus ornare Метус Nunc, в Elementum диам venenatis и др. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, ут suscipit Метус.\nPellentesque Vitae turpis ЕС фелис ​​fermentum sodales. Nulla Sapien tortor, tincidunt и др Квам Vitae, gravida blandit Lectus. Донец molestie ultricies дуй, Vitae lobortis nibh placerat в. Integer Маттис sagittis Varius. Донец consequat в Эст Vitae finibus. Pellentesque обитатель MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis экскретов. Integer и др Massa pharetra велит Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat ут Cursus blandit, nibh велит sollicitudin пзиз, и др placerat Lorem ех СЕПГ миль."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Лев ID патч в Метус."
+          }
+        },
+        "galleries": [
+          {
+            "id": 23,
+            "name": null,
+            "galleryable_id": 10,
+            "galleryable_type": "App\\Organization",
+            "role": "frontend_gallery",
+            "items": [
+              {
+                "id": 19,
+                "extension": "jpeg",
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000019.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000019_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000019_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000019_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000019_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": null,
+                "highlighted": true,
+                "gallery_id": 23
+              }
+            ],
+            "galleryable_name": "Hilton Budapest"
+          }
+        ],
+        "settings": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Price level"
+            },
+            "value": {
+              "en": "$$"
+            },
+            "additional_description": {}
+          }
+        ],
+        "age_ranges": [
+          {
+            "id": 19,
+            "name": {
+              "en": "child",
+              "de": "Kind",
+              "hu": "gyerek",
+              "ru": "ребенок"
+            }
+          },
+          {
+            "id": 20,
+            "name": {
+              "en": "adult",
+              "de": "Erwachsener",
+              "hu": "felnőtt",
+              "ru": "взрослый"
+            }
+          }
+        ]
+      },
+      "orderItemableId": 14,
+      "orderItemableType": "App\\Device",
+      "orderItemable": {
+        "id": 14,
+        "deviceable_type": "App\\Organization",
+        "deviceable_id": 10,
+        "name": {
+          "en": "Standard Room"
+        },
+        "type": "room",
+        "metas": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_from"
+            },
+            "value": "15",
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_to"
+            },
+            "value": "24",
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "number"
+            },
+            "value": "3",
+            "additional_description": {}
+          }
+        ],
+        "classifications": [],
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet.",
+            "de": "Das Ut fringilla elit risus.",
+            "hu": "Az Praesent vel id velit.",
+            "ru": "Etiam Орси Lorem, патч в Метус."
+          }
+        },
+        "images": []
+      },
+      "orderItemableIndex": 0,
+      "mealPlan": "b/b",
+      "interval": {
+        "date_from": "2027-04-11",
+        "date_to": "2027-04-15"
+      },
+      "calculatedPrice": {
+        "discounted_price": 288,
+        "original_price": 320,
+        "discounts": [
+          {
+            "name": {
+              "en": "Early bird offer"
+            },
+            "discount_percentage": -10,
+            "offer": "percentage",
+            "discount_value": -32,
+            "type": "early_bird",
+            "description": null
+          }
+        ],
+        "total_discount": {
+          "percentage": -10,
+          "value": -32
+        },
+        "order_itemable_index": 0,
+        "meal_plan": "b/b",
+        "meal_plan_id": 2
+      },
+      "searchRequest": {
+        "interval": {
+          "date_from": "2027-04-11",
+          "date_to": "2027-04-15"
+        },
+        "usages": [
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "search_options": [],
+        "selectedOccasion": "holiday",
+        "dontKnowChecked": false,
+        "returning_client": false,
+        "wedding_date": null,
+        "islands": [],
+        "meal_plans": [],
+        "organizations": [
+          10
+        ]
+      },
+      "amount": 1,
+      "isOverbooked": false,
+      "requestHash": "N4IglgdiBcoCYEMAuBTA+gMwE4HsC2MIATAAxEDsAtCQCyUCM9IANCIqmkjoaRdXfQCsIAL6sArgGcYAbVBSEAcxSzQSldCL1WCPDnEQkMIiIC6Z1gHc4MCOIA291pO7QQACxz2wiAJ4sQPRhgMTZXDAR7SRRWLABjGAiomPBpaBlTVjwNDNYcLFl6EnMgA"
+    },
+    {
+      "guests": [],
+      "priceSearchData": {
+        "0": {
+          "3": {
+            "prices": [
+              {
+                "discounted_price": 435.6,
+                "original_price": 435.6,
+                "discounts": [],
+                "total_discount": {},
+                "order_itemable_index": 0,
+                "meal_plan": "b/b",
+                "meal_plan_id": 2
+              },
+              {
+                "discounted_price": 435.6,
+                "original_price": 435.6,
+                "discounts": [],
+                "total_discount": {},
+                "order_itemable_index": 0,
+                "meal_plan": "h/b",
+                "meal_plan_id": 3
+              }
+            ],
+            "usages": {
+              "elements": {
+                "adult": 2
+              }
+            },
+            "device_id": 3,
+            "selectedMealPlan": "b/b"
+          }
+        }
+      },
+      "compulsoryFee": 0,
+      "orderItemableType": "App\\Device",
+      "orderItemableId": 3,
+      "orderItemable": {
+        "id": 3,
+        "deviceable_type": "App\\Organization",
+        "deviceable_id": 1,
+        "name": {
+          "en": "Double Room"
+        },
+        "type": "room",
+        "metas": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "size_from"
+            },
+            "value": "15",
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "number"
+            },
+            "value": "9",
+            "additional_description": {}
+          }
+        ],
+        "classifications": [],
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet.",
+            "de": "Das Ut fringilla elit risus.",
+            "hu": "Az Praesent vel id velit.",
+            "ru": "Etiam Орси Lorem, патч в Метус."
+          }
+        },
+        "images": [
+          {
+            "id": 10,
+            "extension": "jpeg",
+            "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010.jpeg",
+            "thumbnails": [
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_xs.jpeg",
+                "width": 576
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_sm.jpeg",
+                "width": 480
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_md.jpeg",
+                "width": 1024
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_lg.jpeg",
+                "width": 1280
+              }
+            ],
+            "width": null,
+            "height": null,
+            "type": null,
+            "description": null
+          },
+          {
+            "id": 9,
+            "extension": "jpeg",
+            "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009.jpeg",
+            "thumbnails": [
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_xs.jpeg",
+                "width": 576
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_sm.jpeg",
+                "width": 480
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_md.jpeg",
+                "width": 1024
+              },
+              {
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_lg.jpeg",
+                "width": 1280
+              }
+            ],
+            "width": null,
+            "height": null,
+            "type": null,
+            "description": null
+          }
+        ]
+      },
+      "orderItemableIndex": 0,
+      "productableType": "App\\Accommodation",
+      "productableModel": {
+        "priceSearchData": {
+          "0": {
+            "3": {
+              "prices": [
+                {
+                  "discounted_price": 435.6,
+                  "original_price": 435.6,
+                  "discounts": [],
+                  "total_discount": {},
+                  "order_itemable_index": 0,
+                  "meal_plan": "b/b",
+                  "meal_plan_id": 2
+                },
+                {
+                  "discounted_price": 435.6,
+                  "original_price": 435.6,
+                  "discounts": [],
+                  "total_discount": {},
+                  "order_itemable_index": 0,
+                  "meal_plan": "h/b",
+                  "meal_plan_id": 3
+                }
+              ],
+              "usages": {
+                "elements": {
+                  "adult": 2
+                }
+              },
+              "device_id": 3,
+              "selectedMealPlan": "b/b"
+            }
+          }
+        },
+        "search_options": {
+          "Hotel Chain": "Hotel Chain A",
+          "Stars": "★★★★",
+          "Accommodation Category": "Hotel",
+          "Pool and wellness": "Private beach area",
+          "Wireless Internet": true
+        },
+        "meal_plans": [
+          {
+            "selected": true,
+            "id": 2,
+            "name": "b/b"
+          },
+          {
+            "selected": true,
+            "id": 3,
+            "name": "h/b"
+          }
+        ],
+        "id": 1,
+        "name": {
+          "en": "Hotel A",
+          "de": "Das Hotel A",
+          "hu": "Szálloda A",
+          "ru": "Гостиница A"
+        },
+        "type": "accommodation",
+        "parent": {
+          "id": 101,
+          "type": "hotel_chain",
+          "name": {
+            "en": "Hotel Chain A",
+            "de": "Hotelkette A",
+            "hu": "Szállodalánc A",
+            "ru": "Гостиничная сеть A"
+          }
+        },
+        "is_active": true,
+        "properties": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [
+              {
+                "highlighted": true,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Pool and wellness"
+                },
+                "value": {
+                  "en": "Private beach area"
+                },
+                "additional_description": {
+                  "en": "Nunc ut diam lacus. In egestas blandit scelerisque. Donec bibendum interdum nibh eu eleifend."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Wireless Internet"
+                },
+                "value": null,
+                "additional_description": {}
+              }
+            ],
+            "child_metas": [],
+            "name": {
+              "en": "Facilities",
+              "hu": "Felszereltség"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Amenities",
+              "hu": "Szolgáltatások"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Check In"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 18:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Check Out"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 15:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Early Check In"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 17:00\nWith option to leave your luggage on the boat."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Late Check Out"
+                },
+                "value": null,
+                "additional_description": {
+                  "en": "Saturday 16:00\nWith option to leave your luggage on the boat."
+                }
+              }
+            ],
+            "child_metas": [],
+            "name": {
+              "en": "Check In/Out",
+              "hu": "Be- és kijelentkezés"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Policies",
+              "hu": "Szabályok"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Free cancellation (in days before check-in)"
+                },
+                "value": "10",
+                "additional_description": {}
+              }
+            ],
+            "name": {
+              "en": "Conditions",
+              "hu": "Feltételek"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Number of rooms"
+                },
+                "value": "30",
+                "additional_description": {
+                  "en": "Nunc ut diam lacus. In egestas blandit scelerisque. Donec bibendum interdum nibh eu eleifend."
+                }
+              },
+              {
+                "highlighted": false,
+                "charge": null,
+                "child_classifications": [],
+                "child_metas": [],
+                "name": {
+                  "en": "Built in"
+                },
+                "value": "1992",
+                "additional_description": {}
+              }
+            ],
+            "name": {
+              "en": "General",
+              "hu": "Általános"
+            },
+            "value": null,
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Contact",
+              "hu": "Elérhetőségek"
+            },
+            "value": null,
+            "additional_description": {}
+          }
+        ],
+        "devices": {
+          "room": [
+            {
+              "id": 1,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 1,
+              "name": {
+                "en": "Single Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "15",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "24",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "3",
+                  "additional_description": {}
+                }
+              ],
+              "classifications": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "View"
+                  },
+                  "icon": "weather-sunset",
+                  "value": null,
+                  "additional_description": {
+                    "en": "Furnished patio ocean views"
+                  }
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [
+                    {
+                      "highlighted": false,
+                      "charge": null,
+                      "child_classifications": [],
+                      "child_metas": [],
+                      "name": {
+                        "en": "coffee/tea maker"
+                      },
+                      "icon": null,
+                      "value": null,
+                      "additional_description": {}
+                    },
+                    {
+                      "highlighted": false,
+                      "charge": null,
+                      "child_classifications": [],
+                      "child_metas": [],
+                      "name": {
+                        "en": "minibar"
+                      },
+                      "icon": null,
+                      "value": null,
+                      "additional_description": {}
+                    }
+                  ],
+                  "child_metas": [],
+                  "name": {
+                    "en": "Food & Drink"
+                  },
+                  "icon": "bowl",
+                  "value": null,
+                  "additional_description": {}
+                }
+              ],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+                  "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Az Praesent vel id velit.",
+                  "ru": "Etiam Орси Lorem, патч в Метус."
+                }
+              },
+              "images": [
+                {
+                  "id": 6,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000006.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000006_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000006_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000006_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000006_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                },
+                {
+                  "id": 5,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000005.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000005_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000005_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000005_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000005_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 1,
+              "name": {
+                "en": "Deluxe Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "14",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_to"
+                  },
+                  "value": "23",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "4",
+                  "additional_description": {}
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+                  "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Az Praesent vel id velit.",
+                  "ru": "Etiam Орси Lorem, патч в Метус."
+                }
+              },
+              "images": [
+                {
+                  "id": 8,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000008.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000008_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000008_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000008_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000008_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                },
+                {
+                  "id": 7,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000007.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000007_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000007_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000007_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000007_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "deviceable_type": "App\\Organization",
+              "deviceable_id": 1,
+              "name": {
+                "en": "Double Room"
+              },
+              "type": "room",
+              "metas": [
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "size_from"
+                  },
+                  "value": "15",
+                  "additional_description": {}
+                },
+                {
+                  "highlighted": false,
+                  "charge": null,
+                  "child_classifications": [],
+                  "child_metas": [],
+                  "name": {
+                    "en": "number"
+                  },
+                  "value": "9",
+                  "additional_description": {}
+                }
+              ],
+              "classifications": [],
+              "descriptions": {
+                "long_description": {
+                  "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis.",
+                  "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi.",
+                  "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. \nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi.",
+                  "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis.\nVivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim."
+                },
+                "short_description": {
+                  "en": "Lorem ipsum dolor sit amet.",
+                  "de": "Das Ut fringilla elit risus.",
+                  "hu": "Az Praesent vel id velit.",
+                  "ru": "Etiam Орси Lorem, патч в Метус."
+                }
+              },
+              "images": [
+                {
+                  "id": 10,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000010_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                },
+                {
+                  "id": 9,
+                  "extension": "jpeg",
+                  "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009.jpeg",
+                  "thumbnails": [
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_xs.jpeg",
+                      "width": 576
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_sm.jpeg",
+                      "width": 480
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_md.jpeg",
+                      "width": 1024
+                    },
+                    {
+                      "path": "storage/modules/stylersmedia/images/00000000/00000000/00000009_lg.jpeg",
+                      "width": 1280
+                    }
+                  ],
+                  "width": null,
+                  "height": null,
+                  "type": null,
+                  "description": null
+                }
+              ]
+            }
+          ]
+        },
+        "location": {
+          "id": 1,
+          "island": "Mahé",
+          "district": "Anse aux Pins",
+          "longitude": "55.5173608",
+          "latitude": "-4.6930494",
+          "po_box": "012345"
+        },
+        "descriptions": {
+          "long_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. Curabitur consequat lectus nec pretium elementum. In porttitor ullamcorper pellentesque. Pellentesque lectus eros, fringilla in fringilla ut, semper in magna. Aliquam neque justo, pretium vehicula nunc ut, efficitur feugiat felis. Phasellus semper nisl vitae ligula fermentum porta. Sed eu massa vitae velit rhoncus tristique. Phasellus eu dui ex. Duis fringilla neque nisl. Quisque in aliquam urna.\nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi. Mauris elit purus, malesuada id eros eget, blandit scelerisque nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed tristique elementum arcu vitae volutpat. Duis ac justo augue. Cras accumsan, massa in convallis porta, nulla mauris faucibus enim, eget pulvinar ante sem eu arcu. Vivamus eget libero varius, tincidunt libero eu, semper leo. Curabitur ornare urna efficitur, varius metus quis, gravida nisi. Nullam ornare tellus sit amet nulla blandit hendrerit. Morbi augue massa, fringilla ac malesuada ac, pellentesque ut mauris. Vestibulum enim orci, fringilla et tempor id, suscipit quis elit. Pellentesque porttitor est id arcu luctus auctor.\nVivamus orci dolor, auctor a nunc et, fermentum imperdiet lorem. Morbi ac vulputate nisl. Morbi laoreet suscipit ligula, vestibulum semper velit vestibulum a. Nulla egestas justo non augue accumsan, vitae lobortis est porttitor. Cras imperdiet scelerisque nisl id hendrerit. Proin vel porta quam. Mauris at dictum elit. Suspendisse vestibulum est quis augue vulputate viverra. Suspendisse purus orci, porta ac metus ornare, fermentum laoreet nulla.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur Лев ID патч в Метус Commodo molestie AC Quis диам. Fusce sollicitudin Nulla на turpis accumsan auctor не Eget Lectus. Pellentesque placerat pulvinar изречение. Sed facilisis Lorem в Метус экскретов, включенные в другие группировки consequat Dolor sagittis. Aenean ultricies arcu ID дуй Mollis luctus. Vivamus тоШз arcu не sagittis euismod. Донец с Магна ми. Pellentesque auctor Орси и др Lorem ullamcorper Elementum. Nulla дуй Пурус, convallis в aliquam Vitae, Pretium ут enim. Nulla Erat neque, suscipit и др ех идентификатор, dapibus Elementum Sapien. Nullam accumsan, tortor ес tincidunt зетрег, бывший Элит pulvinar Felis, ес venenatis Лев либеро магна. Phasellus ornare Метус Nunc, в Elementum диам venenatis и др. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, ут suscipit Метус.\nPellentesque Vitae turpis ЕС фелис ​​fermentum sodales. Nulla Sapien tortor, tincidunt и др Квам Vitae, gravida blandit Lectus. Донец molestie ultricies дуй, Vitae lobortis nibh placerat в. Integer Маттис sagittis Varius. Донец consequat в Эст Vitae finibus. Pellentesque обитатель MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis экскретов. Integer и др Massa pharetra велит Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat ут Cursus blandit, nibh велит sollicitudin пзиз, и др placerat Lorem ех СЕПГ миль."
+          },
+          "short_description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "de": "Das Ut fringilla elit risus, id sodales urna luctus eget.",
+            "hu": "Az Praesent vel augue in eros pretium ornare et id velit.",
+            "ru": "Etiam Орси Lorem, Varius магна Eget, Лев ID патч в Метус."
+          }
+        },
+        "galleries": [
+          {
+            "id": 1,
+            "name": null,
+            "galleryable_id": 1,
+            "galleryable_type": "App\\Organization",
+            "role": "frontend_gallery",
+            "items": [
+              {
+                "id": 2,
+                "extension": "jpeg",
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000002.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000002_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000002_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000002_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000002_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": 1,
+                "highlighted": false,
+                "gallery_id": 1
+              },
+              {
+                "id": 3,
+                "extension": "jpeg",
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000003.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000003_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000003_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000003_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000003_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": 2,
+                "highlighted": false,
+                "gallery_id": 1
+              },
+              {
+                "id": 4,
+                "extension": "jpeg",
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000004.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000004_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000004_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000004_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000004_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": 3,
+                "highlighted": false,
+                "gallery_id": 1
+              },
+              {
+                "id": 1,
+                "extension": "jpeg",
+                "path": "storage/modules/stylersmedia/images/00000000/00000000/00000001.jpeg",
+                "thumbnails": [
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000001_xs.jpeg",
+                    "width": 576
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000001_sm.jpeg",
+                    "width": 480
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000001_md.jpeg",
+                    "width": 1024
+                  },
+                  {
+                    "path": "storage/modules/stylersmedia/images/00000000/00000000/00000001_lg.jpeg",
+                    "width": 1280
+                  }
+                ],
+                "width": null,
+                "height": null,
+                "type": null,
+                "description": null,
+                "priority": null,
+                "highlighted": true,
+                "gallery_id": 1
+              }
+            ],
+            "galleryable_name": "Hotel A"
+          }
+        ],
+        "settings": [
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Price level"
+            },
+            "value": {
+              "en": "$$$$"
+            },
+            "additional_description": {}
+          },
+          {
+            "highlighted": false,
+            "charge": null,
+            "child_classifications": [],
+            "child_metas": [],
+            "name": {
+              "en": "Stars"
+            },
+            "value": {
+              "en": "★★★★"
+            },
+            "additional_description": {}
+          }
+        ],
+        "age_ranges": [
+          {
+            "id": 1,
+            "name": {
+              "en": "baby",
+              "de": "Baby",
+              "hu": "csecsemő",
+              "ru": "ребенок"
+            }
+          },
+          {
+            "id": 2,
+            "name": {
+              "en": "child",
+              "de": "Kind",
+              "hu": "gyerek",
+              "ru": "ребенок"
+            }
+          },
+          {
+            "id": 3,
+            "name": {
+              "en": "adult",
+              "de": "Erwachsener",
+              "hu": "felnőtt",
+              "ru": "взрослый"
+            }
+          }
+        ]
+      },
+      "mealPlan": "b/b",
+      "interval": {
+        "date_from": "2027-03-20",
+        "date_to": "2027-03-23"
+      },
+      "calculatedPrice": {
+        "discounted_price": 435.6,
+        "original_price": 435.6,
+        "discounts": [],
+        "total_discount": {},
+        "order_itemable_index": 0,
+        "meal_plan": "b/b",
+        "meal_plan_id": 2
+      },
+      "amount": 1,
+      "searchRequest": {
+        "interval": {
+          "date_from": "2027-03-20",
+          "date_to": "2027-03-23"
+        },
+        "usages": [
+          {
+            "usage": [
+              {
+                "age": 21,
+                "amount": 2
+              }
+            ]
+          }
+        ],
+        "search_options": {},
+        "selectedOccasion": "holiday",
+        "dontKnowChecked": false,
+        "returning_client": false,
+        "wedding_date": null,
+        "islands": [],
+        "meal_plans": [],
+        "organizations": [
+          1
+        ]
+      },
+      "requestHash": "N4IglgdiBcoCYEMAuBTA+gMwE4HsC2MIATAAxEDsAtCQMyWkgA0IiqaSOhpF1dRNIAL7MArgGcYAbVDiEAcxRTQ8xdCIBGZgjw4REJDCKCAuieYB3ODAgiANreZjO0EAAsctsIgCeTEDphgYRZnDARbMRRmLABjGDCIqPAJaEljZjxVNOYcLCl1UyA"
+    }
+  ],
+  "familyComboSelections": []
+}

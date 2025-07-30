@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Content;
+use App\Device;
+use App\DeviceMinimumNights;
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\ModelTrait;
+use App\OrganizationDateRange;
+use App\Traits\FileTrait;
+
+/**
+ * Manipulator to create a new DeviceMinimumNights 
+ * instance after the supplied data passes validation
+ */
+class DeviceMinimumNightsSetter {
+
+    use FileTrait,
+        ModelTrait;
+
+    /**
+     * Attributes that can be set from input
+     * @var array 
+     */
+    private $attributes = [
+        'id' => null,
+        'device_id' => null,
+        'organization_date_range_id' => null,
+        'minimum_nights' => null
+    ];
+    private $deviceMinimumNights;
+
+    public function __construct(array $attributes) {
+
+        foreach ($attributes as $key => $value) {
+            if (array_key_exists($key, $this->attributes)) {
+                $this->attributes[$key] = $value;
+            }
+        }
+
+
+        if (!isset($attributes['device_id']) || !isset($attributes['organization_date_range_id']) || !isset($attributes['minimum_nights'])) {
+            throw new UserException('Missing data for device minimum nights!');
+        }
+
+        $device = Device::find($attributes['device_id']);
+        if (!$device) {
+            throw new UserException('Device can not be found!');
+        }
+
+        $dateRange = OrganizationDateRange::find($attributes['organization_date_range_id']);
+        if (!$dateRange || $dateRange->type_taxonomy_id != Config::get('taxonomies.date_range_types.open')) {
+            throw new UserException('Open date range can not be found!');
+        }
+
+        if ($device->organization_id != $dateRange->organization_id) {
+            throw new UserException('Device and date range must be in same organization!');
+        }
+    }
+
+    /**
+     * Creates new content
+     * @return Content
+     */
+    public function set() {
+
+        if ($this->attributes['id']) {
+            $this->deviceMinimumNights = DeviceMinimumNights::findOrFail($this->attributes['id']);
+        } else {
+            $attributes = [
+                'device_id' => $this->attributes['device_id'],
+                'organization_date_range_id' => $this->attributes['organization_date_range_id']
+            ];
+            $this->deviceMinimumNights = DeviceMinimumNights::createOrRestore($attributes);
+        }
+
+        
+        $this->deviceMinimumNights->fill($this->attributes);
+        $this->deviceMinimumNights->saveOrFail();
+
+        return $this->deviceMinimumNights;
+    }
+
+}
+

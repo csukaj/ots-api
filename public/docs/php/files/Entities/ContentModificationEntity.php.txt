@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Entities;
+
+use App\ContentModification;
+
+class ContentModificationEntity extends Entity {
+
+    protected $contentModification;
+
+    public function __construct(ContentModification $contentModification) {
+        parent::__construct();
+
+        $this->contentModification = $contentModification;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        return [
+            "id" => $this->contentModification->id,
+            "content_id" => $this->contentModification->content_id,
+            "editor" => $this->contentModification->editor->name,
+            "modification" => $this->contentModification->created_at
+        ];
+    }
+
+}
+

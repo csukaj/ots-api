@@ -1,0 +1,177 @@
+{
+    "general": {
+        "loading": "Betöltés...",
+        "and": "és",
+        "readMore": "További információk",
+        "submit": "Elküld"
+    },
+    "welcomepage": {
+        "title": "Főoldal",
+        "text": "Üdvözlünk az OTS Frontenden!"
+    },
+    "search": {
+        "room": {
+            "singular": "szoba",
+            "plural": "szoba"
+        },
+        "room_form": {
+            "guests": "Vendégek",
+            "age_of_children": "A gyermekek életkora a nyaralás végén"
+        },
+        "occasion": {
+            "holiday": "Nyaralás",
+            "honeymoon": "Nászút",
+            "anniversary": "Évforduló"
+        },
+        "daterange": {
+            "from": "Érkezés",
+            "to": "Távozás",
+            "arrival": "Érkezés",
+            "departure": "Távozás",
+            "number_of_nights": "Éjszaka",
+            "remove": "Törlés",
+            "ok": "OK",
+            "cancel": "Mégse",
+            "default": "Kérlek válaszd ki nyaralásod dátumát!"
+        },
+        "sidebar": {
+            "search": "Keresés",
+            "add_room": "Szoba hozzáadása",
+            "remove": "Törlés",
+            "room_with_index": "{{index}}. szoba",
+            "adults": "Felnőttek",
+            "children": "Gyermekek",
+            "islands": "Szigetek",
+            "island": "Sziget",
+            "beach": "Strand",
+            "dont_know": "Nem tudom az érkezésem dátumát",
+            "dont_know_alert": "Kérem válasszon dátumot vagy jelölje be a \"Nem tudom az érkezésem dátumát\" mezőt!",
+            "ageNotGiven": "Kérem válassza ki a gyerekek korát",
+            "meal_plans": "Ellátás",
+            "text-search-label": "Szállás neve",
+            "destination-name": "Célállomás neve",
+            "filter": "Szűrő",
+            "sort_by": "Rendezés",
+            "ratings": "értékelés",
+            "more_options": "További opciók",
+            "options": {
+                "hotel_category": "Hotel kategória"
+            },
+            "year": "év"
+        },
+        "summary": {
+            "results": "találat",
+            "no_results": "Nincs találat a keresésre.",
+            "adults": "felnőtt",
+            "children": "gyerek",
+            "nights": "éjszaka",
+            "listView": "Lista",
+            "mapView": "Térkép",
+            "sort": {
+                "byPrice": {
+                    "asc": "Ár szerint növekvő",
+                    "desc": "Ár szerint csökkenő"
+                },
+                "byIsland": "Sziget szerint"
+            }
+        }
+    },
+    "menu": {
+        "Home": "Főoldal",
+        "Search": "Keresés",
+        "MyHoliday": "Nyaralásom",
+        "toggle": "Meni ki/be",
+        "aboutUs": "Rólunk",
+        "aboutSeychelles": "Seychelles szigetekről",
+        "contactUs": "Kapcsolat"
+    },
+    "hotels": {
+        "availableRoomRates": "Elérhető szobaárak",
+        "hotelDetails": "Szálloda részletes adatai",
+        "backToList": "Vissza az összes szállodához",
+        "seeAllRooms": "Összes szoba mutatása"
+    },
+    "hotel": {
+        "room": "Szoba",
+        "rooms": "Szobák",
+        "roomDetails": "További információk",
+        "hideRoomDetails": "Kevesebb információ",
+        "addToMyHoliday": "Hozzáadás a nyaralásomhoz",
+        "changeRoom": "Szoba változtatása",
+        "usage": "Usage",
+        "rating": "Értékelés",
+        "reviews": "értékelések",
+        "menu": {
+            "gallery": "Galéria",
+            "description": "Leírás",
+            "location": "Elhelyezkedés",
+            "rooms": "Szobák",
+            "reviews": "Értékelések"
+        },
+        "topServices": "Kiemelt szolgáltatások",
+        "about": "A hotelről",
+        "room_details": "Részletek"
+    },
+    "mealPlans": {
+        "e/p": "Ellátás nélkül",
+        "b/b": "Reggeli",
+        "h/b": "Félpanzió",
+        "f/b": "Teljes panzió",
+        "inc": "All inclusive"
+    },
+    "cart": {
+        "myHoliday": "Nyaralásom",
+        "clearAllItems": "Összes törlése",
+        "deleteItem": "Törlés",
+        "nights": "éjszaka",
+        "total": "Összesen:",
+        "firstName": "Keresztnév",
+        "lastName": "Vezetéknév",
+        "email": "Email",
+        "nationality": "Nemzetiség",
+        "telephone": "Telefonszám"
+    },
+    "ageRanges": {
+        "adult": {
+            "singular": "felnőtt",
+            "plural": "felnőtt"
+        },
+        "child": {
+            "singular": "gyerek",
+            "plural": "gyerek"
+        },
+        "baby": {
+            "singular": "csecsemő",
+            "plural": "csecsemő"
+        }
+    },
+    "discounts": {
+        "totalDiscount": "Összes kevezmény",
+        "used": "Alkalmazott kedvezmények",
+        "discounts": "Kedvezmények",
+        "inclTax": "adóval",
+        "originalPrice": "Eredeti ár",
+        "noneFound": "Nincs kedvezmény.",
+        "total": "Összesen"
+    },
+    "footer": {
+        "accommodation": "Szállás",
+        "cruises": "Utazások",
+        "yachtCharter": "Yacht bérlés",
+        "weddings": "Menyegző",
+        "transfer": "Átvitel",
+        "myHoliday": "Nyaralásom",
+        "blog": "Blog",
+        "webcam": "Webkamera",
+        "weather": "Időjárás",
+        "activities": "Aktivitás",
+        "usefulTips": "Hasznos tippek",
+        "aboutUs": "Rólunk",
+        "contact": "Kapcsolat",
+
+        "allRightsReserved": "Minden jog fenntartva",
+        "termsAndConditions": "Felhasználási feltételek",
+        "bookingPolicy": "Foglalási szabályzat",
+        "privacyPolicy": "Adatvédelem"
+    }
+}

@@ -1,0 +1,148 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Stylerstaxonomy\Entities\ClassificationTrait;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\DeviceClassification
+ *
+ * @property int $id
+ * @property int $device_id
+ * @property int $parent_classification_id
+ * @property int $classification_taxonomy_id
+ * @property int $value_taxonomy_id
+ * @property int $priority
+ * @property int $price_taxonomy_id
+ * @property int $additional_description_id
+ * @property bool $is_highlighted
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Description $additionalDescription
+ * @property-read Collection|DeviceClassification[] $childClassifications
+ * @property-read Taxonomy $classificationTaxonomy
+ * @property-read Device $device
+ * @property-read DeviceClassification $parentClassification
+ * @property-read Taxonomy $priceTaxonomy
+ * @property-read Taxonomy $valueTaxonomy
+ * @mixin \Eloquent
+ */
+class DeviceClassification extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        ClassificationTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'device_id', 'parent_classification_id', 'classification_taxonomy_id', 'value_taxonomy_id', 'priority',
+        'price_taxonomy_id', 'additional_description_id', 'is_highlighted'
+    ];
+
+    /**
+     * Relation to device
+     * 
+     * @return HasOne
+     */
+    public function device() {
+        return $this->hasOne(Device::class, 'id', 'device_id');
+    }
+
+    /**
+     * Relation to Device Classification
+     * 
+     * @return HasOne
+     */
+    public function parentClassification() {
+        return $this->hasOne(DeviceClassification::class, 'id', 'parent_classification_id');
+    }
+
+    /**
+     * Relation to classification Taxonomy
+     * 
+     * @return HasOne
+     */
+    public function classificationTaxonomy() {
+        return $this->hasOne(Taxonomy::class, 'id', 'classification_taxonomy_id');
+    }
+
+    /**
+     * Relation to value Taxonomy
+     * 
+     * @return HasOne
+     */
+    public function valueTaxonomy() {
+        return $this->hasOne(Taxonomy::class, 'id', 'value_taxonomy_id');
+    }
+
+    /**
+     * Relation to price Taxonomy
+     * 
+     * @return HasOne
+     */
+    public function priceTaxonomy() {
+        return $this->hasOne(Taxonomy::class, 'id', 'price_taxonomy_id');
+    }
+
+    /**
+     * Relation to additional Description
+     * 
+     * @return HasOne
+     */
+    public function additionalDescription() {
+        return $this->hasOne(Description::class, 'id', 'additional_description_id');
+    }
+
+    /**
+     * Relation to child Device Classifications
+     * 
+     * @return HasMany
+     */
+    public function childClassifications() {
+        return $this->hasMany(DeviceClassification::class, 'parent_classification_id', 'id');
+    }
+
+    /**
+     * Scope a query to only include classifications which has specified parent.
+     *
+     * @param Builder $query query to scope to
+     * @return Builder
+     */
+    public function scopeForParent($query, $parent_classification_id = null) {
+        return is_null($parent_classification_id) ? $query->whereNull('parent_classification_id') : $query->where('parent_classification_id', '=', $parent_classification_id);
+    }
+
+    /**
+     * Find DeviceClassification by id from list
+     * or fail
+     * 
+     * @param int $id classification id
+     * @param int $devCls device classification list
+     * @return mixed
+     * @static
+     */
+    static public function findKeyById($id, $devCls) {
+        foreach ($devCls as $key => $devCl) {
+            if ($devCl->id == $id) {
+                return $key;
+            }
+        }
+        return null;
+    }
+
+}
+

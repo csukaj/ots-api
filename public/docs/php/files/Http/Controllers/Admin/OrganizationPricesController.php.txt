@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\OrganizationEntity;
+use App\Facades\Config;
+use App\Http\Controllers\ResourceController;
+use App\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * @resource Admin/OrganizationPricesController
+ */
+class OrganizationPricesController extends ResourceController {
+
+    /**
+     * show
+     * Display the price settings & OrganizationPrices & price names of a specified Organization
+     * @param  int  $id
+     * @param  Request  $request
+     * @return Response
+     */
+    public function show($id, Request $request = null) {
+        $organizationEntity = new OrganizationEntity(Organization::findOrFail($id));
+        $productType = $request->get('product-type', 'accommodation');
+        return [
+            'success' => true,
+            'data' => $organizationEntity->getFrontendData(
+                ['date_ranges', 'discount_date_ranges', 'devices', 'prices', 'device_margin', 'pricing', 'device_amount'],
+                $productType
+            ),
+            'price_names' => TaxonomyEntity::getCollection(Taxonomy::findOrFail(Config::get('taxonomies.names.price_name'))->getChildren(), ['translations'])
+        ];
+    }
+
+    /**
+     * update
+     * Update OrganizationPrices & price settings of the specified Organization
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $organization = Organization::findOrFail($id);
+        $organization->fill($request->toArray());
+        $organization->pricing_logic_taxonomy_id = Taxonomy::getTaxonomy($request->pricing_logic, Config::get('taxonomies.pricing_logic'))->id;
+        $organization->margin_type_taxonomy_id = Taxonomy::getTaxonomy($request->margin_type, Config::get('taxonomies.margin_type'))->id;
+        $organization->saveOrFail();
+        return [
+            'success' => true,
+            'data' => (new OrganizationEntity($organization))->getFrontendData(['date_ranges', 'devices', 'prices', 'device_margin', 'pricing']),
+            'price_names' => TaxonomyEntity::getCollection(Taxonomy::findOrFail(Config::get('taxonomies.names.price_name'))->getChildren(), ['translations'])
+        ];
+    }
+
+}
+

@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\OrganizationAgeRangeEntity;
+use App\Exceptions\UserException;
+use App\Facades\Config;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\OrganizationAgeRangeSetter;
+use App\OrganizationAgeRange;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * @resource Admin/OrganizationAgeRangeController
+ */
+class OrganizationAgeRangeController extends ResourceController {
+
+    private static $additions = ['taxonomy'];
+
+    /**
+     * index
+     * Display a listing of OrganizationAgeRange & AgeRange names
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        $ageRanges = OrganizationAgeRange::where('organization_id', '=', $request->input('organization_id'))->orderBy('from_age', 'asc')->get();
+        return [
+            'success' => true,
+            'data' => OrganizationAgeRangeEntity::getCollection($ageRanges, self::$additions),
+            'age_range_names' => TaxonomyEntity::getCollection(Taxonomy::findOrFail(Config::get('taxonomies.age_range'))->getChildren(), ['translations_with_plurals'])
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created OrganizationAgeRange
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $ageRange = (new OrganizationAgeRangeSetter($request->all()))->set();
+        return ['success' => true, 'data' => (new OrganizationAgeRangeEntity($ageRange))->getFrontendData(self::$additions)];
+    }
+
+    /**
+     * show
+     * Display the specified OrganizationAgeRange
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $ageRange = OrganizationAgeRange::findOrFail($id);
+        return ['success' => true, 'data' => (new OrganizationAgeRangeEntity($ageRange))->getFrontendData(self::$additions)];
+    }
+
+    /**
+     * destroy
+     * Remove the specified OrganizationAgeRange
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        if (OrganizationAgeRange::findOrFail($id)->name->name == 'adult') {   
+            throw new UserException('You cannot delete default (adult) age range.');
+        }
+        $count = OrganizationAgeRange::destroy($id);
+        return ['success' => (bool) $count, 'data' => (new OrganizationAgeRangeEntity(OrganizationAgeRange::withTrashed()->findOrFail($id)))->getFrontendData(self::$additions)];
+    }
+
+}
+

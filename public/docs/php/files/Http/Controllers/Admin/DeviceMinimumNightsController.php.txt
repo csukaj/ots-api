@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\DeviceMinimumNights;
+use App\Entities\DeviceEntity;
+use App\Entities\DeviceMinimumNightsEntity;
+use App\Entities\OrganizationDateRangeEntity;
+use App\Http\Controllers\Controller;
+use App\Manipulators\DeviceMinimumNightsSetter;
+use App\Organization;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/DeviceMinimumNightsController
+ */
+class DeviceMinimumNightsController extends Controller {
+
+    /**
+     * index
+     * Display a listing of DeviceMinimumNights by Organization
+     * @return Response
+     */
+    public function index(Request $request) {
+        $organization = Organization::findOrFail($request->input('organization_id'));
+        $devices = $organization->devices()->get();
+        $minNights = DeviceMinimumNights::whereIn('device_id', $devices->pluck('id'))->get();
+        $dateRanges = $organization->dateRanges()->open()->get();
+
+        return [
+            'success' => true,
+            'data' => DeviceMinimumNightsEntity::getCollection($minNights),
+            'devices' => DeviceEntity::getCollection($devices),
+            'date_ranges' => OrganizationDateRangeEntity::getCollection($dateRanges)
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created DeviceMinimumNights
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $organization = Organization::findOrFail($request->input('organization_id'));
+        $devices = $organization->devices()->get();
+        $existingMinNights = DeviceMinimumNights::whereIn('device_id', $devices->pluck('id'))->get();
+        $dateRanges = $organization->dateRanges()->open()->get();
+
+        foreach ($existingMinNights as $existingMN) {
+            $found = false;
+            foreach ($request->input('minimum_nights') as $inputMinNights) {
+                if ($existingMN->device_id == $inputMinNights['device_id'] && $existingMN->organization_date_range_id == $inputMinNights['organization_date_range_id']) {
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                $existingMN->delete();
+            }
+        }
+
+        foreach ($request->input('minimum_nights') as $inputMinNights) {
+            (new DeviceMinimumNightsSetter($inputMinNights))->set();
+        }
+
+        $minNights = DeviceMinimumNights::whereIn('device_id', $devices->pluck('id'))->get();
+
+        return [
+            'success' => true,
+            'data' => DeviceMinimumNightsEntity::getCollection($minNights),
+            'devices' => DeviceEntity::getCollection($devices),
+            'date_ranges' => OrganizationDateRangeEntity::getCollection($dateRanges)
+        ];
+    }
+
+}
+

@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\DeviceUsage;
+use App\Entities\DeviceUsageEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\DeviceUsageSetter;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/DeviceUsageController
+ */
+class DeviceUsageController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of DeviceUsages
+     * @return Response
+     */
+    public function index() {
+        return ['success' => true, 'data' => DeviceUsageEntity::getCollection(DeviceUsage::all(), ['admin'])];
+    }
+
+    /**
+     * show
+     * Display the specified DeviceUsage
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $deviceUsage = DeviceUsage::findOrFail($id);
+        return ['success' => true, 'data' => (new DeviceUsageEntity($deviceUsage))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * store
+     * Store a newly created DeviceUsage
+     * @param  Request @return Response
+     */
+    public function store(Request $request) {
+        $deviceUsage = (new DeviceUsageSetter())->set($request->toArray());
+        return ['success' => true, 'data' => (new DeviceUsageEntity($deviceUsage))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * update
+     * Update the specified DeviceUsage
+     * @param  Request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $requestArray = $request->toArray();
+        $requestArray['id'] = $id;
+        $deviceUsage = (new DeviceUsageSetter())->set($requestArray);
+        return ['success' => true, 'data' => (new DeviceUsageEntity($deviceUsage))->getFrontendData(['admin'])];
+    }
+
+    /**
+     * destroy
+     * Remove the specified DeviceUsage
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $deviceUsage = DeviceUsage::findOrFail($id);
+        return ['success' => (bool)$deviceUsage->delete(), 'data' => (new DeviceUsageEntity(DeviceUsage::withTrashed()->findOrFail($id)))->getFrontendData(['admin'])];
+    }
+
+}
+

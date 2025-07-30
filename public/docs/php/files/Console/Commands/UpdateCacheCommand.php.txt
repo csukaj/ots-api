@@ -1,0 +1,189 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Entities\MealPlanEntity;
+use App\Facades\Config;
+use App\Island;
+use App\MealPlan;
+use App\Traits\FileTrait;
+use Illuminate\Console\Command;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+/**
+ * Updates file cache. 
+ * 
+ * Recreates every cache file. Icon cache regenereation can be disabled
+ */
+class UpdateCacheCommand extends Command {
+    use FileTrait;
+
+    const TEST_DB = 'testing';
+
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'command:updatecache {--database=local} {--disable-icon-cache} {--i}';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Creates model cache files';
+
+    /**
+     * Cache directories
+     */
+    protected $directories = [];
+
+    /**
+     * Database connection name used
+     */
+    protected $database;
+
+    /**
+     * Additional file name
+     */
+    protected $additionalFileName;
+
+    /**
+     * disable icon cache
+     *
+     * @var boolean
+     */
+    protected $isIconCacheDisabled = false;
+
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->directories = Config::get('cache.frontend_cache_directories');
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle() {
+        $this->database = $this->option('database');
+        if ((
+                $this->hasOption('disable-icon-cache') &&
+                $this->option('disable-icon-cache')
+            ) || (
+                $this->hasOption('i') &&
+                $this->option('i')
+            )
+        ) {
+            $this->isIconCacheDisabled = true;
+        }
+
+        Config::set('database.default', $this->database);
+
+        if ($this->option('database') == self::TEST_DB) {
+            $this->additionalFileName = '_' . self::TEST_DB;
+        }
+
+        foreach ($this->directories as $directory) {
+            $dir = base_path($directory);
+            if (!is_dir($dir)) {
+                mkdir($dir);
+                chmod($dir, 0777);
+            }
+        }
+
+        $this->islands();
+        $this->languages();
+        $this->mealPlans();
+        if (!$this->isIconCacheDisabled) {
+            $this->icons();
+        }
+        $this->countries();
+
+        $this->info("Cache files updated.");
+    }
+
+    /**
+     * Creates cache file for islands
+     */
+    public function islands() {
+        $islands = Island::getIslandsInOrder();
+        $data = [];
+        foreach ($islands as $island) {
+            $districts = [];
+            foreach ($island->districts as $district) {
+                $districts[] = ['id' => $district->id, 'name' => $district->name->name];
+            }
+            $data[] = ['id' => $island->id, 'priority' => $island->name->priority, 'name' => $island->name->name, 'districts' => $districts];
+        }
+        $this->saveToCacheFiles('islands' . $this->additionalFileName, $data);
+    }
+
+    /**
+     * Creates cache file for languages
+     */
+    public function languages() {
+        $languages = Language::orderBy('id')->get();
+        $defaultLanguageName = Config::get('taxonomies.default_language');
+        
+        $data = [];
+        foreach ($languages as $language) {
+            $plurals = [];
+            foreach (Config::get("taxonomies.languages.{$language->name->name}.plurals") as $shortName => $pluralData) {
+                $plurals[$shortName] = (new TaxonomyEntity(Taxonomy::findOrFail($pluralData['id'])))->getFrontendData();
+            }
+            
+            $data[$language->iso_code] = [
+                'id' => $language->id,
+                'name' => $language->name->name,
+                'iso_code' => $language->iso_code,
+                'date_format' => $language->date_format,
+                'time_format' => $language->time_format,
+                'first_day_of_week' => $language->first_day_of_week,
+                'plurals' => $plurals,
+                'is_default' => ($defaultLanguageName == $language->name->name),
+                'countries' => require "vendor/umpirsky/country-list/data/{$language->iso_code}/country.php"
+            ];
+        }
+        $this->saveToCacheFiles('languages' . $this->additionalFileName, $data);
+    }
+
+    /**
+     * Creates cache file for mealplans
+     */
+    public function mealPlans() {
+        $mealPlans = MealPlan::get();
+        $this->saveToCacheFiles('meal_plans' . $this->additionalFileName, MealPlanEntity::getCollection($mealPlans));
+    }
+
+    /**
+     * Creates cache file for icons
+     */
+    public function icons() {
+        $package = json_decode(file_get_contents('https://materialdesignicons.com/api/package/38EF63D0-4744-11E4-B3CF-842B2B6CFE1B'), true);
+        $iconNames = [];
+        foreach ($package['icons'] as $iconData) {
+            $iconNames[] = $iconData['name'];
+        }
+        $this->saveToCacheFiles('icons' . $this->additionalFileName, $iconNames);
+    }
+
+    /**
+     * Creates cache file for countries
+     */
+    public function countries()
+    {
+        $data = json_decode(file_get_contents('vendor/mledoze/countries/dist/countries.json'), true);
+        $this->saveToCacheFiles('countries' . $this->additionalFileName, $data);
+    }
+
+}
+

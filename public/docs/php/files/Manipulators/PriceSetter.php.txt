@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\Price;
+
+/**
+ * Manipulator to create a new Price 
+ * instance after the supplied data passes validation
+ */
+class PriceSetter {
+
+    /**
+     * Attributes that can be set from input
+     */
+    
+    public $product_id;
+    public $organization_age_range_id;
+    public $name_taxonomy_id;
+    public $amount;
+    public $margin_type_taxonomy_id;
+    public $margin_value;
+    public $extra;
+    public $mandatory;
+
+    public function __construct(array $attributes = []) {
+        foreach ($attributes as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    public function set($id = null) {
+        if ($id) {
+            $price = Price::findOrFail($id);
+        } else {
+            $attributes = [
+                'product_id' => $this->product_id,
+                'organization_age_range_id' => $this->organization_age_range_id,
+                'name_taxonomy_id' => $this->name_taxonomy_id
+            ];
+            $price = Price::createOrRestore($attributes);
+        }
+
+        $price->organization_age_range_id = $this->organization_age_range_id;
+        $price->name_taxonomy_id = $this->name_taxonomy_id;
+        $price->amount = $this->amount;
+        $price->margin_type_taxonomy_id = $this->margin_type_taxonomy_id;
+        $price->margin_value = $this->margin_value;
+        $price->extra = $this->extra;
+        $price->mandatory = $this->mandatory;
+        $price->saveOrFail();
+
+        return $price;
+    }
+
+}
+

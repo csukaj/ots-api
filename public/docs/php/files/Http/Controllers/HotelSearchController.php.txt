@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Caches\HotelSearchableTextsCache;
+use App\Caches\HotelSearchOptionsCache;
+use App\Entities\HotelSearchEntity;
+use Illuminate\Http\Request;
+
+/**
+ * @resource HotelSearchController
+ */
+class HotelSearchController extends Controller {
+
+    /**
+     * index
+     * Run a hotel search by request
+     * @param Request $request
+     * @return type
+     */
+    public function index(Request $request) {
+        $hotelSearchEn = new HotelSearchEntity();
+        $hotelSearchEn->setParameters($request->all());
+        return [
+            'success' => true,
+            'data' => $hotelSearchEn->getFrontendData(['frontend']),
+            'request' => $request->toArray()
+        ];
+    }
+
+    /**
+     * searchableTexts
+     * List all searchable options for hotel name text search
+     * @return type
+     */
+    public function searchableTexts() {
+        return [
+            'success' => true,
+            'data' => (new HotelSearchableTextsCache())->getValues()
+        ];
+    }
+
+    /**
+     * searchOptions
+     * List all filter options for hotel search
+     * @return type
+     */
+    public function searchOptions() {
+        return [
+            'success' => true,
+            'data' => (new HotelSearchOptionsCache())->getValues()
+        ];
+    }
+
+}
+

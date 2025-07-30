@@ -1,0 +1,174 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * App\OrganizationMealPlan
+ *
+ * @property int $id
+ * @property int $organization_id
+ * @property int $meal_plan_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property int $organization_date_range_id
+ * @property-read OrganizationDateRange $dateRange
+ * @property-read MealPlan $mealPlan
+ * @property-read Organization $organization
+ * @property-read Collection|Price[] $prices
+ * @mixin \Eloquent
+ */
+class OrganizationMealPlan extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'meal_plan_id', 'organization_id', 'organization_date_range_id'
+    ];
+
+    /**
+     * Custom save for OrganizationMealPlan overwriting Model::save()
+     * If already exists updates
+     * 
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = []): bool {
+        $match = self
+                ::where('meal_plan_id', '=', $this->meal_plan_id)
+                ->where('organization_id', '=', $this->organization_id)
+                ->where('organization_date_range_id', '=', $this->organization_date_range_id)
+                ->first();
+        if ($match) {
+            $this->id = $match->id;
+            $this->exists = true;
+            return true;
+        }
+        return parent::save($options);
+    }
+
+    /**
+     * Relation to mealplan
+     * 
+     * @return HasOne
+     */
+    public function mealPlan(): HasOne {
+        return $this->hasOne(MealPlan::class, 'id', 'meal_plan_id');
+    }
+
+    /**
+     * Relation to organization
+     * 
+     * @return HasOne
+     */
+    public function organization(): HasOne {
+        return $this->hasOne(Organization::class, 'id', 'organization_id');
+    }
+
+    /**
+     * Relation to dateRange
+     * 
+     * @return HasOne
+     */
+    public function dateRange(): HasOne {
+        return $this->hasOne(OrganizationDateRange::class, 'id', 'organization_date_range_id');
+    }
+
+    /**
+     * Relation to prices
+     * 
+     * @return HasMany
+     */
+    public function prices(): HasMany {
+        return $this->hasMany(Price::class, 'organization_meal_plan_id', 'id');
+    }
+
+    /**
+     * Finds orgnaizationmealplan by name, organization and date range
+     * @param string $name
+     * @param int $organizationId
+     * @param int $dateRangeId
+     * @return OrganizationMealPlan
+     */
+    public static function findByName(string $name, int $organizationId, int $dateRangeId): OrganizationMealPlan {
+        $mealPlan = MealPlan::findByName($name);
+        return self::where([
+                    'meal_plan_id' => $mealPlan->id,
+                    'organization_id' => $organizationId,
+                    'organization_date_range_id' => $dateRangeId
+                ])->firstOrFail();
+    }
+
+    /**
+     * get names of specified organizationMealPlans list items (in default language) ordered by priority
+     * 
+     * @param type $organizationMealPlans
+     * @param bool $indexedWithId Is list indexed with organizationMealPlan id
+     * @return array<string>
+     * @throws Exception
+     */
+    public static function getNames($organizationMealPlans, bool $indexedWithId = false): array {
+        $return = [];
+        $indexedMealPlans = [];
+
+        foreach ($organizationMealPlans as $organizationMealPlan) {
+            if (!is_object($organizationMealPlan) || !($organizationMealPlan instanceof self)) {
+                throw new Exception('Invalid type, expected OrganizationMealPlan.');
+            }
+            if ($indexedWithId) {
+                $indexedMealPlans[$organizationMealPlan->id] = $organizationMealPlan;
+            } else {
+                $indexedMealPlans[] = $organizationMealPlan;
+            }
+        }
+
+        if ($indexedWithId) {
+            uasort($indexedMealPlans, array('self', 'compareByPriority'));
+        } else {
+            usort($indexedMealPlans, array('self', 'compareByPriority'));
+        }
+
+        foreach ($indexedMealPlans as $key => $organizationMealPlan) {
+            $return[$key] = $organizationMealPlan->mealPlan->name->name;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Compare function for organizationMealPlans by priority attributa
+     * @param OrganizationMealPlan $a
+     * @param OrganizationMealPlan $b
+     * @return int
+     * @throws Exception
+     */
+    private static function compareByPriority($a, $b): int {
+        if (!is_object($a) || !($a instanceof self)) {
+            throw new Exception('Invalid type, expected OrganizationMealPlan.');
+        }
+        if (!is_object($b) || !($b instanceof self)) {
+            throw new Exception('Invalid type, expected OrganizationMealPlan.');
+        }
+
+        if ($a->mealPlan->name->priority == $b->mealPlan->name->priority) {
+            return 0;
+        }
+        return ($a->mealPlan->name->priority < $b->mealPlan->name->priority) ? -1 : 1;
+    }
+
+}
+

@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Entities;
+
+use App\Location;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class LocationEntity extends Entity {
+
+    protected $location;
+
+    public function __construct(Location $location) {
+        parent::__construct();
+
+        $this->location = $location;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        $return = [
+            'id' => $this->location->id
+        ];
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'frontend':
+                    $return += [
+                        'island' => $this->location->island_id ? $this->location->island->name->name : null,
+                        'district' => $this->location->district_id ? $this->location->district->name->name : null,
+                        'longitude' => $this->location->longitude,
+                        'latitude' => $this->location->latitude,
+                        'po_box' => $this->location->po_box
+                    ];
+                    break;
+                case 'admin':
+                    $return += [
+                        'island' => [
+                            'id' => $this->location->island_id,
+                            'name_taxonomy' => $this->location->island_id ? (new TaxonomyEntity($this->location->island->name))->getFrontendData() : null
+                        ],
+                        'district' => [
+                            'id' => $this->location->district_id,
+                            'name_taxonomy' => $this->location->district_id ? (new TaxonomyEntity($this->location->district->name))->getFrontendData() : null
+                        ],
+                        'longitude' => $this->location->longitude,
+                        'latitude' => $this->location->latitude,
+                        'po_box' => $this->location->po_box
+                    ];
+                    break;
+            }
+        }
+        
+        return $return;
+    }
+
+}
+

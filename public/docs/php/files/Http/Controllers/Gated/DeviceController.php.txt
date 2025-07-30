@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers\Gated;
+
+use App\Device;
+use App\Entities\DeviceEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\DeviceSetter;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Gated/DeviceController
+ */
+class DeviceController extends ResourceController {
+
+    protected $additions = ['amount', 'descriptions', 'usages', 'margin'];
+    protected $noAccessAdditions = ['amount'];
+
+    /**
+     * index
+     * Display a listing of Devices
+     * @return Response
+     */
+    public function index(Request $request = null) {
+        if (!$this->gateAllows('access-organization', $request->input('organization_id'))) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $devices = Device::where('organization_id', '=', $request->input('organization_id'))->orderBy('id')->get();
+
+        $additions = $this->gateAllows('access-device-attributes', $request->input('organization_id')) ? $this->additions : $this->noAccessAdditions;
+        return ['success' => true, 'data' => DeviceEntity::getCollection($devices, $additions)];
+    }
+
+    /**
+     * store
+     * Store a newly created Device
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        if (!$this->gateAllows('access-organization', $request->input('organization_id')) || !$this->gateAllows('create-device')) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $device = (new DeviceSetter($request->all()))->set();
+
+        $additions = $this->gateAllows('access-device-attributes', $request->input('organization_id')) ? $this->additions : $this->noAccessAdditions;
+        return ['success' => true, 'data' => (new DeviceEntity($device))->getFrontendData($additions)];
+    }
+
+    /**
+     * show
+     * Display the specified Device
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        $device = Device::findOrFail($id);
+
+        if (!$this->gateAllows('access-organization', $device->organization_id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $additions = $this->gateAllows('access-device-attributes', $device->organization_id) ? $this->additions : $this->noAccessAdditions;
+        return ['success' => true, 'data' => (new DeviceEntity($device))->getFrontendData($additions)];
+    }
+
+    /**
+     * update
+     * Update the specified Device
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $device = Device::findOrFail($id);
+
+        if (!$this->gateAllows('access-organization', $device->organization_id)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        if ($this->gateAllows('access-device-attributes', $device->organization_id)) {
+            $attributes = $request->all();
+            $attributes['id'] = $id;
+            $device = (new DeviceSetter($attributes))->set();
+        } else {
+            $device->amount = $request->amount;
+            $device->saveOrFail();
+        }
+
+        $additions = $this->gateAllows('access-device-attributes', $device->organization_id) ? $this->additions : $this->noAccessAdditions;
+        return ['success' => true, 'data' => (new DeviceEntity($device))->getFrontendData($additions)];
+    }
+
+    /**
+     * destroy
+     * Remove the specified Device
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $device = Device::findOrFail($id);
+
+        if (!$this->gateAllows('access-organization', $device->organization_id) || !$this->gateAllows('delete-device')) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
+        $additions = $this->gateAllows('access-device-attributes', $device->organization_id) ? $this->additions : $this->noAccessAdditions;
+        return ['success' => (bool) $device->delete(), 'data' => (new DeviceEntity(Device::withTrashed()->findOrFail($id)))->getFrontendData($additions)];
+    }
+}

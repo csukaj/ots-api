@@ -1,0 +1,348 @@
+<?php
+
+namespace App;
+
+use App\ModelValidatorTrait;
+use App\OrganizationClassification;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Modules\Stylersmedia\Entities\Gallery;
+use Modules\Stylerstaxonomy\Entities\ClassificableTrait;
+use Modules\Stylerstaxonomy\Entities\Description;
+use Modules\Stylerstaxonomy\Entities\Language;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * App\Organization
+ *
+ * @property int $id
+ * @property int $name_description_id
+ * @property int $type_taxonomy_id
+ * @property bool $is_active
+ * @property int $parent_id
+ * @property int $pricing_logic_taxonomy_id
+ * @property int $margin_type_taxonomy_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property int $location_id
+ * @property-read Collection|OrganizationAgeRange[] $ageRanges
+ * @property-read Collection|OrganizationClassification[] $classifications
+ * @property-read Collection|OrganizationDateRange[] $dateRanges
+ * @property-read Collection|OrganizationDescription[] $descriptions
+ * @property-read Collection|Device[] $devices
+ * @property-read Collection|Gallery[] $galleries
+ * @property-read Location $location
+ * @property-read Collection|OrganizationManager[] $managers
+ * @property-read Taxonomy $marginType
+ * @property-read Collection|OrganizationMeta[] $metas
+ * @property-read Description $name
+ * @property-read Collection|OrganizationMealPlan[] $organizationMealPlans
+ * @property-read ParentOrganization $parentOrganization
+ * @property-read Collection|Price[] $prices
+ * @property-read Taxonomy $pricingLogic
+ * @property-read Taxonomy $type
+ * @mixin \Eloquent
+ */
+class Organization extends Model {
+
+    use SoftDeletes,
+        ModelValidatorTrait,
+        ClassificableTrait;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name_description_id', 'type_taxonomy_id',
+        'is_active', 'parent_id',
+        'pricing_logic_taxonomy_id', 'margin_type_taxonomy_id',
+        'created_at', 'updated_at', 'deleted_at', 'location_id'
+    ];
+
+    /**
+     * Relation to name description
+     * 
+     * @return HasOne
+     */
+    public function name() {
+        return $this->hasOne(Description::class, 'id', 'name_description_id');
+    }
+
+    /**
+     * Relation to type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function type() {
+        return $this->hasOne(Taxonomy::class, 'id', 'type_taxonomy_id');
+    }
+
+    /**
+     * Relation to parent organization
+     * 
+     * @return HasOne
+     */
+    public function parentOrganization() {
+        return $this->hasOne(ParentOrganization::class, 'id', 'parent_id');
+    }
+
+    /**
+     * Relation to organization classifications
+     * 
+     * @return HasMany
+     */
+    public function classifications() {
+        return $this->hasMany(OrganizationClassification::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Relation to Organization Metas
+     * 
+     * @return HasMany
+     */
+    public function metas() {
+        return $this->hasMany(OrganizationMeta::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Relation to Organization Descriptions
+     * 
+     * @return HasMany
+     */
+    public function descriptions() {
+        return $this->hasMany(OrganizationDescription::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Relation to devices
+     * 
+     * @return HasMany
+     */
+    public function devices() {
+        return $this->hasMany(Device::class, 'organization_id', 'id')->orderBy('id');
+    }
+
+    /**
+     * Relation to organization age ranges
+     * 
+     * @return HasMany
+     */
+    public function ageRanges() {
+        return $this->hasMany(OrganizationAgeRange::class, 'organization_id', 'id')->orderBy('from_age');
+    }
+
+    /**
+     * Relation to organization date ranges
+     * 
+     * @return HasMany
+     */
+    public function dateRanges() {
+        return $this->hasMany(OrganizationDateRange::class, 'organization_id', 'id')->orderBy('from_time');
+    }
+
+    /**
+     * Relation to pricing Logic
+     * 
+     * @return HasOne
+     */
+    public function pricingLogic() {
+        return $this->hasOne(Taxonomy::class, 'id', 'pricing_logic_taxonomy_id');
+    }
+
+    /**
+     * Relation to margin type taxonomy
+     * 
+     * @return HasOne
+     */
+    public function marginType() {
+        return $this->hasOne(Taxonomy::class, 'id', 'margin_type_taxonomy_id');
+    }
+
+    /**
+     * Relation to location
+     * 
+     * @return HasOne
+     */
+    public function location() {
+        return $this->hasOne(Location::class, 'id', 'location_id');
+    }
+
+    /**
+     * Relation to organization mealplans
+     * 
+     * @return HasMany
+     */
+    public function organizationMealPlans() {
+        return $this->hasMany(OrganizationMealPlan::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Relation to organization managers
+     * 
+     * @return HasMany
+     */
+    public function managers() {
+        return $this->hasMany(OrganizationManager::class, 'organization_id', 'id');
+    }
+
+    /**
+     * Relation to galleries
+     * 
+     * @return MorphMany
+     */
+    public function galleries() {
+        return $this->morphMany(Gallery::class, 'galleryable');
+    }
+
+    /**
+     * Relation to prices
+     * 
+     * @return HasManyThrough
+     */
+    public function prices() {
+        return $this->hasManyThrough(
+                        Price::class, OrganizationAgeRange::class, 'organization_id', 'organization_age_range_id', 'id'
+        );
+    }
+
+    /**
+     * Scope a query to only include organizations of hotel type.
+     *
+     * @param Builder $query query to scope to
+     * @return Builder
+     */
+    public function scopeHotel($query) {
+        return $query->where('type_taxonomy_id', Config::get('taxonomies.organization_types.hotel.id'));
+    }
+
+    /**
+     * Get availability mode associated to this organization
+     * 
+     * @return OrganizationClassification|null
+     */
+    public function getAvailabilityMode() {
+        return $this->getClassification(Config::get('taxonomies.organization_classifications.categories.settings.items.availability_mode.id'));
+    }
+
+    /**
+     * Get name list of organizations (of type hotel) on every languages
+     * 
+     * @param string $nameToFind
+     * @param int $ignoreId
+     * @return Collection
+     */
+    static public function getHotelNames($nameToFind = null, $ignoreId = null) {
+
+        $defaultLangCode = Language::getDefault()->iso_code;
+
+        $defaultLangNames = Organization
+                ::select(DB::raw("organizations.id, descriptions.description, '" . $defaultLangCode . "' AS language"))
+                ->join('descriptions', 'organizations.name_description_id', '=', 'descriptions.id')
+                ->where('organizations.type_taxonomy_id', '=', Config::get('taxonomies.organization_types.hotel.id'));
+        if (!empty($nameToFind)) {
+            if(is_array($nameToFind)){
+                $defaultLangNames->whereIn('descriptions.description', $nameToFind);
+            }else{
+                $defaultLangNames->where('descriptions.description', '=', $nameToFind);
+            }
+        }
+        if (!empty($ignoreId)) {
+            $defaultLangNames->where('organizations.id', '!=', $ignoreId);
+        }
+
+        $translationNames = Organization
+                ::select(['organizations.id', 'description_translations.description', 'languages.iso_code AS language'])
+                ->join('descriptions', 'organizations.name_description_id', '=', 'descriptions.id')
+                ->join('description_translations', 'descriptions.id', '=', 'description_translations.description_id')
+                ->join('languages', 'description_translations.language_id', '=', 'languages.id')
+                ->where('organizations.type_taxonomy_id', '=', Config::get('taxonomies.organization_types.hotel.id'));
+        if (!empty($nameToFind)) {
+            if(is_array($nameToFind)){
+                $translationNames->whereIn('description_translations.description', $nameToFind);
+            }else{
+                $translationNames->where('description_translations.description', '=', $nameToFind);
+            }
+        }
+        if (!empty($ignoreId)) {
+            $translationNames->where('organizations.id', '!=', $ignoreId);
+        }
+
+        return $translationNames->union($defaultLangNames)->get();
+    }
+
+    /**
+     * Get name list of organizations (of type hotel) on default language
+     * 
+     * @return Collection
+     * @static
+     */
+    static public function getEnglishHotelNames() {
+        return Organization
+                ::select(DB::raw("organizations.id, descriptions.description"))
+                ->join('descriptions', 'organizations.name_description_id', '=', 'descriptions.id')
+                ->where('organizations.type_taxonomy_id', '=', Config::get('taxonomies.organization_types.hotel.id'))
+                ->get();
+    }
+
+    /**
+     * Get last update time of organization table
+     * 
+     * @return mixed
+     * @static
+     */
+    static public function getLastUpdate() {
+        return DB::table('organizations')->max('updated_at');
+    }
+
+    /**
+     * get Last NameUpdate Timestamp for organizations
+     * @return int
+     */
+    static public function getLastNameUpdateTimestamp(): int {
+        $maximums = DB::table('organizations')
+                ->select(DB::raw('max(organizations.updated_at) as "organizations_max", max(descriptions.updated_at) as "description_max", max(description_translations.updated_at) as "description_translations_max"'))
+                ->join('descriptions', 'organizations.name_description_id', '=', 'descriptions.id')
+                ->leftJoin('description_translations', 'descriptions.id', '=', 'description_translations.description_id')
+                ->first();
+        return max(strtotime($maximums->organizations_max), strtotime($maximums->description_max), strtotime($maximums->description_translations_max));
+    }
+
+    /**
+     * Get active organization ids of type hotel
+     * 
+     * @return array
+     */
+    static public function getHotelIds(): array {
+        return self::hotel()->pluck('id')->toArray();
+    }
+
+    /**
+     * get Organizations By Name (on default language)
+     * 
+     * @param string $name
+     * @return Collection
+     * @static
+     */
+    static public function getOrganizationsByName(string $name) {
+        return Organization
+                        ::select(DB::raw('organizations.*'))
+                        ->join('descriptions', 'descriptions.id', '=', 'organizations.name_description_id')
+                        ->where('descriptions.description', '=', $name)
+                        ->orderBy('organizations.id')
+                        ->get();
+    }
+
+}
+

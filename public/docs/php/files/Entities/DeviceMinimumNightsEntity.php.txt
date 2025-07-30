@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Entities;
+
+use App\DeviceMinimumNights;
+
+class DeviceMinimumNightsEntity extends Entity {
+
+    protected $deviceMinimumNights;
+
+    public function __construct(DeviceMinimumNights $deviceMinimumNights) {
+        parent::__construct();
+
+        $this->deviceMinimumNights = $deviceMinimumNights;
+    }
+
+    public function getFrontendData(array $additions = []) {
+        return [
+            'id' => $this->deviceMinimumNights->id,
+            'device_id' => $this->deviceMinimumNights->device_id,
+            'organization_date_range_id' => $this->deviceMinimumNights->organization_date_range_id,
+            'minimum_nights' => $this->deviceMinimumNights->minimum_nights
+        ];
+    }
+
+}
+

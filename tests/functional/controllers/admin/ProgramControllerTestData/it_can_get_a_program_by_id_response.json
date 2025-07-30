@@ -1,0 +1,177 @@
+{
+  "success": true,
+  "data": {
+    "id": 1,
+    "type": "itinerary",
+    "organization_id": 301,
+    "name": {
+      "en": "Itinerary A",
+      "de": "Reiseplan A",
+      "hu": "Programterv A",
+      "ru": "\u041c\u0430\u0440\u0448\u0440\u0443\u0442 A"
+    },
+    "location": {
+      "id": 27,
+      "island": {
+        "id": 1,
+        "name_taxonomy": {
+          "id": 43,
+          "parent_id": 42,
+          "name": "Mah\u00e9",
+          "priority": 0,
+          "is_active": true,
+          "is_required": false,
+          "is_readonly": true,
+          "is_merchantable": false,
+          "is_searchable": false,
+          "type": "unknown",
+          "icon": null
+        }
+      },
+      "district": {
+        "id": 1,
+        "name_taxonomy": {
+          "id": 165,
+          "parent_id": 43,
+          "name": "Anse aux Pins",
+          "priority": null,
+          "is_active": true,
+          "is_required": false,
+          "is_readonly": true,
+          "is_merchantable": false,
+          "is_searchable": false,
+          "type": "unknown",
+          "icon": null
+        }
+      },
+      "longitude": "55.458411",
+      "latitude": "-4.618967",
+      "po_box": null
+    },
+    "descriptions": {
+      "long_description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus auctor pretium lobortis. Sed interdum tempor arcu. Pellentesque pretium hendrerit fringilla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse ultricies turpis a aliquet tempor. Suspendisse aliquam bibendum egestas. Duis sollicitudin justo erat, vel dictum libero placerat sed. Nam et mattis tellus. Vestibulum vitae enim vel velit iaculis fermentum.\nNulla sit amet tempor ex. Morbi urna eros, ultrices in tortor vitae, faucibus tincidunt leo. Aenean consectetur felis sit amet cursus facilisis. Curabitur et diam finibus metus egestas tincidunt. Nullam porttitor tincidunt elementum. Quisque elementum rhoncus aliquam. Suspendisse pretium scelerisque luctus. Proin mollis condimentum nisl a fermentum.\nSuspendisse fermentum nisi nec egestas elementum. Nullam pulvinar accumsan dui, sit amet pretium tellus consectetur id. Duis purus dolor, euismod ut nisi et, gravida euismod massa. Aenean vehicula volutpat faucibus. Sed risus dui, porttitor non tristique ac, feugiat nec erat. Aenean non dui ex. Pellentesque tincidunt commodo felis, ac fringilla arcu auctor hendrerit. Etiam volutpat massa et erat sollicitudin accumsan. Nam mattis sollicitudin risus a pharetra. Suspendisse et imperdiet tortor. Aliquam odio neque, accumsan quis convallis et, lacinia nec leo. Sed facilisis volutpat tellus, ut mattis diam ullamcorper quis. Etiam id cursus eros.",
+        "de": "Das Ut fringilla elit risus, id sodales urna luctus eget. Vestibulum vulputate eu ipsum consectetur ultrices. Integer sed purus vitae massa sodales molestie vitae vitae ligula. Etiam vulputate laoreet erat, sed hendrerit sem rutrum eget. Nam congue ornare tempor. Maecenas sagittis, felis in dapibus ultricies, eros tellus maximus felis, consequat malesuada mauris felis sit amet risus. Nulla fringilla leo nec tortor mattis, at porttitor erat elementum. Vestibulum nibh tortor, interdum ut suscipit quis, egestas at leo. Nullam hendrerit, velit vel pharetra suscipit, lorem felis euismod erat, pulvinar vestibulum metus nibh a eros. Nulla volutpat ex a urna tristique mollis.\nNulla gravida augue purus, nec pharetra metus ullamcorper eu. In porta cursus tristique. Duis velit velit, suscipit a nulla quis, bibendum convallis mi. Cras at ex vitae eros auctor lobortis. Sed dignissim sit amet turpis non tempus. Ut sit amet ornare quam. Proin tristique mi nisl, quis consequat ligula porta a.\nInteger rhoncus, sapien eget pharetra sagittis, justo arcu ultricies orci, a viverra tortor orci eu lacus. In et velit nulla. Mauris massa metus, volutpat nec rutrum sed, lacinia ac dolor. Donec sed pretium orci, ac consequat diam. Curabitur tempus tortor a mauris fermentum, vel pulvinar purus condimentum. Integer non dictum nibh. Proin nisl magna, efficitur eu tellus vitae, tincidunt auctor ex. Donec quis fermentum ipsum.",
+        "hu": "Az Praesent vel augue in eros pretium ornare et id velit. Nam quis dui augue. Curabitur consequat lectus nec pretium elementum. In porttitor ullamcorper pellentesque. Pellentesque lectus eros, fringilla in fringilla ut, semper in magna. Aliquam neque justo, pretium vehicula nunc ut, efficitur feugiat felis. Phasellus semper nisl vitae ligula fermentum porta. Sed eu massa vitae velit rhoncus tristique. Phasellus eu dui ex. Duis fringilla neque nisl. Quisque in aliquam urna.\nVivamus a nibh ut libero volutpat pulvinar. Aenean euismod, metus vel tristique ultrices, est lorem egestas nisi, ac convallis felis nulla sit amet nisi. Mauris elit purus, malesuada id eros eget, blandit scelerisque nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed tristique elementum arcu vitae volutpat. Duis ac justo augue. Cras accumsan, massa in convallis porta, nulla mauris faucibus enim, eget pulvinar ante sem eu arcu. Vivamus eget libero varius, tincidunt libero eu, semper leo. Curabitur ornare urna efficitur, varius metus quis, gravida nisi. Nullam ornare tellus sit amet nulla blandit hendrerit. Morbi augue massa, fringilla ac malesuada ac, pellentesque ut mauris. Vestibulum enim orci, fringilla et tempor id, suscipit quis elit. Pellentesque porttitor est id arcu luctus auctor.\nVivamus orci dolor, auctor a nunc et, fermentum imperdiet lorem. Morbi ac vulputate nisl. Morbi laoreet suscipit ligula, vestibulum semper velit vestibulum a. Nulla egestas justo non augue accumsan, vitae lobortis est porttitor. Cras imperdiet scelerisque nisl id hendrerit. Proin vel porta quam. Mauris at dictum elit. Suspendisse vestibulum est quis augue vulputate viverra. Suspendisse purus orci, porta ac metus ornare, fermentum laoreet nulla.",
+        "ru": "Etiam \u041e\u0440\u0441\u0438 Lorem, Varius \u043c\u0430\u0433\u043d\u0430 Eget, Varius sagittis Felis. Nullam Vel Lorem interdum, malesuada Tellus Vel, luctus tortor. Curabitur \u041b\u0435\u0432 ID \u043f\u0430\u0442\u0447 \u0432 \u041c\u0435\u0442\u0443\u0441 Commodo molestie AC Quis \u0434\u0438\u0430\u043c. Fusce sollicitudin Nulla \u043d\u0430 turpis accumsan auctor \u043d\u0435 Eget Lectus. Pellentesque placerat pulvinar \u0438\u0437\u0440\u0435\u0447\u0435\u043d\u0438\u0435. Sed facilisis Lorem \u0432 \u041c\u0435\u0442\u0443\u0441 \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432, \u0432\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u044b\u0435 \u0432 \u0434\u0440\u0443\u0433\u0438\u0435 \u0433\u0440\u0443\u043f\u043f\u0438\u0440\u043e\u0432\u043a\u0438 consequat Dolor sagittis. Aenean ultricies arcu ID \u0434\u0443\u0439 Mollis luctus. Vivamus \u0442\u043e\u0428\u0437 arcu \u043d\u0435 sagittis euismod. \u0414\u043e\u043d\u0435\u0446 \u0441 \u041c\u0430\u0433\u043d\u0430 \u043c\u0438. Pellentesque auctor \u041e\u0440\u0441\u0438 \u0438 \u0434\u0440 Lorem ullamcorper Elementum. Nulla \u0434\u0443\u0439 \u041f\u0443\u0440\u0443\u0441, convallis \u0432 aliquam Vitae, Pretium \u0443\u0442 enim. Nulla Erat neque, suscipit \u0438 \u0434\u0440 \u0435\u0445 \u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440, dapibus Elementum Sapien. Nullam accumsan, tortor \u0435\u0441 tincidunt \u0437\u0435\u0442\u0440\u0435\u0433, \u0431\u044b\u0432\u0448\u0438\u0439 \u042d\u043b\u0438\u0442 pulvinar Felis, \u0435\u0441 venenatis \u041b\u0435\u0432 \u043b\u0438\u0431\u0435\u0440\u043e \u043c\u0430\u0433\u043d\u0430. Phasellus ornare \u041c\u0435\u0442\u0443\u0441 Nunc, \u0432 Elementum \u0434\u0438\u0430\u043c venenatis \u0438 \u0434\u0440. Phasellus Pretium scelerisque Maximus. Fusce viverra arcu, \u0443\u0442 suscipit \u041c\u0435\u0442\u0443\u0441.\nPellentesque Vitae turpis \u0415\u0421 \u0444\u0435\u043b\u0438\u0441 \u200b\u200bfermentum sodales. Nulla Sapien tortor, tincidunt \u0438 \u0434\u0440 \u041a\u0432\u0430\u043c Vitae, gravida blandit Lectus. \u0414\u043e\u043d\u0435\u0446 molestie ultricies \u0434\u0443\u0439, Vitae lobortis nibh placerat \u0432. Integer \u041c\u0430\u0442\u0442\u0438\u0441 sagittis Varius. \u0414\u043e\u043d\u0435\u0446 consequat \u0432 \u042d\u0441\u0442 Vitae finibus. Pellentesque \u043e\u0431\u0438\u0442\u0430\u0442\u0435\u043b\u044c MORBI tristique senectus ET Netus ET malesuada FAMEs AC turpis \u044d\u043a\u0441\u043a\u0440\u0435\u0442\u043e\u0432. Integer \u0438 \u0434\u0440 Massa pharetra \u0432\u0435\u043b\u0438\u0442 Commodo vehicula ID AC Ipsum. Suspendisse aliquet, Erat \u0443\u0442 Cursus blandit, nibh \u0432\u0435\u043b\u0438\u0442 sollicitudin \u043f\u0437\u0438\u0437, \u0438 \u0434\u0440 placerat Lorem \u0435\u0445 \u0421\u0415\u041f\u0413 \u043c\u0438\u043b\u044c."
+      }
+    },
+    "ship_company": {
+      "id": 301,
+      "name": {
+        "en": "Ship Company A",
+        "de": "Schiffsfirma A",
+        "hu": "Haj\u00f3z\u00e1si t\u00e1rsas\u00e1g A",
+        "ru": "\u0421\u0443\u0434\u043e\u0432\u0430\u044f \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f A"
+      },
+      "short_name": null,
+      "type": "ship_company",
+      "parent": null,
+      "is_active": true,
+      "properties": [],
+      "reviews": []
+    },
+    "galleries": [
+      {
+        "id": 68,
+        "name": null,
+        "galleryable_id": 1,
+        "galleryable_type": "App\\Program",
+        "role": "frontend_gallery",
+        "items": [
+          {
+            "id": 60,
+            "extension": "jpeg",
+            "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000060.jpeg",
+            "thumbnails": [
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000060_xs.jpeg",
+                "width": 576
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000060_sm.jpeg",
+                "width": 768
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000060_md.jpeg",
+                "width": 1024
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000060_lg.jpeg",
+                "width": 1280
+              }
+            ],
+            "width": 1024,
+            "height": 607,
+            "type": null,
+            "description": null,
+            "priority": 1,
+            "highlighted": true,
+            "gallery_id": 68
+          },
+          {
+            "id": 61,
+            "extension": "jpeg",
+            "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000061.jpeg",
+            "thumbnails": [
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000061_xs.jpeg",
+                "width": 576
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000061_sm.jpeg",
+                "width": 768
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000061_md.jpeg",
+                "width": 1024
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000061_lg.jpeg",
+                "width": 1280
+              }
+            ],
+            "width": 929,
+            "height": 622,
+            "type": null,
+            "description": null,
+            "priority": 2,
+            "highlighted": true,
+            "gallery_id": 68
+          },
+          {
+            "id": 59,
+            "extension": "jpeg",
+            "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000059.jpeg",
+            "thumbnails": [
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000059_xs.jpeg",
+                "width": 576
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000059_sm.jpeg",
+                "width": 768
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000059_md.jpeg",
+                "width": 1024
+              },
+              {
+                "path": "storage\/modules\/stylersmedia\/images\/00000000\/00000000\/00000059_lg.jpeg",
+                "width": 1280
+              }
+            ],
+            "width": 579,
+            "height": 326,
+            "type": null,
+            "description": null,
+            "priority": null,
+            "highlighted": true,
+            "gallery_id": 68
+          }
+        ],
+        "galleryable_name": "Itinerary A"
+      }
+    ]
+  }
+}

@@ -1,0 +1,327 @@
+<?php
+
+namespace App\Manipulators;
+
+use App\DeviceAvailability;
+use Exception;
+
+/**
+ * Manipulator to create a new DeviceAvailability 
+ * instance after the supplied data passes validation
+ */
+class DeviceAvailabilitySetter {
+
+    /**
+     * Attributes that can be set from input
+     */
+    
+    public $deviceId;
+    public $fromDate;
+    public $toDate;
+    public $amount;
+    public $mainAvailability;
+    private $debug = false;
+
+    public function __construct(array $attributes = []) {
+        foreach ($attributes as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
+    }
+
+    /**
+     * Creates new availability model and modifies all overlapping availabilities accordingly
+     * @param int $deviceId
+     * @param string $fromDate
+     * @param string $toDate
+     * @param int $amount
+     * @return DeviceAvailability
+     */
+    public function set() {
+        if ($this->debug) {
+            $this->debugMessage('START SET');
+        }
+        $this->hasNone();
+        if ($this->hasIdentical() || $this->hasInfiniteInterval() || $this->hasNormalIntervals()) {
+            if ($this->debug) {
+                $this->debugMessage('END SET', $this->mainAvailability);
+            }
+            $this->mergeAvailabilities();
+            return $this->mainAvailability;
+        }
+        if ($this->debug) {
+            $this->debugMessage('EXCEPTION THROWN AT SET', get_object_vars($this));
+        }
+        throw new Exception('Availability could not be set: ' . print_r(get_object_vars($this), true));
+    }
+
+    /**
+     * Modifies an availability interval by any number given
+     * @param int $deviceId
+     * @param string $fromDate
+     * @param string $toDate
+     * @param int $difference
+     * @return boolean
+     */
+    public function modify() {
+        return false;
+    }
+
+    /**
+     * Enables debug mode
+     * If enabled, the class echos debug information while running.
+     */
+    public function enableDebug() {
+        $this->debug = true;
+    }
+
+    /**
+     * Composes a debug message
+     */
+    public function debugMessage($message = '', $data = null) {
+        echo "\n\nDebug: {$message}\n";
+        echo 'Data: ' . print_r($data, true) . "\n";
+        $attributes = get_object_vars($this);
+        unset($attributes['mainAvailability']);
+        echo 'Object: ' . print_r($attributes, true) . "\n";
+    }
+
+    protected function hasNone() {
+        if (DeviceAvailability::hasAvailabilities($this->deviceId)) {
+            return false;
+        }
+
+        $this->mainAvailability = $this->createInfiniteInterval(DeviceAvailability::getSeparationTime(date('Y-m-d')), 0);
+
+        if ($this->debug) {
+            $this->debugMessage('HASNONE');
+        }
+        
+        return true;
+    }
+
+    protected function hasIdentical() {
+        $deviceAvailability = new DeviceAvailability();
+        
+        $interval = $deviceAvailability->where('from_time', '=', DeviceAvailability::getSeparationTime($this->fromDate))
+                ->where('to_time', '=', DeviceAvailability::getSeparationTime($this->toDate))
+                ->where('device_id', '=', $this->deviceId)
+                ->first();
+
+        if (!$interval) {
+            return false;
+        }
+
+        $interval->amount = $this->amount;
+        $interval->saveOrFail();
+
+        $this->mainAvailability = $interval;
+
+        if ($this->debug) {
+            $this->debugMessage('HASIDENTICAL');
+        }
+        
+        return true;
+    }
+
+    protected function hasInfiniteInterval() {
+        $from_time = DeviceAvailability::getSeparationTime($this->fromDate);
+        $infiniteAvailability = DeviceAvailability::getOverallInfiniteInterval($this->deviceId, $from_time);
+
+        if (!$infiniteAvailability) {
+            return false;
+        }
+
+        if ($infiniteAvailability->from_time == $from_time) {
+            // update infinity to main
+            $this->mainAvailability = DeviceAvailability::find($infiniteAvailability->id);
+            $this->mainAvailability->to_time = DeviceAvailability::getSeparationTime($this->toDate);
+            $this->mainAvailability->amount = $this->amount;
+            $this->mainAvailability->saveOrFail();
+        } else {
+            // update infinity
+            $partAvailability = DeviceAvailability::find($infiniteAvailability->id);
+            $partAvailability->to_time = $from_time;
+            $partAvailability->saveOrFail();
+
+            // create main
+            $this->mainAvailability = new DeviceAvailability(['device_id' => $this->deviceId, 'from_time' => $this->fromDate, 'to_time' => $this->toDate, 'amount' => $this->amount]);
+            $this->mainAvailability->saveOrFail();
+        }
+
+        // create infinity
+        if (!is_null($this->mainAvailability->to_time)) {
+            $this->createInfiniteInterval($this->mainAvailability->to_time, $infiniteAvailability->amount);
+        }
+        
+        if ($this->debug) {
+            $this->debugMessage('HASINFINITEINTERVAL');
+        }
+        
+        return true;
+    }
+
+    protected function hasNormalIntervals() {
+        // get start point's interval
+        $overallStartPointInterval = DeviceAvailability::getStartInterval($this->deviceId, DeviceAvailability::getSeparationTime($this->fromDate));
+
+        // get end point's interval
+        $overallEndPointInterval = DeviceAvailability::getEndInterval($this->deviceId, DeviceAvailability::getSeparationTime($this->toDate));
+
+        if (!($overallStartPointInterval && $overallEndPointInterval)) {
+            return false;
+        }
+
+        $from_time = DeviceAvailability::getSeparationTime($this->fromDate);
+        $to_time = DeviceAvailability::getSeparationTime($this->toDate);
+
+        if ($overallStartPointInterval->id == $overallEndPointInterval->id) {
+            if ($overallStartPointInterval->from_time < $from_time) {
+                $beforeStartPoint = new DeviceAvailability();
+                $beforeStartPoint->from_time = $overallStartPointInterval->from_time;
+                $beforeStartPoint->to_time = $from_time;
+                $beforeStartPoint->amount = $overallStartPointInterval->amount;
+                $beforeStartPoint->device_id = $this->deviceId;
+                $beforeStartPoint->saveOrFail();
+            }
+
+            if ($overallEndPointInterval->to_time > $to_time) {
+                $afterEndPoint = new DeviceAvailability();
+                $afterEndPoint->from_time = $to_time;
+                $afterEndPoint->to_time = $overallEndPointInterval->to_time;
+                $afterEndPoint->amount = $overallEndPointInterval->amount;
+                $afterEndPoint->device_id = $this->deviceId;
+                $afterEndPoint->saveOrFail();
+            }
+
+            $this->mainAvailability = new DeviceAvailability();
+            $this->mainAvailability->from_time = $from_time;
+            $this->mainAvailability->to_time = $to_time;
+            $this->mainAvailability->amount = $this->amount;
+            $this->mainAvailability->device_id = $this->deviceId;
+            $this->mainAvailability->saveOrFail();
+
+            DeviceAvailability::find($overallStartPointInterval->id)->delete();
+
+            if ($this->debug) {
+                $this->debugMessage('HASNORMALINTERVALS_CASE1');
+            }
+        } else if ($overallStartPointInterval->from_time == $from_time && $overallEndPointInterval->to_time != $to_time) {
+            $this->mainAvailability = DeviceAvailability::find($overallStartPointInterval->id);
+            $this->mainAvailability->to_time = $to_time;
+            $this->mainAvailability->amount = $this->amount;
+            $this->mainAvailability->saveOrFail();
+
+            $afterEndPoint = DeviceAvailability::find($overallEndPointInterval->id);
+            $afterEndPoint->from_time = $to_time;
+            $afterEndPoint->saveOrFail();
+
+            if ($this->debug) {
+                $this->debugMessage('HASNORMALINTERVALS_CASE2');
+            }
+        } else if ($overallStartPointInterval->from_time == $from_time && $overallEndPointInterval->to_time == $to_time) {
+            $this->mainAvailability = DeviceAvailability::find($overallStartPointInterval->id);
+            $this->mainAvailability->to_time = $to_time;
+            $this->mainAvailability->amount = $this->amount;
+            $this->mainAvailability->saveOrFail();
+
+            DeviceAvailability::find($overallEndPointInterval->id)->delete();
+
+            if ($this->debug) {
+                $this->debugMessage('HASNORMALINTERVALS_CASE3');
+            }
+        } else {
+            $beforeStartPoint = DeviceAvailability::find($overallStartPointInterval->id);
+            $beforeStartPoint->to_time = $from_time;
+            $beforeStartPoint->saveOrFail();
+
+            $afterEndPoint = DeviceAvailability::find($overallEndPointInterval->id);
+            $afterEndPoint->from_time = $to_time;
+            $afterEndPoint->saveOrFail();
+
+            $this->mainAvailability = new DeviceAvailability();
+            $this->mainAvailability->from_time = $from_time;
+            $this->mainAvailability->to_time = $to_time;
+            $this->mainAvailability->amount = $this->amount;
+            $this->mainAvailability->device_id = $this->deviceId;
+            $this->mainAvailability->saveOrFail();
+
+            if ($this->debug) {
+                $this->debugMessage("HASNORMALINTERVALS_CASE4");
+            }
+        }
+
+        $this->deleteUnusedIntervals();
+
+        if ($this->debug) {
+            $this->debugMessage('HASNORMALINTERVALS');
+        }
+        
+        return true;
+    }
+
+    protected function deleteUnusedIntervals() {
+        $from_time = DeviceAvailability::getSeparationTime($this->fromDate);
+        $to_time = DeviceAvailability::getSeparationTime($this->toDate);
+
+        $allAvailability = DeviceAvailability::getAvailabilitiesInInterval($this->deviceId, $this->fromDate, $this->toDate);
+        $numAll = count($allAvailability);
+        for ($i = 0; $i < $numAll; $i++) {
+            if (!
+                    (
+                    $allAvailability[$i]->from_time == $from_time ||
+                    $allAvailability[$i]->from_time == $to_time ||
+                    $allAvailability[$i]->to_time == $from_time ||
+                    $allAvailability[$i]->to_time == $to_time
+                    )
+            ) {
+                DeviceAvailability::find($allAvailability[$i]->id)->delete();
+            }
+        }
+    }
+
+    protected function createInfiniteInterval($from_time, $amount) {
+        $availability = new DeviceAvailability(['device_id' => $this->deviceId, 'from_time' => $from_time, 'amount' => $amount]);
+        $availability->to_time = null;
+        $availability->saveOrFail();
+        return $availability;
+    }
+
+    protected function mergeAvailabilities() {
+        $from_time = DeviceAvailability::getSeparationTime($this->fromDate);
+        $to_time = DeviceAvailability::getSeparationTime($this->toDate);
+
+        $beforeStartPoint = new DeviceAvailability();
+        $beforeStartPoint = $beforeStartPoint->where('device_id', $this->deviceId)
+                ->where('to_time', $from_time)
+                ->where('amount', $this->amount)
+                ->first();
+
+        $afterStartPoint = new DeviceAvailability();
+        $afterStartPoint = $afterStartPoint->where('device_id', $this->deviceId)
+                ->where('from_time', $to_time)
+                ->where('amount', $this->amount)
+                ->first();
+
+        if ($beforeStartPoint && $afterStartPoint) {
+            $beforeStartPoint->to_time = ($afterStartPoint->to_time) ? $afterStartPoint->to_time : null;
+            $beforeStartPoint->save();
+            $this->mainAvailability->delete();
+            $afterStartPoint->delete();
+            $this->mainAvailability = $beforeStartPoint;
+        } else if ($beforeStartPoint) {
+            $beforeStartPoint->to_time = $to_time;
+            $beforeStartPoint->save();
+            $this->mainAvailability->delete();
+            $this->mainAvailability = $beforeStartPoint;
+        } else if ($afterStartPoint) {
+            $afterStartPoint->from_time = $from_time;
+            $afterStartPoint->save();
+            $this->mainAvailability->delete();
+            $this->mainAvailability = $afterStartPoint;
+        }
+    }
+
+}
+

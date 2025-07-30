@@ -1,0 +1,30 @@
+{
+    "elements": [{
+            "discountable_type": "App\\OrganizationGroup",
+            "discountable_id": 1,
+            "interval": {
+                "date_from": "2027-03-16",
+                "date_to": "2027-03-22"
+            },
+            "amount": 1,
+            "order_itemable_index": 0,
+            "usage_request": [{
+                    "age": 21,
+                    "amount": 4
+                }]
+        }, {
+            "discountable_type": "App\\OrganizationGroup",
+            "discountable_id": 1,
+            "interval": {
+                "date_from": "2027-03-16",
+                "date_to": "2027-03-22"
+            },
+            "amount": 1,
+            "order_itemable_index": 1,
+            "usage_request": [{
+                    "age": 21,
+                    "amount": 3
+                }]
+        }],
+    "familyComboSelections": []
+}

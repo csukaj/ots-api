@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Exceptions;
+
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
+class Handler extends ExceptionHandler {
+
+    /**
+     * A list of the exception types that should not be reported.
+     *
+     * @var array
+     */
+    protected $dontReport = [
+        AuthorizationException::class,
+        HttpException::class,
+        ModelNotFoundException::class,
+        ValidationException::class,
+        UserException::class
+    ];
+
+    /**
+     * Report or log an exception.
+     *
+     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     *
+     * @param  \Exception  $e
+     * @return void
+     */
+    public function report(Exception $e) {
+        parent::report($e);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  Request  $request
+     * @param  \Exception  $e
+     * @return Response
+     */
+    public function render($request, Exception $e) {
+        if ($e instanceof TokenExpiredException) {
+            return response()->json(['success' => false, 'error' => 'token_expired'], $e->getStatusCode());
+            
+        } else if ($e instanceof TokenInvalidException) {
+            return response()->json(['success' => false, 'error' => 'token_invalid'], $e->getStatusCode());
+            
+        } else if ($e instanceof HttpException) {
+            $statusCode = $e->getStatusCode();
+            $error = $e->getMessage();
+            
+        } else if ($e instanceof ModelNotFoundException) {
+            $statusCode = 404;
+            $error = $e->getMessage();
+            
+        } elseif ($e instanceof AuthorizationException) {
+            $statusCode = 403;
+            $error = $e->getMessage();
+        
+        } elseif ($e instanceof ValidationException) {
+            $statusCode = 400;
+            $error = $e->getMessage();
+            
+        } elseif ($e instanceof UserException) {
+            $statusCode = 400;
+            $error = $e->getMessage();
+            
+        } else {
+            $statusCode = 500;
+            $error = 'Unexpected Exception';
+        }
+
+        return new JsonResponse([
+            'success' => false,
+            'error' => $error,
+            'exception' => [
+                'class' => get_class($e),
+                'code' => $e->getCode(),
+                'location' => $e->getFile() . '@' . $e->getLine(),
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'previous' => $e->getPrevious()
+            ]
+        ], $statusCode);
+    }
+
+}

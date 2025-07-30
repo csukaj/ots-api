@@ -1,0 +1,74 @@
+<?php
+namespace App\Http\Controllers\Admin;
+
+use App\Entities\DeviceAvailabilityEntity;
+use App\Entities\OrderEntity;
+use App\Http\Controllers\ResourceController;
+use App\Order;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/OrderController
+ */
+class OrderController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of Orders
+     * @return Response
+     */
+    public function index() {
+        return [
+            'success' => true,
+            'data' => OrderEntity::getCollection(Order::all())
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified Order
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id) {
+        return [
+            'success' => true,
+            'data' => (new OrderEntity(Order::findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+    /**
+     * destroy
+     * Remove the specified Order
+     * @param  int $id
+     * @return array|Response
+     */
+    public function destroy($id) {
+        $order = Order::findOrFail($id);
+        $order->load(['items']);
+
+        // increase availability
+        foreach ($order->items as $item) {
+            $item->load('device');
+            $availability = new DeviceAvailabilityEntity($item->device_id);
+            $dailyAvailabilities = $availability->get($item->from_date, $item->to_date);
+            if (!$item->device || empty($dailyAvailabilities)) {
+                continue;
+            }
+            foreach ($dailyAvailabilities as &$dailyAvailability) {
+                $dailyAvailability['amount'] += $item->amount;
+                if ($dailyAvailability['amount'] > $item->device->amount) {
+                    $dailyAvailability['amount'] = $item->device->amount;
+                }
+            }
+            $availability->set($dailyAvailabilities);
+        }
+        
+        return [
+            'success' => $order->delete(),
+            'data' => (new OrderEntity(Order::withTrashed()->findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+}
+

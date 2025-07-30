@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Facades;
+
+use Exception;
+use Illuminate\Config\Repository;
+use Illuminate\Support\Facades\Facade;
+
+/**
+ * Facade to extend default Laravel Config
+ * @see Repository
+ */
+class Config extends Facade {
+
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor() {
+        return 'config';
+    }
+    
+    /**
+     * Get a config value. Throws exception if config key not found.
+     * 
+     * @param strnig $key
+     * @return mixed
+     * @throws Exception
+     */
+    static public function getOrFail($key) {
+        if (!self::has($key)) {
+            throw new Exception("Missing configuration key: `{$key}`");
+        }
+        return self::get($key);
+    }
+
+}
+

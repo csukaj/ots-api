@@ -1,0 +1,126 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Content;
+use App\Entities\ContentEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\ContentSetter;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+
+/**
+ * @resource Admin/ContentController
+ */
+class ContentController extends ResourceController {
+
+    /**
+     * index
+     * List all contents
+     * @return Response
+     */
+    public function index() {
+        return $this->modelList(Content::all());
+    }
+
+    /**
+     * pages
+     * List all pages
+     * @return Response
+     */
+    public function pages() {
+        return $this->modelList(Content::page()->get());
+    }
+
+    /**
+     * posts
+     * List all posts
+     * @return Response
+     */
+    public function posts() {
+        return $this->modelList(Content::post()->get());
+    }
+
+    /**
+     * postsOfCategory
+     * List all posts of a category
+     * @return Response
+     */
+    public function postsOfCategory($id) {
+        return $this->modelList(Content::post()->ofCategory($id)->get());
+    }
+
+    /**
+     * modelList
+     * Generate response structure
+     * @param type $models
+     * @return type
+     */
+    private function modelList($models) {
+        $categories = Taxonomy::find(Config::get('taxonomies.content_category'))->getChildren();
+        return [
+            'success' => true,
+            'data' => ContentEntity::getCollection($models),
+            'categories' => $categories->pluck('name')//TaxonomyEntity::getCollection($categories)
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created content
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+        $author = Auth::user()->name;
+        $requestArray = $request->toArray();
+        $requestArray['author'] = $author;
+        $content = (new ContentSetter($requestArray))->set();
+        return ['success' => true, 'data' => (new ContentEntity($content))->getFrontendData()];
+    }
+
+    /**
+     * show
+     * Display the content by ID
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        return [
+            'success' => true,
+            'data' => (new ContentEntity(Content::findOrFail($id)))->getFrontendData()
+        ];
+    }
+
+    /**
+     * update
+     * Update the specified content
+     * @param  Request  $request
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id) {
+        $author = Auth::user()->name;
+        $requestArray = $request->toArray();
+        $requestArray['id'] = $id;
+        $requestArray['author'] = $author;
+        $content = (new ContentSetter($requestArray))->set();
+        return ['success' => true, 'data' => (new ContentEntity($content))->getFrontendData()];
+    }
+
+    /**
+     * destroy
+     * Remove the specified content
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        $content = Content::findOrFail($id);
+        return ['success' => $content->delete(), 'data' => (new ContentEntity(Content::withTrashed()->findOrFail($id)))->getFrontendData()];
+    }
+
+}
+

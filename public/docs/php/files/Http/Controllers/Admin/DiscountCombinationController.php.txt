@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\PriceModifier;
+use App\PriceModifierCombination;
+use App\Entities\DiscountCombinationEntity;
+use App\Entities\DiscountEntity;
+use App\Http\Controllers\ResourceController;
+use App\Manipulators\DiscountSetter;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+/**
+ * @resource Admin/DiscountCombinationController
+ */
+class DiscountCombinationController extends ResourceController {
+
+    /**
+     * index
+     * Display a listing of DiscountCombinations & Discounts
+     * @return Response
+     */
+    public function index(Request $request = null) {
+
+        $discountIds = PriceModifier::getOrganizationDiscountIds($request->input('organization_id'));
+        $combinations = DiscountCombination::getForDiscounts($discountIds);
+        return [
+            'success' => true,
+            'data' => DiscountCombinationEntity::getCollection($combinations),
+            'discounts' => DiscountEntity::getCollection(PriceModifier::orderBy('priority')->find($discountIds))
+        ];
+    }
+
+    /**
+     * store
+     * Store a newly created DiscountCombination
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request) {
+
+        $discountIds = PriceModifier::getOrganizationDiscountIds($request->input('organization_id'));
+        $existingCombinations = DiscountCombination::getForDiscounts($discountIds);
+
+        $lastSetter = null;
+        foreach ($request->input('discounts') as $inputDiscount) {
+            $lastSetter = (new DiscountSetter($inputDiscount));
+            $lastSetter->setPriority($inputDiscount['priority']);
+        }
+        if ($lastSetter) { // if anything has changed
+            $lastSetter->updateOrganizationDiscountPriorities();
+        }
+
+        foreach ($existingCombinations as $cmb) {
+            $found = false;
+            foreach ($request->input('combinations') as $inputCombination) {
+                if ($cmb->first_discount_id == $inputCombination['first_discount_id'] && $cmb->second_discount_id == $inputCombination['second_discount_id']) {
+                    $found = true;
+                }
+            }
+
+            if (!$found) {
+                $cmb->delete();
+            }
+        }
+
+        foreach ($request->input('combinations') as $inputCombination) {
+            DiscountCombination::set($inputCombination['first_discount_id'], $inputCombination['second_discount_id']);
+        }
+
+        return [
+            'success' => true,
+            'data' => DiscountCombinationEntity::getCollection(DiscountCombination::getForDiscounts($discountIds)),
+            'discounts' => DiscountEntity::getCollection(PriceModifier::orderBy('priority')->find($discountIds))
+        ];
+    }
+
+    /**
+     * show
+     * Display the specified DiscountCombination
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        return ['success' => true, 'data' => (new DiscountCombinationEntity(DiscountCombination::findOrFail($id)))->getFrontendData()];
+    }
+
+}
+

@@ -1,0 +1,123 @@
+<?php
+
+namespace App;
+
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Validation\ValidationException;
+
+/**
+ * App\DiscountCombination
+ *
+ * @property int $id
+ * @property int $first_discount_id
+ * @property int $second_discount_id
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property string $deleted_at
+ * @property-read Discount $firstDiscount
+ * @property-read Discount $secondDiscount
+ * @mixin \Eloquent
+ */
+class DiscountCombination extends Model {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['first_discount_id', 'second_discount_id'];
+
+    /**
+     * Relation to first Discount
+     * 
+     * @return HasOne
+     */
+    public function firstDiscount() {
+        return $this->hasOne(PriceModifier::class, 'id', 'first_discount_id');
+    }
+
+    /**
+     * Relation to second Discount
+     * 
+     * @return HasOne
+     */
+    public function secondDiscount() {
+        return $this->hasOne(PriceModifier::class, 'id', 'second_discount_id');
+    }
+
+    /**
+     * Get combination of 2 discount (if exists)
+     * 
+     * @param int $firstDiscountId
+     * @param int $secondDiscountId
+     * @return DiscountCombination|null
+     */
+    static public function get(int $firstDiscountId, int $secondDiscountId) {
+        list($firstDiscountId, $secondDiscountId) = self::orderDiscountIds($firstDiscountId, $secondDiscountId);
+        return self
+                ::where('first_discount_id', '=', $firstDiscountId)
+                ->where('second_discount_id', '=', $secondDiscountId)
+                ->first();
+    }
+
+    /**
+     * Set a new discount combination if not already exists. Check if they have same organizatiojn id
+     * 
+     * @param int $firstDiscountId
+     * @param int $secondDiscountId
+     * @return DiscountCombination
+     * @throws ValidationException
+     */
+    static public function set(int $firstDiscountId, int $secondDiscountId) {
+        $discountCombination = self::get($firstDiscountId, $secondDiscountId);
+        if (!$discountCombination) {
+            list($firstDiscountId, $secondDiscountId) = self::orderDiscountIds($firstDiscountId, $secondDiscountId);
+            $discountCombination = new self();
+            $discountCombination->first_discount_id = $firstDiscountId;
+            $discountCombination->second_discount_id = $secondDiscountId;
+            if ($discountCombination->firstDiscount->getOrganizationId() != $discountCombination->secondDiscount->getOrganizationId()) {
+                throw new ValidationException('Organization mismatch.');
+            }
+            $discountCombination->saveOrFail();
+        }
+        return $discountCombination;
+    }
+
+    /**
+     * Get list of combinations for specified discount id list
+     * @param array $discountIds
+     * @return Collection
+     */
+    static public function getForDiscounts(array $discountIds) {
+        $q1 = self::whereIn('first_discount_id', $discountIds);
+        return self::whereIn('second_discount_id', $discountIds)
+                ->union($q1)
+                ->orderBy('first_discount_id')
+                ->orderBy('second_discount_id')
+                ->get();
+    }
+
+    /**
+     * Sort discount ids (first should be smaller)
+     * 
+     * @param int $firstDiscountId
+     * @param int $secondDiscountId
+     * @return array
+     */
+    static public function orderDiscountIds(&$firstDiscountId, &$secondDiscountId): array {
+        if ($firstDiscountId > $secondDiscountId) {
+            $temp = $secondDiscountId;
+            $secondDiscountId = $firstDiscountId;
+            $firstDiscountId = $temp;
+        }
+        return [$firstDiscountId, $secondDiscountId];
+    }
+
+}
+

@@ -1,0 +1,224 @@
+<?php
+
+namespace App\Entities;
+
+use App\Facades\Config;
+use App\Organization;
+use App\OrganizationClassification;
+use App\OrganizationDateRange;
+use App\OrganizationMeta;
+use Modules\Stylersmedia\Entities\GalleryEntity;
+use Modules\Stylerstaxonomy\Entities\Taxonomy;
+use Modules\Stylerstaxonomy\Entities\TaxonomyEntity;
+
+class OrganizationEntity extends Entity {
+
+    const MODEL_TYPE = 'organization';
+    const CONNECTION_COLUMN = 'organization_id';
+
+    protected $organization;
+    protected $nameDescription;
+    protected $nameDescriptionTranslations;
+    protected $organizationAgeRanges;
+    protected $fromDate;
+    protected $toDate;
+
+    public function __construct(Organization $organization, $fromDate = null, $toDate = null) {
+        parent::__construct();
+        $this->organization = $organization;
+        $this->fromDate = $fromDate;
+        $this->toDate = $toDate;
+
+        $this->nameDescription = $this->organization->name;
+        $this->nameDescriptionTranslations = $this->nameDescription->translations;
+        $this->organizationAgeRanges = $this->organization->ageRanges;
+    }
+
+    public function getFrontendData(array $additions = [], $productType = null) {
+        $return = [
+            'id' => $this->organization->id,
+            'name' => $this->getDescriptionWithTranslationsData($this->nameDescription),
+            'type' => $this->organization->type->name,
+            'parent' => ($this->organization->parentOrganization) ? $this->organization->parentOrganization->name : null,
+            'is_active' => $this->organization->is_active,
+            'properties' => []
+        ];
+        $hotelInfoAdditions = array_merge(['descriptions', 'properties', 'images'], $additions);
+
+        foreach ($additions as $addition) {
+            switch ($addition) {
+                case 'hotel_info':
+                    $return['devices'] = $this->getDevices($hotelInfoAdditions);
+                    $return['location'] = $this->organization->location_id ? (new LocationEntity($this->organization->location))->getFrontendData(['frontend']) : null;
+                    $return['descriptions'] = $this->getEntityDescriptionsData($this->organization->id, Config::get('taxonomies.organization_description'));
+                    $return['properties'] = $this->getMeta($return);
+                    $return['properties'] = $this->getClassifications($return);
+                    $return['galleries'] = $this->getGalleries();
+                    $return['settings'] = $this->getSettings();
+                    $return['age_ranges'] = OrganizationAgeRangeEntity::getCollection($this->organization->ageRanges, ['frontend']);
+                    $return['meal_plans'] = $this->getMealPlans();
+                    $return['search_options'] = $this->getSearchOptions();
+                    break;
+
+                case 'descriptions':
+                    $return = array_merge($return, $this->getEntityDescriptionsData($this->organization->id, Config::get('taxonomies.organization_description')));
+                    break;
+
+                case 'devices':
+                    $deviceAdditions = $this->filterAdditions(
+                            $additions, ['usages', 'prices' => 'prices', 'device_margin' => 'margin', 'device_descriptions' => 'descriptions', 'device_amount' => 'amount']
+                    );
+                    $return['devices'] = $this->getDevices($deviceAdditions, $productType);
+                    break;
+
+                case 'date_ranges':
+                    $return['date_ranges'] = [
+                        'open' => OrganizationDateRangeEntity::getCollection($this->organization->dateRanges()->open()->orderBy('from_time')->get()),
+                        'closed' => OrganizationDateRangeEntity::getCollection($this->organization->dateRanges()->closed()->orderBy('from_time')->get()),
+                        'discount' => OrganizationDateRangeEntity::getCollection($this->organization->dateRanges()->discount()->orderBy('from_time')->get())
+                    ];
+                    break;
+
+                case 'location':
+                    $return['location'] = $this->organization->location_id ? (new LocationEntity($this->organization->location))->getFrontendData(['admin']) : null;
+                    break;
+
+                case 'availability_mode':
+                    $availabilityMode = $this->organization->getAvailabilityMode();
+                    $return['availability_mode'] = $availabilityMode ? $availabilityMode->valueTaxonomy->name : null;
+                    break;
+
+                case 'pricing':
+                    $return['pricing_logic'] = $this->organization->pricingLogic ? $this->organization->pricingLogic->name : null;
+                    $return['margin_type'] = $this->organization->marginType ? $this->organization->marginType->name : null;
+                    break;
+
+                case 'admin_properties':
+                    $return['properties'] = $this->getAdminProperties();
+            }
+        }
+
+        return $return;
+    }
+
+    protected function getSettings() {
+        $models = [];
+        $settings = [
+            'taxonomies.organization_classifications.categories.settings.items.price_level.id',
+            'taxonomies.organization_classifications.categories.settings.items.stars.id'
+        ];
+        foreach ($settings as $settingIdPath) {
+            $model = (new OrganizationClassification())->getClassification(self::CONNECTION_COLUMN, $this->organization->id, Config::get($settingIdPath));
+            if (!empty($model)) {
+                $models[] = $model;
+            }
+        }
+        return OrganizationClassificationEntity::getCollection($models, ['frontend']);
+    }
+
+    protected function getMeta($return) {
+        $models = (new OrganizationMeta())
+                ->where(self::CONNECTION_COLUMN, $this->organization->id)
+                ->listable()
+                ->forParent(null)
+                ->orderBy('priority')
+                ->get();
+
+        $metas = OrganizationMetaEntity::getCollection($models, ['frontend']);
+        return array_merge($return['properties'], $metas);
+    }
+
+    protected function getClassifications($return) {
+        $models = (new OrganizationClassification())
+                ->where(self::CONNECTION_COLUMN, $this->organization->id)
+                ->listable()
+                ->forParent(null)
+                ->orderBy('priority')
+                ->get();
+
+        $classifications = OrganizationClassificationEntity::getCollection($models, ['frontend']);
+        return array_merge($return['properties'], $classifications);
+    }
+
+    protected function getAdminProperties() {
+        $models = [];
+        $settings = [
+            'taxonomies.organization_classifications.categories.general.items.hotel_category.id'
+        ];
+        foreach ($settings as $settingIdPath) {
+            $model = (new OrganizationClassification())->getClassification(self::CONNECTION_COLUMN, $this->organization->id, Config::get($settingIdPath));
+            if (!empty($model)) {
+                $models[] = $model;
+            }
+        }
+        return OrganizationClassificationEntity::getCollection($models, ['frontend']);
+    }
+
+    protected function getGalleries() {
+        return GalleryEntity::getCollection($this->organization->galleries);
+    }
+
+    private function getDevices(array $additions = [], $productType = null) {
+        $devicesData = [];
+        foreach ($this->organization->devices as $device) {
+            if (!isset($devicesData[$device->type->name])) {
+                $devicesData[$device->type->name] = [];
+            }
+            $devicesData[$device->type->name][] = (new DeviceEntity($device, $this->fromDate, $this->toDate))->getFrontendData($additions, $productType);
+        }
+        return $devicesData;
+    }
+
+    static public function getCategories($typeTxId) {
+        return TaxonomyEntity::getCollection(Taxonomy::findOrFail($typeTxId)->getChildren());
+    }
+
+    public function getMealPlans() {
+        $mealPlans = [];
+        if (!$this->fromDate || !$this->toDate) {
+            $orgMealPlans = $this->organization->organizationMealPlans;
+        } else {
+            $dateRangeIds = OrganizationDateRange
+                    ::getDateRangesInInterval($this->organization->id, $this->fromDate, $this->toDate, Config::get('taxonomies.date_range_types.open'))
+                    ->pluck('id');
+            $orgMealPlans = $this->organization
+                    ->organizationMealPlans()
+                    ->whereIn('date_range_id', $dateRangeIds)
+                    ->get();
+        }
+        foreach ($orgMealPlans as $organizationMealPlan) {
+            $mealPlans[] = (new MealPlanEntity($organizationMealPlan->mealPlan))->getFrontendData();
+        }
+        return array_merge(array_unique($mealPlans, SORT_REGULAR));
+    }
+
+    public function getSearchOptions() {
+        $options = [];
+        if (!empty($this->organization->parentOrganization)) {
+            $options['Hotel Chain'] = $this->organization->parentOrganization->name;
+        }
+
+        // hard-coded
+        $hardcodedTxIds = self::getHardcodedSearchoptionTaxonomyIds();
+        $hardcodedOptions = $this->organization->classifications()->whereIn('classification_taxonomy_id', $hardcodedTxIds)->get();
+        foreach ($hardcodedOptions as $hco) {
+            $options[$hco->classificationTaxonomy->name] = $hco->valueTaxonomy->name;
+        }
+
+        // dynamic
+        $orgCls = $this->organization->classifications()->searchable()->whereNotIn('classification_taxonomy_id', $hardcodedTxIds)->get();
+        foreach ($orgCls as $orgCl) {
+            $options[$orgCl->classificationTaxonomy->name] = ($orgCl->valueTaxonomy) ? $orgCl->valueTaxonomy->name : true;
+        }
+        return $options;
+    }
+
+    public static function getHardcodedSearchoptionTaxonomyIds() {
+        return [
+            Config::getOrFail('taxonomies.organization_classifications.categories.general.items.hotel_category.id'),
+            Config::getOrFail('taxonomies.organization_classifications.categories.settings.items.stars.id')
+        ];
+    }
+
+}
+

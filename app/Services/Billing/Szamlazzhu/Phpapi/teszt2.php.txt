@@ -1,0 +1,42 @@
+<?php
+
+    header("Content-Type: text/plain; charset=utf-8");
+    require_once("./invoiceAgent.class.php");
+
+    $szamlazz = new invoiceAgent(null);
+    
+    $settings = [
+        "username" => "[username]",     // username, required, plain string
+        "password" => "[password]",     // user password, required, plain string
+        "e_invoice" => true,            // use true or false, without quotes
+        "keychain" => "", 
+        "download_invoice" => true,
+        "download_count" => 12          // use whole number
+    ];
+    
+    $header = [
+        "invoice_num" => "E-MEGFI-2015-263",
+        "invoice_date" => "2015-12-12",
+        "fulfillment" => "2015-12-12",
+        "invoice_type" => "SS"
+    ];
+    
+    $seller = [
+        "email_replyto" => "hello@evulon.hu",
+        "email_subject" => "Számla értesítő",
+        "email_content" => "Fizesse ki a számlát, különben a mindenkori banki kamat",
+    ];
+    
+    $buyer = [
+        "email" => "vevoneve@example.org",
+    ];
+
+    if ($szamlazz->_reverseInvoice($settings, $header, $seller, $buyer)) {
+        echo "sikerült";
+    } else {
+        echo "nem sikerült";
+    }
+    
+    unset($szamlazz);
+
+?>

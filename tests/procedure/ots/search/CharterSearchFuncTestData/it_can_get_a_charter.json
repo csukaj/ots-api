@@ -1,0 +1,35 @@
+{
+  "availability": {
+    "name_description_id": 365,
+    "id": 1,
+    "is_overbooked": false,
+    "ship_count": 2,
+    "required_ship_count": 1
+  },
+  "results": [
+    {
+      "prices": [
+        {
+          "original_price": "15366.0",
+          "order_itemable_index": 0,
+          "discounted_price": "15366.0",
+          "meal_plan": "e\/p",
+          "discounts": [],
+          "meal_plan_id": 1
+        },
+        {
+          "original_price": "15366.0",
+          "order_itemable_index": 0,
+          "discounted_price": "15366.0",
+          "meal_plan": "f\/b",
+          "discounts": [],
+          "meal_plan_id": 4
+        }
+      ],
+      "usages": {
+        "adult": 1
+      },
+      "ship_group_id": 1
+    }
+  ]
+}

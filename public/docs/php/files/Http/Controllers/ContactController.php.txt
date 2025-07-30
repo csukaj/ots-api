@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Exceptions\UserException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use ReCaptcha\ReCaptcha;
+
+/**
+ * @resource ContactController
+ */
+class ContactController extends Controller {
+
+    protected $requiredFields = ['name', 'email', 'phone', 'message', 're-captcha'];
+
+    /**
+     * send
+     * Send an email to OTS
+     * @param Request $request
+     * @return type
+     * @throws UserException
+     */
+    public function send(Request $request) {
+        $requestArray = $request->toArray();
+
+        if (filter_var($requestArray['email'], FILTER_VALIDATE_EMAIL) === false) {
+            throw new UserException('general.errors.invalidEmail');
+        }
+
+        foreach ($this->requiredFields as $requiredField) {
+            if (empty($requestArray[$requiredField])) {
+                throw new UserException('contact.errors.fieldsRequired');
+            }
+        }
+
+        $recaptcha = new ReCaptcha(env('RECAPTCHA_SECRET'));
+        $resp = $recaptcha->verify($requestArray['re-captcha'], $_SERVER['REMOTE_ADDR']);
+        if (!$resp->isSuccess()) {
+            $errors = $resp->getErrorCodes();
+            Log::error("reCaptcha error:", $errors);
+            throw new UserException('contact.errors.recaptha');
+        }
+
+        Mail::send('emails.contact', ['contact' => $requestArray], function($mail) use ($requestArray) {
+            $mail
+                ->from(env('OTS_MAIL_FROM_ADDRESS'), $requestArray['name'])
+                ->to(env('OTS_CONTACT_MAIL_TO_ADDRESS'), env('OTS_MAIL_NAME'))
+                ->replyTo($requestArray['email'], $requestArray['name'])
+                ->subject('OTS Contact');
+        });
+
+        return [
+            'success' => true,
+            'data' => [],
+            'request' => $request->all()
+        ];
+    }
+
+}
+

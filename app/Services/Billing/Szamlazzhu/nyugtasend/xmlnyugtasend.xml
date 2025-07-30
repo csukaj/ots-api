@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlnyugtasend xmlns="http://www.szamlazz.hu/xmlnyugtasend" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlnyugtasend http://www.szamlazz.hu/docs/xsds/nyugtasend/xmlnyugtasend.xsd">
+
+  <beallitasok>                                                                  <!-- REQ string -->
+    <felhasznalo>Kérem töltse ki!</felhasznalo>                                  <!-- REQ string --> <!-- felhasználó belépési neve -->
+    <jelszo>Kérem töltse ki!</jelszo>                                            <!-- REQ string --> <!-- felhasználó jelszava -->
+  </beallitasok>
+
+  <fejlec>
+    <!-- csak már elkészített számlához lehet e-mail értesítőt küldeni -->
+    <nyugtaszam>NYGT-2020-1</nyugtaszam>                                         <!-- REQ string --> <!-- nyugtaszám -->
+  </fejlec>
+
+  <!-- e-mail tartalma -->
+  <emailKuldes>                                                                  <!--            --> <!-- e-mail adatai, ha nincs megadva akkor a korábbi e-mail lesz kiküldve -->
+    <email>vevo@example.com</email>                                              <!--     string --> <!-- vevő e-mail címe (ide megy ki a levél) -->
+    <emailReplyto>elado@example.com</emailReplyto>                               <!--     string --> <!-- reply-to cím (ha válaszol a vevő erre a címre érkezik be a válasz) -->
+    <emailTargy>Email tárgya</emailTargy>                                        <!--     string --> <!-- e-mail tárgya -->
+    <emailSzoveg>                                                                <!--     string --> <!-- e-mail szövege -->
+Ez az email szövege.
+Aláírás
+    </emailSzoveg>
+  </emailKuldes>
+
+</xmlnyugtasend>

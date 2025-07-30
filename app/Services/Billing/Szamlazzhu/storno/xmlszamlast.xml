@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmlszamlast xmlns="http://www.szamlazz.hu/xmlszamlast" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.szamlazz.hu/xmlszamlast http://www.szamlazz.hu/docs/xsds/agentst/xmlszamlast.xsd">
+  <beallitasok>
+    <felhasznalo>Kérem töltse ki!</felhasznalo>
+    <jelszo>Kérem töltse ki!</jelszo>
+    <eszamla>false</eszamla>
+    <kulcstartojelszo>Kérem töltse ki ha van, vagy hagyja üresen!</kulcstartojelszo>
+    <szamlaLetoltes>true</szamlaLetoltes>
+    <szamlaLetoltesPld>1</szamlaLetoltesPld>
+    <aggregator></aggregator>
+  </beallitasok>
+  <fejlec> 
+    <szamlaszam>E-TST-2011-1</szamlaszam>
+    <keltDatum>2010-09-12</keltDatum>
+    <teljesitesDatum>2010-09-10</teljesitesDatum>
+    <tipus>SS</tipus>
+  </fejlec>
+  <elado>
+    <emailReplyto>elado@example.com</emailReplyto>
+    <emailTargy>Email tárgya</emailTargy>
+    <emailSzoveg>
+Ez az email szövege.
+Aláírás
+    </emailSzoveg>
+  </elado>
+  <vevo>
+    <email>vevo@example.com</email>
+  </vevo>
+</xmlszamlast>

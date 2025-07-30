@@ -1,0 +1,28 @@
+<?php
+
+    // setting header as pdf file, as we're expecting it as our answer, regardless from any other settings
+    
+    header('Content-Type: application/pdf');
+    require_once("./invoiceAgent.class.php");
+
+    $szamlazz = new invoiceAgent(null);
+    
+    // no need to define multiple arrays, just some basic data for the main scope
+    
+    $scope = [
+        "username" => "[username]",              // username, required, plain text
+        "password" => "[password]",              // user password, required, plain text
+        "invoice_num" => "E-IT-2017-1"
+    ];
+
+    $valasz = $szamlazz->_requestInvoicePDF($scope);
+
+    if ($valasz["pdf"].length > 0) {
+        echo "nem sikerült lekérni a számlát az alábbi adatokkal:\n" . print_r($scope);
+    } else {
+        echo $valasz["pdf"];
+    }
+    
+    unset($szamlazz);
+
+?>

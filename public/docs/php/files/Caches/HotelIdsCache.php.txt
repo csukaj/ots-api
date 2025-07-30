@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Caches;
+
+use App\Organization;
+use App\Traits\RedisTrait;
+
+/**
+ * App\Caches\HotelIdsCache
+ * 
+ * Cache generator for hotel ids list using redis
+ */
+class HotelIdsCache {
+    use RedisTrait;
+    
+    /**
+     * Get values. Either from cache or from fresh resource if needed
+     * @return array
+     */
+    public function getValues() {
+        return $this->getSelfUpdatedCacheResource(
+            'hotelIds',
+            strtotime(Organization::getLastUpdate()),
+            'getFreshIds'
+        );
+    }
+
+    /**
+     * Seeder method for cache values
+     * 
+     * @return array
+     */
+    protected function getFreshIds() {
+        return Organization::getHotelIds();
+    }
+}
