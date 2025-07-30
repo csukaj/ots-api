@@ -54,7 +54,7 @@ class TestCase extends IlluminateTestCase
     /**
      * Setup before every test
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->faker = FakerFactory::create();
