@@ -11,51 +11,59 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
-use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+use Throwable;
 
 class Handler extends ExceptionHandler {
 
     /**
      * A list of the exception types that should not be reported.
      *
-     * @var array
+     * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
-        UserException::class
+        //
     ];
 
     /**
-     * Report or log an exception.
+     * A list of exception types with their corresponding custom log levels.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Exception  $e
-     * @return void
+     * @var array<class-string<Throwable>, \Psr\Log\LogLevel::*>
      */
-    public function report(Exception $e) {
-        parent::report($e);
+    protected $levels = [
+        //
+    ];
+
+    /**
+     * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @var array<int, string>
+     */
+    protected $dontFlash = [
+        'current_password',
+        'password',
+        'password_confirmation',
+    ];
+
+    /**
+     * Register the exception handling callbacks for the application.
+     */
+    public function register(): void
+    {
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
 
     /**
      * Render an exception into an HTTP response.
      *
      * @param  Request  $request
-     * @param  \Exception  $e
+     * @param  Throwable  $e
      * @return Response
      */
-    public function render($request, Exception $e) {
-        if ($e instanceof TokenExpiredException) {
-            return response()->json(['success' => false, 'error' => 'token_expired'], $e->getStatusCode());
-            
-        } else if ($e instanceof TokenInvalidException) {
-            return response()->json(['success' => false, 'error' => 'token_invalid'], $e->getStatusCode());
-            
-        } else if ($e instanceof HttpException) {
+    public function render($request, Throwable $e): Response
+    {
+        if ($e instanceof HttpException) {
             $statusCode = $e->getStatusCode();
             $error = $e->getMessage();
             

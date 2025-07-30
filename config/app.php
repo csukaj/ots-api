@@ -124,65 +124,17 @@ return [
     */
 
     'providers' => [
-
         /*
-         * Laravel Framework Service Providers...
+         * Package Service Providers...
          */
-        Illuminate\Auth\AuthServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Bus\BusServiceProvider::class,
-        Illuminate\Cache\CacheServiceProvider::class,
-        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Cookie\CookieServiceProvider::class,
-        Illuminate\Database\DatabaseServiceProvider::class,
-        Illuminate\Encryption\EncryptionServiceProvider::class,
-        Illuminate\Filesystem\FilesystemServiceProvider::class,
-        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
-        Illuminate\Hashing\HashServiceProvider::class,
-        Illuminate\Mail\MailServiceProvider::class,
-        Illuminate\Pagination\PaginationServiceProvider::class,
-        Illuminate\Pipeline\PipelineServiceProvider::class,
-        Illuminate\Queue\QueueServiceProvider::class,
-        Illuminate\Redis\RedisServiceProvider::class,
-        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
-        Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
-        Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
-        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        Modules\Stylersauth\Providers\RouteServiceProvider::class,
-        Modules\Stylerscontact\Providers\RouteServiceProvider::class,
-        Modules\Stylersmedia\Providers\RouteServiceProvider::class,
-        Modules\Stylerstaxonomy\Providers\RouteServiceProvider::class,
-        
-        /**
-         * External Service Providers...
-         */
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
-        Nwidart\Modules\LaravelModulesServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
-        Barryvdh\Cors\ServiceProvider::class,
-        Baum\Providers\BaumServiceProvider::class,
-        // Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
-        Artisaninweb\SoapWrapper\ServiceProvider::class,
-        //Laravel\Tinker\TinkerServiceProvider::class,
-		
-        /**
-         * Our own providers...
-         */
-        Modules\Stylersauth\Providers\StylersauthServiceProvider::class,
-        Modules\Stylerscontact\Providers\StylerscontactServiceProvider::class,
-        Modules\Stylersmedia\Providers\StylersmediaServiceProvider::class,
-        Modules\Stylerstaxonomy\Providers\StylerstaxonomyServiceProvider::class,
-        App\Providers\ChannelManager\ServiceProvider::class,
+        // App\Providers\EventServiceProvider::class,  // Re-enable after fixing events
+        // App\Providers\RouteServiceProvider::class,  // Laravel 11 uses different routing
     ],
 
     /*
