@@ -11,7 +11,7 @@ This project includes configuration for deployment on Railway.com.
 
 Railway.com will automatically detect the `nixpacks.toml` file and use it to configure the build process. The configuration:
 
-1. Installs PHP 8.3 with required extensions (mbstring, curl, json, soap, pdo, pdo_mysql)
+1. Installs PHP 8.3 with required extensions (mbstring, curl, soap, pdo, pdo_mysql)
 2. Copies `.env.example` to `.env` before running composer install
 3. Runs composer install without dev dependencies
 4. Installs npm packages
