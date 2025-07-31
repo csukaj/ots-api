@@ -34,7 +34,7 @@ class AccommodationTextSearchFunctionalTest extends TestCase {
         );
     }
     
-    public function tearDown() {
+    public function tearDown(): void {
         Redis::flushall();
         parent::tearDown();
     }
