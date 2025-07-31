@@ -15,7 +15,7 @@ class AccommodationTextSearchFunctionalTest extends TestCase {
     private $responseData;
     private $responseOptionsData;
     
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
         Redis::flushall();
         $this->responseData = $this->assertSuccessfulHttpApiRequest(

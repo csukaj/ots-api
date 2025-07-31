@@ -14,7 +14,7 @@ class DeviceMinimumNightsControllerTest extends TestCase {
     static public $testMode = self::TESTMODE_CONTROLLER_WRITE;
     private $adminToken;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
         list($this->adminToken, ) = $this->login([Config::get('stylersauth.role_admin')]);
     }

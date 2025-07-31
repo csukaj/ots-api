@@ -16,7 +16,7 @@ class ReviewControllerTest extends TestCase
     private $reviews;
     private $_url = '/admin/review';
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->organization = factory(Organization::class, 'accommodation')->create();

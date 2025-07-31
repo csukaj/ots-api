@@ -18,7 +18,7 @@ class UpdateAvailabilityCommandTest extends TestCase
         $this->cwd = realpath(__DIR__ . '/../..');
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->app->configureMonologUsing(function ($monolog) {
