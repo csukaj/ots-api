@@ -17,7 +17,7 @@ class ReviewSetterTest extends TestCase
     private $organization;
     private $user;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->organization = factory(Organization::class, 'accommodation')->create();

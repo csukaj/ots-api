@@ -13,7 +13,7 @@ class CharterSearchControllerTest extends TestCase
     private $shipGroupsJsonData;
     static private $charterPairs = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->shipGroupsJsonData = $this->getShipGroupsJsonData();

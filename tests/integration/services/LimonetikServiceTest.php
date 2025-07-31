@@ -17,7 +17,7 @@ class LimonetikServiceTest extends TestCase
 
     private $logger;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->initLogger();

@@ -16,7 +16,7 @@ class AccommodationSearchControllerTest extends TestCase
     protected $_url = '/accommodation-search';
     protected $token = []; // Token is empty for normal search
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->accommodationJsonData = $this->getAccommodationJsonData();

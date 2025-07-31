@@ -9,6 +9,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Core Laravel providers
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Filesystem\FilesystemServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         

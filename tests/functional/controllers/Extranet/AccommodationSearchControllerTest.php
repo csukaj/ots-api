@@ -10,7 +10,7 @@ class AccommodationSearchControllerTest extends SearchController
     protected $_url = '/extranet/accommodation-search';
     protected $token = []; // Token is empty for normal search, extranet is protected, so we must get a token
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         [$this->token] = $this->login([Config::get('stylersauth.role_admin')]);

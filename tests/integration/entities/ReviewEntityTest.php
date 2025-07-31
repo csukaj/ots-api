@@ -13,7 +13,7 @@ class ReviewEntityTest extends TestCase
     static public $setupMode = self::SETUPMODE_ONCE;
     private $model;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->model = factory(Review::class)->create();

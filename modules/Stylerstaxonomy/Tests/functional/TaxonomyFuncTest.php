@@ -13,7 +13,7 @@ class TaxonomyFuncTest extends TestCase {
     private $adminToken;
     private $userToken;
     
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
         list($this->adminToken,) = $this->login([Config::get('stylersauth.role_admin')]);
         list($this->userToken,) = $this->login([Config::get('stylersauth.role_user')]);
